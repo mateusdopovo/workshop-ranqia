@@ -1,0 +1,747 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   Workshop em IA · Ranqia — style.css
+   Paleta: preto / branco / cinza. Sem gradientes. Sem Google Fonts.
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* ── Variáveis ─────────────────────────────────────────────────────────── */
+:root {
+  --bg:          #ffffff;
+  --surface:     #f5f5f7;
+  --border:      #d2d2d7;
+  --text:        #1d1d1f;
+  --muted:       #6e6e73;
+  --accent:      #000000;
+  --dark-bg:     #1d1d1f;
+  --dark-text:   #f5f5f7;
+  --error:       #FF3B30;
+}
+
+/* ── Reset ─────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+a    { color: inherit; text-decoration: none; }
+ul   { list-style: none; }
+button, input, textarea, select { font-family: inherit; }
+
+/* ── Containers ────────────────────────────────────────────────────────── */
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+.container--narrow { max-width: 720px; }
+
+/* ── Labels & utilidades tipográficas ─────────────────────────────────── */
+.label {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+}
+.label--muted { color: #6e6e73; }
+
+.section__title {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-top: 12px;
+}
+.section__subtitle {
+  color: var(--muted);
+  margin-top: 16px;
+}
+
+/* ── Divisor ───────────────────────────────────────────────────────────── */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 32px 0;
+}
+
+/* ── Animações de entrada ──────────────────────────────────────────────── */
+.animate-in {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.animate-in.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Seções ────────────────────────────────────────────────────────────── */
+.section          { padding: 100px 0; }
+.section--surface { background: var(--surface); }
+.section--dark    { background: var(--dark-bg); }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   HEADER
+   ───────────────────────────────────────────────────────────────────────── */
+.header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 52px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+}
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+.header__brand    { display: flex; align-items: center; font-size: 0.95rem; }
+.header__workshop { font-weight: 600; }
+.header__sep      { color: var(--muted); margin: 0 2px; }
+.header__ranqia   { font-weight: 400; }
+
+/* ── Botões ────────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.btn--header {
+  padding: 8px 20px;
+  border-radius: 980px;
+  font-size: 0.85rem;
+  background: #000;
+  color: #fff;
+}
+.btn--header:hover { background: #222; }
+
+.btn--primary { background: #000; color: #fff; }
+.btn--primary:hover { background: #222; }
+
+.btn--outline { background: transparent; color: #000; border: 1px solid #000; }
+.btn--outline:hover { background: var(--surface); }
+
+.btn--submit {
+  width: 100%;
+  height: 52px;
+  background: #000;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-top: 32px;
+  border: none;
+}
+.btn--submit:hover:not(:disabled) { background: #222; }
+.btn--submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn--add-amigo {
+  margin-top: 12px;
+  padding: 8px 20px;
+  font-size: 0.85rem;
+  background: transparent;
+  color: #000;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn--add-amigo:hover { border-color: #000; }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   SEÇÃO 1 — ABERTURA
+   ───────────────────────────────────────────────────────────────────────── */
+.section--abertura { padding-top: 152px; /* 52px header + 100px */ }
+
+.abertura__grid {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  gap: 60px;
+  align-items: start;
+}
+.abertura__title {
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  margin-top: 12px;
+}
+.abertura__body {
+  color: var(--muted);
+  line-height: 1.85;
+  margin-top: 20px;
+}
+.abertura__body:first-of-type { margin-top: 0; }
+.abertura__actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+/* Ficha do evento */
+.event-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+}
+.event-card__block {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+}
+.event-card__block--last {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.event-card__value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 6px;
+}
+.event-card__detail {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: 4px;
+  line-height: 1.5;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   SEÇÃO 2 — MÉTRICAS
+   ───────────────────────────────────────────────────────────────────────── */
+.metricas__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.metrica {
+  padding: 64px 48px;
+  color: var(--dark-text);
+}
+.metrica + .metrica { border-left: 1px solid #333; }
+.metrica__num {
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: #fff;
+}
+.metrica__desc {
+  color: #6e6e73;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-top: 12px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   SEÇÃO 3 — PROGRAMA
+   ───────────────────────────────────────────────────────────────────────── */
+.modules__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.module          { background: #fff; padding: 40px; }
+.module--wide    { grid-column: 1 / -1; }
+.module__num {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.module__title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 8px;
+}
+.module__divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 16px 0;
+}
+.module__list li {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  padding: 2px 0;
+}
+.module__list--cols {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 32px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   SEÇÃO 4 — DIFERENCIAL RANQIA
+   ───────────────────────────────────────────────────────────────────────── */
+.diferencial__grid {
+  display: grid;
+  grid-template-columns: 55% 45%;
+  gap: 60px;
+  align-items: start;
+}
+.diferencial__body {
+  color: var(--muted);
+  margin-top: 20px;
+  line-height: 1.75;
+}
+.diferencial__exemplos      { margin-top: 32px; }
+.diferencial__exemplos-title {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+.diferencial__list li {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+/* Card de valor */
+.valor-card {
+  background: var(--dark-bg);
+  border-radius: 12px;
+  padding: 40px;
+}
+.valor-card__num {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #fff;
+  margin-top: 12px;
+}
+.valor-card__sub     { color: #6e6e73; font-size: 0.95rem; margin-top: 4px; }
+.valor-card__divider { border: none; border-top: 1px solid #333; margin: 24px 0; }
+.valor-card__incluso { font-weight: 600; font-size: 1.05rem; color: #fff; }
+.valor-card__detail  { color: #6e6e73; font-size: 0.9rem; margin-top: 8px; line-height: 1.6; }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   SEÇÃO 5 — TURMAS  (e cards duplicados no formulário)
+   ───────────────────────────────────────────────────────────────────────── */
+.turmas__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 40px;
+}
+.turmas__group-label {
+  grid-column: 1 / -1;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 16px 0 0;
+  padding: 0;
+}
+.turmas__group-label:first-child { margin-top: 0; }
+
+/* Card de turma */
+.turma-card {
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  background: #fff;
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+.turma-card:hover:not(.selected) { border-color: #000; }
+.turma-card.selected {
+  border: 2px solid #000;
+  background: var(--surface);
+}
+
+/* Card "Outra data" */
+.turma-card--open { background: var(--surface); border-style: dashed; }
+.turma-card--open:hover:not(.selected) { border-color: #000; border-style: dashed; }
+.turma-card--open.selected             { border: 2px dashed #000; background: #ebebed; }
+
+.turma-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.turma-card__name {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.turma-card__badge {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 980px;
+  padding: 2px 10px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.turma-card__hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+.turma-card__data    { font-size: 1.1rem; font-weight: 600; color: var(--text); }
+.turma-card__horario { font-size: 1rem; color: var(--muted); margin-top: 4px; }
+.turma-card__footer {
+  margin-top: 16px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   SEÇÃO 6 — BENEFÍCIOS
+   ───────────────────────────────────────────────────────────────────────── */
+.beneficios__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+}
+.beneficio__num {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6e6e73;
+  margin-bottom: 16px;
+}
+.beneficio__title { font-size: 1.05rem; font-weight: 600; color: #fff; margin-bottom: 12px; }
+.beneficio__text  { color: #6e6e73; font-size: 0.95rem; line-height: 1.7; }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   SEÇÃO 7 — INSTRUTOR
+   ───────────────────────────────────────────────────────────────────────── */
+.instrutor__grid {
+  display: grid;
+  grid-template-columns: 55% 45%;
+  gap: 60px;
+  align-items: start;
+}
+.instrutor__role    { color: var(--muted); font-size: 1rem; margin-top: 4px; }
+.instrutor__body    { color: var(--muted); line-height: 1.75; margin-top: 20px; }
+.instrutor__contato { margin-top: 32px; font-size: 0.9rem; color: var(--text); }
+
+.creds__item {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.95rem;
+  color: var(--text);
+  line-height: 1.5;
+}
+.creds__item:first-child { padding-top: 0; }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   SEÇÃO 8 — FORMULÁRIO
+   ───────────────────────────────────────────────────────────────────────── */
+.form__section-title {
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text);
+  margin: 40px 0 24px;
+}
+.form__group        { margin-bottom: 24px; }
+.form__group--auth  { margin-top: 32px; }
+
+.form__label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.form__input {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-size: 1rem;
+  color: var(--text);
+  background: #fff;
+  transition: border-color 0.15s;
+  outline: none;
+  appearance: none;
+}
+.form__input:focus  { border-color: #000; }
+.form__input.is-err { border-color: var(--error); }
+.form__textarea     { resize: vertical; min-height: 100px; }
+
+.error-msg {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--error);
+  margin-top: 6px;
+  min-height: 1em;
+}
+
+.form-network-error {
+  background: var(--error);
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+/* ── Radio cards — nível de uso de IA ────────────────────────────────── */
+.radio-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.radio-card { position: relative; cursor: pointer; }
+.radio-card input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+.radio-card__box {
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  background: #fff;
+  transition: border-color 0.15s, background 0.15s;
+}
+.radio-card:hover .radio-card__box { border-color: #000; }
+.radio-card input:checked + .radio-card__box {
+  border: 2px solid #000;
+  background: var(--surface);
+}
+.radio-card__title {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.radio-card__sub {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* ── Checkboxes — IAs usadas ──────────────────────────────────────────── */
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+.check-item input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; }
+.check-box {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--border);
+  border-radius: 4px;
+  background: #fff;
+  flex-shrink: 0;
+  position: relative;
+  transition: border-color 0.15s, background 0.15s;
+}
+.check-item input:checked ~ .check-box { background: #000; border-color: #000; }
+.check-item input:checked ~ .check-box::after {
+  content: '';
+  position: absolute;
+  top: 2px; left: 5px;
+  width: 5px; height: 9px;
+  border: 2px solid #fff;
+  border-top: none; border-left: none;
+  transform: rotate(45deg);
+}
+
+/* ── Radio inline — programação / GEO ────────────────────────────────── */
+.radio-inline {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.radio-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+.radio-pill input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+.radio-pill__custom {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--border);
+  border-radius: 50%;
+  background: #fff;
+  flex-shrink: 0;
+  position: relative;
+  transition: border-color 0.15s, background 0.15s;
+}
+.radio-pill input:checked ~ .radio-pill__custom { border-color: #000; background: #000; }
+.radio-pill input:checked ~ .radio-pill__custom::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+/* ── Toggle checkbox — amigos / autorização ───────────────────────────── */
+.toggle-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: var(--text);
+  line-height: 1.5;
+}
+.toggle-check input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; }
+.toggle-check__box {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--border);
+  border-radius: 4px;
+  background: #fff;
+  flex-shrink: 0;
+  margin-top: 2px;
+  position: relative;
+  transition: border-color 0.15s, background 0.15s;
+}
+.toggle-check input:checked ~ .toggle-check__box { background: #000; border-color: #000; }
+.toggle-check input:checked ~ .toggle-check__box::after {
+  content: '';
+  position: absolute;
+  top: 2px; left: 5px;
+  width: 5px; height: 9px;
+  border: 2px solid #fff;
+  border-top: none; border-left: none;
+  transform: rotate(45deg);
+}
+
+/* ── Bloco de amigos ──────────────────────────────────────────────────── */
+.amigos-bloco {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, opacity 0.35s ease;
+}
+.amigo-entry {
+  margin-bottom: 16px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+}
+.amigo-entry__label {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.amigo-entry .form__group:last-child { margin-bottom: 0; }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   SEÇÃO 9 — CONFIRMAÇÃO
+   ───────────────────────────────────────────────────────────────────────── */
+.confirmacao__inner  { text-align: center; }
+.confirmacao__check  { margin-bottom: 32px; }
+.confirmacao__title  { font-size: 1.8rem; font-weight: 700; letter-spacing: -0.03em; }
+.confirmacao__text   { color: var(--muted); margin-top: 16px; line-height: 1.75; }
+.confirmacao__contato { font-size: 0.95rem; color: var(--text); }
+.confirmacao__detail  { color: var(--muted); font-size: 0.85rem; margin-top: 8px; }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   FOOTER
+   ───────────────────────────────────────────────────────────────────────── */
+.footer { background: var(--dark-bg); padding: 48px 0; }
+.footer__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--dark-text);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.footer__bottom { margin-top: 16px; font-size: 0.8rem; color: #6e6e73; line-height: 1.6; }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   RESPONSIVO — mobile (≤ 768px)
+   ───────────────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .container { padding: 0 20px; }
+  .section   { padding: 64px 0; }
+  .section--abertura { padding-top: 116px; }
+
+  /* Abertura */
+  .abertura__grid   { grid-template-columns: 1fr; gap: 40px; }
+  .abertura__title  { font-size: clamp(2.2rem, 8vw, 3rem); }
+  .abertura__actions { flex-direction: column; }
+  .abertura__actions .btn { width: 100%; text-align: center; }
+
+  /* Métricas */
+  .metricas__grid { grid-template-columns: 1fr; }
+  .metrica + .metrica { border-left: none; border-top: 1px solid #333; }
+  .metrica { padding: 40px 20px; }
+
+  /* Módulos */
+  .modules__grid        { grid-template-columns: 1fr; }
+  .module--wide         { grid-column: auto; }
+  .module__list--cols   { grid-template-columns: 1fr; }
+
+  /* Diferencial */
+  .diferencial__grid { grid-template-columns: 1fr; gap: 40px; }
+
+  /* Turmas */
+  .turmas__grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* Benefícios */
+  .beneficios__grid { grid-template-columns: 1fr; gap: 32px; }
+
+  /* Instrutor */
+  .instrutor__grid { grid-template-columns: 1fr; gap: 40px; }
+
+  /* Formulário */
+  .radio-cards { grid-template-columns: 1fr; }
+
+  /* Footer */
+  .footer__top { flex-direction: column; text-align: center; }
+}
+
+@media (max-width: 480px) {
+  .turmas__grid  { grid-template-columns: 1fr; }
+  .checkbox-grid { grid-template-columns: 1fr; }
+}
