@@ -18,7 +18,11 @@
 
 /* ── Reset ─────────────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  max-width: 100%;
+}
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 1.0625rem;
@@ -26,9 +30,12 @@ body {
   color: var(--text);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 a    { color: inherit; text-decoration: none; }
 ul   { list-style: none; }
+img, svg { max-width: 100%; display: block; }
 button, input, textarea, select { font-family: inherit; }
 
 /* ── Containers ────────────────────────────────────────────────────────── */
@@ -81,7 +88,7 @@ button, input, textarea, select { font-family: inherit; }
 }
 
 /* ── Seções ────────────────────────────────────────────────────────────── */
-.section          { padding: 100px 0; }
+.section          { padding: 100px 0; overflow-x: hidden; }
 .section--surface { background: var(--surface); }
 .section--dark    { background: var(--dark-bg); }
 
@@ -90,7 +97,9 @@ button, input, textarea, select { font-family: inherit; }
    ───────────────────────────────────────────────────────────────────────── */
 .header {
   position: fixed;
-  inset: 0 0 auto 0;
+  top: 0; left: 0; right: 0;
+  width: 100%;
+  box-sizing: border-box;
   height: 52px;
   background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(20px);
@@ -442,7 +451,13 @@ button, input, textarea, select { font-family: inherit; }
 }
 .instrutor__role    { color: var(--muted); font-size: 1rem; margin-top: 4px; }
 .instrutor__body    { color: var(--muted); line-height: 1.75; margin-top: 20px; }
-.instrutor__contato { margin-top: 32px; font-size: 0.9rem; color: var(--text); }
+.instrutor__contato {
+  margin-top: 32px;
+  font-size: 0.9rem;
+  color: var(--text);
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
 
 .creds__item {
   padding: 16px 0;
@@ -696,7 +711,18 @@ button, input, textarea, select { font-family: inherit; }
   flex-wrap: wrap;
   gap: 8px;
 }
-.footer__bottom { margin-top: 16px; font-size: 0.8rem; color: #6e6e73; line-height: 1.6; }
+.footer__top span {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  min-width: 0;
+}
+.footer__bottom {
+  margin-top: 16px;
+  font-size: 0.8rem;
+  color: #6e6e73;
+  line-height: 1.6;
+  overflow-wrap: break-word;
+}
 
 /* ─────────────────────────────────────────────────────────────────────────
    RESPONSIVO — mobile (≤ 768px)
@@ -707,8 +733,8 @@ button, input, textarea, select { font-family: inherit; }
   .section--abertura { padding-top: 116px; }
 
   /* Abertura */
-  .abertura__grid   { grid-template-columns: 1fr; gap: 40px; }
-  .abertura__title  { font-size: clamp(2.2rem, 8vw, 3rem); }
+  .abertura__grid    { grid-template-columns: 1fr; gap: 40px; }
+  .abertura__title   { font-size: clamp(2rem, 7vw, 2.8rem); }
   .abertura__actions { flex-direction: column; }
   .abertura__actions .btn { width: 100%; text-align: center; }
 
@@ -718,9 +744,10 @@ button, input, textarea, select { font-family: inherit; }
   .metrica { padding: 40px 20px; }
 
   /* Módulos */
-  .modules__grid        { grid-template-columns: 1fr; }
-  .module--wide         { grid-column: auto; }
-  .module__list--cols   { grid-template-columns: 1fr; }
+  .modules__grid      { grid-template-columns: 1fr; }
+  .module             { padding: 28px 20px; }
+  .module--wide       { grid-column: auto; }
+  .module__list--cols { grid-template-columns: 1fr; }
 
   /* Diferencial */
   .diferencial__grid { grid-template-columns: 1fr; gap: 40px; }
@@ -744,4 +771,9 @@ button, input, textarea, select { font-family: inherit; }
 @media (max-width: 480px) {
   .turmas__grid  { grid-template-columns: 1fr; }
   .checkbox-grid { grid-template-columns: 1fr; }
+
+  /* Valor card — padding menor em telas muito pequenas */
+  .valor-card   { padding: 28px 24px; }
+  .event-card   { padding: 24px 20px; }
+  .amigo-entry  { padding: 20px 16px; }
 }
