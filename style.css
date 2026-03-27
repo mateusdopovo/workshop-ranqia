@@ -1055,3 +1055,15 @@ button, input, textarea, select { font-family: inherit; }
 
 /* post body h3 */
 .post-body h3               { font-size: 1.05rem; font-weight: 600; letter-spacing: -0.01em; color: var(--text); margin: 32px 0 12px; }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   BLOG POST — CODE BLOCK
+   ───────────────────────────────────────────────────────────────────────── */
+.post-code                  { background: #1E1E2E; border-radius: 8px; padding: 20px 24px; margin: 24px 0; display: flex; flex-direction: column; gap: 6px; font-family: 'Courier New', Courier, monospace; font-size: 0.9rem; }
+.post-code__line            { color: #cdd6f4; }
+.post-code__line--output    { color: #a6e3a1; }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   BLOG POST — DARK HIGHLIGHT BLOCK
+   ───────────────────────────────────────────────────────────────────────── */
+.post-highlight--dark       { background: #1d1d1f; border-left: none; color: #fff; padding: 40px; font-size: 1.1rem; line-height: 1.8; }
