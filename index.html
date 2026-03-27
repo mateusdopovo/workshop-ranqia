@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Como fazer amigos e influenciar robôs — comoinfluenciarrobos.com.br</title>
-  <meta name="description" content="GEO — Generative Engine Optimization. Sua marca aparece quando uma IA responde sobre o seu mercado? A Ranqia monitora e influencia como marcas aparecem nas respostas de IAs generativas.">
-  <meta property="og:title" content="Como fazer amigos e influenciar robôs">
-  <meta property="og:description" content="Sua marca aparece quando uma IA responde sobre o seu mercado? A Ranqia monitora e influencia como marcas aparecem nas respostas das IAs generativas.">
+  <title>Workshop em Inteligência Artificial — Ranqia</title>
+  <meta name="description" content="Workshop prático de IA com Mateus Borges, cofundador da Ranqia. 4 horas, máximo 10 vagas, R$ 400. De fundamentos a Prompt Engineering, automação com Python e GEO.">
+  <meta property="og:title" content="Workshop em Inteligência Artificial — Ranqia">
+  <meta property="og:description" content="Por que criei este workshop — e o que você vai levar dele. Uma experiência prática, personalizada e aplicável.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://comoinfluenciarrobos.com.br">
   <link rel="stylesheet" href="style.css">
@@ -17,174 +17,549 @@
 <header class="header">
   <div class="container header__inner">
     <a href="/" class="header__brand">
-      <span class="brand__name">comoinfluenciarrobos</span><span class="brand__tld">.com.br</span>
+      <span class="brand__name">Workshop em IA</span><span class="brand__tld"> × Ranqia</span>
     </a>
     <nav class="header__nav">
-      <a href="/workshop" class="header__nav-link">Workshop</a>
       <a href="/blog" class="header__nav-link">Blog</a>
-      <a href="https://wa.me/5511943343231" class="btn btn--header" target="_blank" rel="noopener">Falar com Mateus</a>
+      <a href="#inscricao" class="btn btn--header">Inscrever-se</a>
     </nav>
   </div>
 </header>
 
-<!-- ─── HERO ───────────────────────────────────────────────────────────── -->
-<section class="section section--dark section--home-hero">
+<!-- ─── SEÇÃO 1: ABERTURA ──────────────────────────────────────────────── -->
+<section class="section section--abertura">
   <div class="container">
-    <p class="label label--muted animate-in">RANQIA · GEO</p>
-    <h1 class="home-hero__title animate-in">Como fazer amigos<br>e influenciar robôs.</h1>
-    <p class="home-hero__subtitle animate-in">Quando alguém pergunta a uma IA qual é a melhor empresa, produto ou serviço no seu mercado — sua marca aparece na resposta?</p>
-    <div class="home-hero__actions animate-in">
-      <a href="/workshop" class="btn btn--white">Ver o workshop</a>
-      <a href="/blog" class="btn btn--ghost">Ler o blog</a>
-    </div>
-  </div>
-</section>
+    <div class="abertura__grid">
 
-<!-- ─── A PERGUNTA QUE IMPORTA ────────────────────────────────────────── -->
-<section class="section">
-  <div class="container">
-    <div class="pergunta__grid">
-      <div class="animate-in">
-        <p class="label">A PERGUNTA QUE IMPORTA</p>
-        <h2 class="section__title">Sua marca existe para as IAs?</h2>
-        <p class="pergunta__body">Milhões de pessoas já usam ChatGPT, Gemini e Claude como ponto de partida para decisões de compra, contratações e recomendações. Em vez de pesquisar no Google, elas simplesmente perguntam.</p>
-        <p class="pergunta__body">O problema: diferente do Google, você não consegue "ver" se aparece. Não há posição 1, 2 ou 3. Ou a IA menciona sua marca — ou não.</p>
-      </div>
-      <div class="animate-in">
-        <div class="pergunta__quote">
-          <p class="pergunta__quote-text">"Quais são as melhores empresas de [seu mercado] no Brasil?"</p>
-          <p class="pergunta__quote-sub">Uma pergunta que as IAs respondem todo dia — com ou sem você.</p>
+      <div class="abertura__text animate-in">
+        <p class="label">WORKSHOP · EDIÇÃO 001</p>
+        <h1 class="abertura__title">Por que criei<br>este workshop —<br>e o que você<br>vai levar dele.</h1>
+        <hr class="divider">
+        <p class="abertura__body">Tenho recebido, com bastante frequência, pedidos de amigos interessados em mentoria em inteligência artificial. A rotina como empreendedor é intensa e o tempo é naturalmente escasso. Além disso, estamos em um momento de forte investimento na Ranqia e em processo de captação.</p>
+        <p class="abertura__body">Diante disso, pensei em um formato que conseguisse equilibrar profundidade, praticidade e acessibilidade — um workshop voltado para um grupo próximo, com introdução ao que estamos construindo na Ranqia.</p>
+        <p class="abertura__body">Não é um curso genérico. É o conteúdo que eu mesmo uso todos os dias, organizado para quem quer entender IA de verdade — não apenas usar o ChatGPT para tarefas simples.</p>
+        <div class="abertura__actions">
+          <a href="#inscricao" class="btn btn--primary">Quero participar</a>
+          <a href="#programa" class="btn btn--outline">Ver o programa</a>
         </div>
       </div>
+
+      <div class="abertura__card animate-in">
+        <div class="event-card">
+          <div class="event-card__block">
+            <p class="label">FORMATO</p>
+            <p class="event-card__value">4 horas de workshop prático</p>
+          </div>
+          <div class="event-card__block">
+            <p class="label">VAGAS</p>
+            <p class="event-card__value">Máximo 10 participantes</p>
+            <p class="event-card__detail">Grupo reduzido por design</p>
+          </div>
+          <div class="event-card__block">
+            <p class="label">INVESTIMENTO</p>
+            <p class="event-card__value">R$ 400</p>
+            <p class="event-card__detail">R$ 100 por hora · pagamento após confirmação da vaga</p>
+          </div>
+          <div class="event-card__block event-card__block--last">
+            <p class="label">LOCAL</p>
+            <p class="event-card__value">Escritório na Berrini</p>
+            <p class="event-card__detail">São Paulo · SP</p>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- ─── O QUE É GEO ────────────────────────────────────────────────────── -->
-<section class="section section--surface">
+<!-- ─── SEÇÃO 2: MÉTRICAS ──────────────────────────────────────────────── -->
+<section class="section section--dark section--metricas">
   <div class="container">
-    <p class="label animate-in">GENERATIVE ENGINE OPTIMIZATION</p>
-    <h2 class="section__title animate-in">GEO: a nova fronteira<br>da presença digital.</h2>
-    <p class="section__subtitle animate-in">Assim como o SEO otimiza sua visibilidade no Google, o GEO otimiza sua presença nas respostas das IAs generativas.</p>
-    <div class="geo-points">
-      <div class="geo-point animate-in">
-        <p class="geo-point__num">01</p>
-        <h3 class="geo-point__title">Monitoramento</h3>
-        <p class="geo-point__text">Acompanhamos como sua marca aparece — ou não — nas respostas de ChatGPT, Gemini e Claude para os prompts mais relevantes do seu mercado.</p>
+    <div class="metricas__grid">
+      <div class="metrica animate-in">
+        <p class="metrica__num">4h</p>
+        <p class="label label--muted">DE DURAÇÃO</p>
+        <p class="metrica__desc">Workshop intensivo, do zero ao avançado</p>
       </div>
-      <div class="geo-point animate-in">
-        <p class="geo-point__num">02</p>
-        <h3 class="geo-point__title">Diagnóstico</h3>
-        <p class="geo-point__text">Identificamos o que influencia sua presença nas IAs: conteúdo, autoridade, menções e estrutura. E o que seus concorrentes já estão fazendo.</p>
+      <div class="metrica animate-in">
+        <p class="metrica__num">10</p>
+        <p class="label label--muted">VAGAS MÁXIMAS</p>
+        <p class="metrica__desc">Grupo reduzido por design — profundidade garantida</p>
       </div>
-      <div class="geo-point animate-in">
-        <p class="geo-point__num">03</p>
-        <h3 class="geo-point__title">Influência</h3>
-        <p class="geo-point__text">Desenvolvemos estratégias para melhorar como sua marca é percebida e recomendada pelos modelos de linguagem — de forma ética e mensurável.</p>
+      <div class="metrica animate-in">
+        <p class="metrica__num">R$400</p>
+        <p class="label label--muted">INVESTIMENTO TOTAL</p>
+        <p class="metrica__desc">R$ 100 por hora · benchmark: StartSe cobra até R$ 5.000</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── RANQIA ──────────────────────────────────────────────────────────── -->
-<section class="section">
+<!-- ─── SEÇÃO 3: PROGRAMA ──────────────────────────────────────────────── -->
+<section class="section" id="programa">
   <div class="container">
-    <div class="ranqia__grid">
-      <div class="animate-in">
-        <p class="label">RANQIA</p>
-        <h2 class="section__title">Tecnologia para marcas que querem existir na era da IA.</h2>
-        <p class="ranqia__body">A Ranqia foi fundada com um propósito claro: construir a infraestrutura de monitoramento e influência para a era das IAs generativas.</p>
-        <p class="ranqia__body">Enquanto o mundo debatia se a IA substituiria profissionais, percebemos que a pergunta mais urgente para marcas era outra: <strong>quando a IA for perguntada sobre o seu mercado, ela vai te mencionar?</strong></p>
-        <ul class="ranqia__list">
-          <li>— Monitoramento contínuo de prompts por mercado</li>
-          <li>— Relatórios de presença em múltiplos modelos de IA</li>
-          <li>— Comparativo com concorrentes diretos</li>
-          <li>— Recomendações de estratégia GEO</li>
-          <li>— Workshop presencial para equipes</li>
+    <p class="label animate-in">CONTEÚDO</p>
+    <h2 class="section__title animate-in">Programa do Workshop</h2>
+    <p class="section__subtitle animate-in">O workshop será altamente prático e aplicável.</p>
+    <hr class="divider animate-in">
+
+    <div class="modules__grid">
+      <div class="module animate-in">
+        <p class="module__num">01</p>
+        <h3 class="module__title">Fundamentos de Inteligência Artificial</h3>
+        <hr class="module__divider">
+        <ul class="module__list">
+          <li>— Como as inteligências artificiais funcionam</li>
+          <li>— Evolução das IAs: o essencial que você precisa saber</li>
+          <li>— Principais empresas do setor</li>
+          <li>— Impactos das IAs em diferentes mercados</li>
+          <li>— Tendências futuras</li>
         </ul>
       </div>
-      <div class="animate-in">
-        <div class="ranqia__card">
-          <p class="ranqia__card-label">PRODUTO PRINCIPAL</p>
-          <p class="ranqia__card-num">GEO Monitor</p>
-          <p class="ranqia__card-sub">por Ranqia</p>
-          <hr class="ranqia__card-divider">
-          <p class="ranqia__card-text">Monitoramento de até 10 prompts estratégicos com relatório mensal de presença, comparativo com concorrentes e recomendações — para marcas que levam IA a sério.</p>
-        </div>
+
+      <div class="module animate-in">
+        <p class="module__num">02</p>
+        <h3 class="module__title">Ferramentas e Aplicações</h3>
+        <hr class="module__divider">
+        <ul class="module__list">
+          <li>— Principais ferramentas disponíveis atualmente</li>
+          <li>— O que cada uma faz na prática</li>
+          <li>— Demonstrações ao vivo: Gemini, Claude, ChatGPT</li>
+        </ul>
+      </div>
+
+      <div class="module animate-in">
+        <p class="module__num">03</p>
+        <h3 class="module__title">Prompt Engineering</h3>
+        <hr class="module__divider">
+        <ul class="module__list">
+          <li>— Estruturação de prompts eficientes</li>
+          <li>— Técnicas para melhorar respostas</li>
+          <li>— Prompts em cadeia (chaining)</li>
+          <li>— Como evitar "lost in conversation" e perda de contexto</li>
+          <li>— Limitações atuais das IAs</li>
+        </ul>
+      </div>
+
+      <div class="module animate-in">
+        <p class="module__num">04</p>
+        <h3 class="module__title">Automação com IA e Programação</h3>
+        <hr class="module__divider">
+        <ul class="module__list">
+          <li>— Uso de IA com Python</li>
+          <li>— Criação de scripts para automação de documentos</li>
+          <li>— Tratamento e processamento de dados em escala</li>
+          <li>— Aplicações reais de automação e análise</li>
+        </ul>
+      </div>
+
+      <div class="module module--wide animate-in">
+        <p class="module__num">05</p>
+        <h3 class="module__title">Como as IAs Respondem (nível avançado)</h3>
+        <hr class="module__divider">
+        <ul class="module__list module__list--cols">
+          <li>— O que está por trás das respostas</li>
+          <li>— Como interpretar e analisar outputs</li>
+          <li>— Introdução ao monitoramento de IA</li>
+          <li>— GEO: Generative Engine Optimization</li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── WORKSHOP TEASER ────────────────────────────────────────────────── -->
-<section class="section section--dark">
-  <div class="container">
-    <div class="workshop-teaser__grid">
-      <div class="animate-in">
-        <p class="label label--muted">WORKSHOP · EDIÇÃO 001</p>
-        <h2 class="section__title" style="color:#fff">4 horas para entender IA de verdade.</h2>
-        <p class="workshop-teaser__body">Um workshop presencial em São Paulo, com no máximo 10 participantes. Do zero ao avançado — fundamentos, ferramentas, Prompt Engineering, automação com Python e GEO.</p>
-        <p class="workshop-teaser__body" style="margin-top:12px">Conduzido por Mateus Borges, cofundador da Ranqia. Incluso: monitoramento de 10 prompts e relatório de diagnóstico GEO.</p>
-        <div class="workshop-teaser__action">
-          <a href="/workshop" class="btn btn--white">Ver o workshop</a>
-        </div>
-      </div>
-      <div class="animate-in">
-        <div class="workshop-specs">
-          <div class="workshop-spec">
-            <span class="workshop-spec__label">Formato</span>
-            <span class="workshop-spec__value">Presencial · Berrini, SP</span>
-          </div>
-          <div class="workshop-spec">
-            <span class="workshop-spec__label">Duração</span>
-            <span class="workshop-spec__value">4 horas</span>
-          </div>
-          <div class="workshop-spec">
-            <span class="workshop-spec__label">Vagas</span>
-            <span class="workshop-spec__value">Máx. 10 por turma</span>
-          </div>
-          <div class="workshop-spec">
-            <span class="workshop-spec__label">Investimento</span>
-            <span class="workshop-spec__value">R$ 400</span>
-          </div>
-          <div class="workshop-spec">
-            <span class="workshop-spec__label">Incluso</span>
-            <span class="workshop-spec__value">Relatório GEO + monitoramento</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── BLOG TEASER ────────────────────────────────────────────────────── -->
+<!-- ─── SEÇÃO 4: DIFERENCIAL RANQIA ───────────────────────────────────── -->
 <section class="section section--surface">
   <div class="container">
-    <p class="label animate-in">DO BLOG</p>
-    <h2 class="section__title animate-in">Leituras sobre GEO e IA aplicada.</h2>
-    <div class="blog__grid">
-      <a href="/blog/posts/o-que-e-geo" class="blog-card animate-in">
-        <span class="blog-card__tag">GEO · 5 min</span>
-        <span class="blog-card__title">O que é GEO — Generative Engine Optimization</span>
-        <span class="blog-card__excerpt">A nova disciplina que define se sua marca existe — ou não — nas respostas das IAs generativas.</span>
-        <span class="blog-card__read">Ler</span>
-      </a>
-      <a href="/blog/posts/como-ias-escolhem-marcas" class="blog-card animate-in">
-        <span class="blog-card__tag">IA · 4 min</span>
-        <span class="blog-card__title">Como as IAs escolhem marcas para recomendar</span>
-        <span class="blog-card__excerpt">Por que o ChatGPT menciona alguns nomes e ignora outros — e o que você pode fazer a respeito.</span>
-        <span class="blog-card__read">Ler</span>
-      </a>
-      <a href="/blog/posts/geo-vs-seo" class="blog-card animate-in">
-        <span class="blog-card__tag">SEO · 6 min</span>
-        <span class="blog-card__title">GEO vs SEO — semelhanças, diferenças e o que vem por aí</span>
-        <span class="blog-card__excerpt">As duas disciplinas coexistem — mas operam por lógicas completamente diferentes.</span>
-        <span class="blog-card__read">Ler</span>
-      </a>
+    <div class="diferencial__grid">
+
+      <div class="diferencial__text animate-in">
+        <p class="label">DIFERENCIAL EXCLUSIVO</p>
+        <h2 class="section__title">Monitoramento com Ranqia incluso</h2>
+        <p class="diferencial__body">Ao participar, você terá acesso ao monitoramento de até 10 prompts relacionados ao seu negócio ou área de interesse — com entrega de diagnóstico e relatórios completos.</p>
+        <p class="diferencial__body">Esse tipo de análise é o produto central que estamos construindo na Ranqia: tecnologia para monitorar e influenciar como marcas e conteúdos aparecem nas respostas de IAs generativas.</p>
+        <div class="diferencial__exemplos">
+          <p class="diferencial__exemplos-title">Exemplos de prompts:</p>
+          <ul class="diferencial__list">
+            <li>— "Quais são os melhores bancos?"</li>
+            <li>— "Quais são as melhores empresas do agro?"</li>
+            <li>— "Quais são os melhores cartões de crédito?"</li>
+            <li>— "Quais são os melhores produtos de investimento?"</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="diferencial__card animate-in">
+        <div class="valor-card">
+          <p class="label label--muted">VALOR DE MERCADO</p>
+          <p class="valor-card__num">R$ 1.000</p>
+          <p class="valor-card__sub">/mês como produto avulso</p>
+          <hr class="valor-card__divider">
+          <p class="valor-card__incluso">Incluso no workshop</p>
+          <p class="valor-card__detail">Neste workshop, o relatório de monitoramento está incluído no pacote.</p>
+        </div>
+      </div>
+
     </div>
-    <div style="text-align:center;margin-top:32px">
-      <a href="/blog" class="btn btn--outline">Ver todos os artigos</a>
+  </div>
+</section>
+
+<!-- ─── SEÇÃO 5: TURMAS ────────────────────────────────────────────────── -->
+<section class="section" id="turmas">
+  <div class="container">
+    <p class="label animate-in">TURMAS</p>
+    <h2 class="section__title animate-in">Datas disponíveis</h2>
+    <p class="section__subtitle animate-in">Estamos fechando as turmas desta edição. Vagas limitadas a 10 participantes por turma para garantir a qualidade da experiência.</p>
+
+    <div class="turmas__grid" id="turmas-secao">
+      <p class="turmas__group-label">28 E 29 DE MARÇO</p>
+
+      <div class="turma-card animate-in" data-turma-id="A" data-value="Turma A — Sábado, 28 de março · 9h às 13h">
+        <div class="turma-card__top">
+          <span class="turma-card__name">TURMA A</span>
+          <span class="turma-card__badge">10 vagas</span>
+        </div>
+        <hr class="turma-card__hr">
+        <p class="turma-card__data">Sábado, 28 de março</p>
+        <p class="turma-card__horario">9h às 13h</p>
+        <p class="turma-card__footer">4 horas · Workshop completo</p>
+      </div>
+
+      <div class="turma-card animate-in" data-turma-id="B" data-value="Turma B — Sábado, 28 de março · 14h às 18h">
+        <div class="turma-card__top">
+          <span class="turma-card__name">TURMA B</span>
+          <span class="turma-card__badge">10 vagas</span>
+        </div>
+        <hr class="turma-card__hr">
+        <p class="turma-card__data">Sábado, 28 de março</p>
+        <p class="turma-card__horario">14h às 18h</p>
+        <p class="turma-card__footer">4 horas · Workshop completo</p>
+      </div>
+
+      <div class="turma-card animate-in" data-turma-id="C" data-value="Turma C — Domingo, 29 de março · 9h às 13h">
+        <div class="turma-card__top">
+          <span class="turma-card__name">TURMA C</span>
+          <span class="turma-card__badge">10 vagas</span>
+        </div>
+        <hr class="turma-card__hr">
+        <p class="turma-card__data">Domingo, 29 de março</p>
+        <p class="turma-card__horario">9h às 13h</p>
+        <p class="turma-card__footer">4 horas · Workshop completo</p>
+      </div>
+
+      <div class="turma-card animate-in" data-turma-id="D" data-value="Turma D — Domingo, 29 de março · 14h às 18h">
+        <div class="turma-card__top">
+          <span class="turma-card__name">TURMA D</span>
+          <span class="turma-card__badge">10 vagas</span>
+        </div>
+        <hr class="turma-card__hr">
+        <p class="turma-card__data">Domingo, 29 de março</p>
+        <p class="turma-card__horario">14h às 18h</p>
+        <p class="turma-card__footer">4 horas · Workshop completo</p>
+      </div>
+
+      <p class="turmas__group-label">OUTRA DATA</p>
+
+      <div class="turma-card turma-card--open animate-in" data-turma-id="E" data-value="Sob consulta — entrar em contato">
+        <div class="turma-card__top">
+          <span class="turma-card__name">SOB CONSULTA</span>
+        </div>
+        <hr class="turma-card__hr">
+        <p class="turma-card__data">Outra data</p>
+        <p class="turma-card__horario">Nenhuma das datas acima funciona para você?</p>
+        <p class="turma-card__footer">Entre em contato · (11) 94334-3231</p>
+      </div>
     </div>
+  </div>
+</section>
+
+<!-- ─── SEÇÃO 6: BENEFÍCIOS ────────────────────────────────────────────── -->
+<section class="section section--dark">
+  <div class="container">
+    <div class="beneficios__grid">
+      <div class="beneficio animate-in">
+        <p class="beneficio__num">01</p>
+        <h3 class="beneficio__title">Grupo de WhatsApp</h3>
+        <p class="beneficio__text">Todos os participantes entram em um grupo exclusivo para troca contínua e aprofundamento após o evento.</p>
+      </div>
+      <div class="beneficio animate-in">
+        <p class="beneficio__num">02</p>
+        <h3 class="beneficio__title">Suporte pós-evento</h3>
+        <p class="beneficio__text">Espaço aberto para dúvidas, aprofundamento e discussão dos tópicos ao longo do tempo.</p>
+      </div>
+      <div class="beneficio animate-in">
+        <p class="beneficio__num">03</p>
+        <h3 class="beneficio__title">Conteúdo sob medida</h3>
+        <p class="beneficio__text">Com no máximo 10 pessoas, o conteúdo se adapta ao nível e às necessidades reais do grupo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SEÇÃO 7: SOBRE O INSTRUTOR ────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="instrutor__grid">
+
+      <div class="instrutor__bio animate-in">
+        <p class="label">INSTRUTOR</p>
+        <h2 class="section__title">Mateus Souza Borges</h2>
+        <p class="instrutor__role">Cofundador da Ranqia</p>
+        <hr class="divider">
+        <p class="instrutor__body">Cofundei a Ranqia com foco em Generative Engine Optimization — a área que monitora e influencia como marcas e conteúdos aparecem nas respostas de IAs generativas. Antes disso, fui Diretor de IA e Engenharia de Dados na Bravium, onde liderei o desenvolvimento de produtos de IA e a implementação de agentes inteligentes para empresas como AB InBev, ADM e Bayer.</p>
+        <p class="instrutor__body">Fui também Diretor do marketplace na Orbia — joint venture entre Bayer, Bravium, Yara Fertilizantes e Itaú BBA — após a aquisição da ProdutorAgro, startup que cofundei.</p>
+        <p class="instrutor__contato">(11) 94334-3231 · mateus@ranqia.com · comoinfluenciarrobos.com.br</p>
+      </div>
+
+      <div class="instrutor__creds animate-in">
+        <ul class="creds__list">
+          <li class="creds__item">— Engenheiro Mecânico · UNICAMP</li>
+          <li class="creds__item">— Pesquisa em Machine Learning e sistemas estocásticos aplicados a drones</li>
+          <li class="creds__item">— Forbes 30 Under 30</li>
+          <li class="creds__item">— Líder Fundação Estudar · turma 2012</li>
+          <li class="creds__item">— International Loyalty Awards — 30 Under 40</li>
+          <li class="creds__item">— Egresso de destaque UNICAMP (top entre +5.000 formados)</li>
+          <li class="creds__item">— Cofundador da ProdutorAgro, adquirida e transformada na Orbia</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── SEÇÃO 8: FORMULÁRIO ────────────────────────────────────────────── -->
+<section class="section section--surface" id="inscricao">
+  <div class="container container--narrow">
+    <p class="label animate-in">INSCRIÇÃO</p>
+    <h2 class="section__title animate-in">Formulário de inscrição</h2>
+    <p class="section__subtitle animate-in">Preencha os campos abaixo. Em breve entraremos em contato para confirmar sua vaga e enviar as informações de pagamento.</p>
+    <hr class="divider animate-in">
+
+    <div id="form-network-error" class="form-network-error" hidden></div>
+
+    <form id="inscricao-form" novalidate>
+
+      <!-- BLOCO 1: Dados pessoais -->
+      <div class="form__group">
+        <label for="nome" class="form__label">Nome completo</label>
+        <input type="text" id="nome" name="nome" class="form__input" placeholder="Nome completo" autocomplete="name">
+        <span class="error-msg" id="error-nome"></span>
+      </div>
+
+      <div class="form__group">
+        <label for="whatsapp" class="form__label">WhatsApp</label>
+        <input type="tel" id="whatsapp" name="whatsapp" class="form__input" placeholder="(11) 99999-9999" autocomplete="tel">
+        <span class="error-msg" id="error-whatsapp"></span>
+      </div>
+
+      <div class="form__group">
+        <label for="email" class="form__label">E-mail</label>
+        <input type="email" id="email" name="email" class="form__input" placeholder="seu@email.com" autocomplete="email">
+        <span class="error-msg" id="error-email"></span>
+      </div>
+
+      <div class="form__group">
+        <label for="empresa" class="form__label">Empresa onde trabalha</label>
+        <input type="text" id="empresa" name="empresa" class="form__input" placeholder="Nome da empresa" autocomplete="organization">
+        <span class="error-msg" id="error-empresa"></span>
+      </div>
+
+      <div class="form__group">
+        <label for="profissao" class="form__label">Profissão / cargo</label>
+        <input type="text" id="profissao" name="profissao" class="form__input" placeholder="Ex: Gerente de Marketing, Médico, Estudante" autocomplete="organization-title">
+        <span class="error-msg" id="error-profissao"></span>
+      </div>
+
+      <!-- BLOCO 2: Nivelamento -->
+      <p class="form__section-title">Sobre seu uso atual de IA</p>
+
+      <div class="form__group">
+        <label class="form__label">Qual é o seu nível de uso de inteligência artificial?</label>
+        <div class="radio-cards" id="nivel-ia-grid">
+          <label class="radio-card">
+            <input type="radio" name="nivel_ia" value="Pouco uso">
+            <span class="radio-card__box">
+              <span class="radio-card__title">Pouco uso</span>
+              <span class="radio-card__sub">Raramente uso ferramentas de IA</span>
+            </span>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="nivel_ia" value="Uso básico">
+            <span class="radio-card__box">
+              <span class="radio-card__title">Uso básico</span>
+              <span class="radio-card__sub">Uso ChatGPT para tarefas simples</span>
+            </span>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="nivel_ia" value="Heavy user">
+            <span class="radio-card__box">
+              <span class="radio-card__title">Heavy user</span>
+              <span class="radio-card__sub">Uso com frequência, nível avançado</span>
+            </span>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="nivel_ia" value="Avançado">
+            <span class="radio-card__box">
+              <span class="radio-card__title">Avançado</span>
+              <span class="radio-card__sub">Uso IA para programação e criação de aplicações</span>
+            </span>
+          </label>
+        </div>
+        <span class="error-msg" id="error-nivel_ia"></span>
+      </div>
+
+      <div class="form__group">
+        <label class="form__label">Em quais IAs você já possui conta ativa?</label>
+        <div class="checkbox-grid">
+          <label class="check-item"><input type="checkbox" name="ias_usadas" value="ChatGPT"><span class="check-box"></span><span class="check-label">ChatGPT</span></label>
+          <label class="check-item"><input type="checkbox" name="ias_usadas" value="Gemini"><span class="check-box"></span><span class="check-label">Gemini</span></label>
+          <label class="check-item"><input type="checkbox" name="ias_usadas" value="Claude"><span class="check-box"></span><span class="check-label">Claude</span></label>
+          <label class="check-item"><input type="checkbox" name="ias_usadas" value="Grok"><span class="check-box"></span><span class="check-label">Grok</span></label>
+          <label class="check-item"><input type="checkbox" name="ias_usadas" value="DeepSeek"><span class="check-box"></span><span class="check-label">DeepSeek</span></label>
+          <label class="check-item"><input type="checkbox" name="ias_usadas" value="Copilot (Microsoft)"><span class="check-box"></span><span class="check-label">Copilot (Microsoft)</span></label>
+          <label class="check-item"><input type="checkbox" name="ias_usadas" value="Meta AI ou outras"><span class="check-box"></span><span class="check-label">Meta AI ou outras</span></label>
+        </div>
+      </div>
+
+      <div class="form__group">
+        <label class="form__label">Você tem noções básicas de programação?</label>
+        <div class="radio-inline">
+          <label class="radio-pill"><input type="radio" name="programacao" value="Sim"><span class="radio-pill__custom"></span><span class="radio-pill__label">Sim</span></label>
+          <label class="radio-pill"><input type="radio" name="programacao" value="Não"><span class="radio-pill__custom"></span><span class="radio-pill__label">Não</span></label>
+          <label class="radio-pill"><input type="radio" name="programacao" value="Estou aprendendo"><span class="radio-pill__custom"></span><span class="radio-pill__label">Estou aprendendo</span></label>
+        </div>
+        <span class="error-msg" id="error-programacao"></span>
+      </div>
+
+      <div class="form__group">
+        <label class="form__label">Você conhece o conceito de GEO — Generative Engine Optimization?</label>
+        <div class="radio-inline">
+          <label class="radio-pill"><input type="radio" name="conhece_geo" value="Sim"><span class="radio-pill__custom"></span><span class="radio-pill__label">Sim</span></label>
+          <label class="radio-pill"><input type="radio" name="conhece_geo" value="Não"><span class="radio-pill__custom"></span><span class="radio-pill__label">Não</span></label>
+          <label class="radio-pill"><input type="radio" name="conhece_geo" value="Já ouvi falar"><span class="radio-pill__custom"></span><span class="radio-pill__label">Já ouvi falar</span></label>
+        </div>
+        <span class="error-msg" id="error-conhece_geo"></span>
+      </div>
+
+      <div class="form__group">
+        <label for="expectativas" class="form__label">O que você gostaria de aprender? Como pretende usar IA no dia a dia?</label>
+        <textarea id="expectativas" name="expectativas" class="form__input form__textarea" rows="4" placeholder="Conte sobre suas expectativas e como pretende aplicar o que aprender."></textarea>
+        <span class="error-msg" id="error-expectativas"></span>
+      </div>
+
+      <!-- BLOCO 3: Turma -->
+      <div class="form__group">
+        <p class="form__section-title" style="margin-top:0">Qual data e horário funcionam para você?</p>
+        <input type="hidden" id="turma-selecionada" name="turma">
+        <div class="turmas__grid" id="turmas-form">
+          <p class="turmas__group-label">28 E 29 DE MARÇO</p>
+
+          <div class="turma-card" data-turma-id="A" data-value="Turma A — Sábado, 28 de março · 9h às 13h">
+            <div class="turma-card__top"><span class="turma-card__name">TURMA A</span><span class="turma-card__badge">10 vagas</span></div>
+            <hr class="turma-card__hr">
+            <p class="turma-card__data">Sábado, 28 de março</p>
+            <p class="turma-card__horario">9h às 13h</p>
+            <p class="turma-card__footer">4 horas · Workshop completo</p>
+          </div>
+
+          <div class="turma-card" data-turma-id="B" data-value="Turma B — Sábado, 28 de março · 14h às 18h">
+            <div class="turma-card__top"><span class="turma-card__name">TURMA B</span><span class="turma-card__badge">10 vagas</span></div>
+            <hr class="turma-card__hr">
+            <p class="turma-card__data">Sábado, 28 de março</p>
+            <p class="turma-card__horario">14h às 18h</p>
+            <p class="turma-card__footer">4 horas · Workshop completo</p>
+          </div>
+
+          <div class="turma-card" data-turma-id="C" data-value="Turma C — Domingo, 29 de março · 9h às 13h">
+            <div class="turma-card__top"><span class="turma-card__name">TURMA C</span><span class="turma-card__badge">10 vagas</span></div>
+            <hr class="turma-card__hr">
+            <p class="turma-card__data">Domingo, 29 de março</p>
+            <p class="turma-card__horario">9h às 13h</p>
+            <p class="turma-card__footer">4 horas · Workshop completo</p>
+          </div>
+
+          <div class="turma-card" data-turma-id="D" data-value="Turma D — Domingo, 29 de março · 14h às 18h">
+            <div class="turma-card__top"><span class="turma-card__name">TURMA D</span><span class="turma-card__badge">10 vagas</span></div>
+            <hr class="turma-card__hr">
+            <p class="turma-card__data">Domingo, 29 de março</p>
+            <p class="turma-card__horario">14h às 18h</p>
+            <p class="turma-card__footer">4 horas · Workshop completo</p>
+          </div>
+
+          <p class="turmas__group-label">OUTRA DATA</p>
+
+          <div class="turma-card turma-card--open" data-turma-id="E" data-value="Sob consulta — entrar em contato">
+            <div class="turma-card__top"><span class="turma-card__name">SOB CONSULTA</span></div>
+            <hr class="turma-card__hr">
+            <p class="turma-card__data">Outra data</p>
+            <p class="turma-card__horario">Nenhuma das datas acima funciona para você?</p>
+            <p class="turma-card__footer">Entre em contato · (11) 94334-3231</p>
+          </div>
+        </div>
+        <span class="error-msg" id="error-turma"></span>
+      </div>
+
+      <!-- BLOCO 4: Amigos -->
+      <div class="form__group">
+        <label class="toggle-check">
+          <input type="checkbox" id="toggle-amigos">
+          <span class="toggle-check__box"></span>
+          <span class="toggle-check__label">Quero indicar amigos para este workshop</span>
+        </label>
+      </div>
+
+      <div class="amigos-bloco" id="amigos-bloco">
+        <div id="amigos-container">
+          <div class="amigo-entry">
+            <p class="amigo-entry__label">AMIGO 1</p>
+            <div class="form__group">
+              <label class="form__label">Nome</label>
+              <input type="text" name="amigo_nome_1" class="form__input" placeholder="Nome do amigo">
+            </div>
+            <div class="form__group">
+              <label class="form__label">E-mail</label>
+              <input type="email" name="amigo_email_1" class="form__input" placeholder="email@exemplo.com">
+            </div>
+            <div class="form__group">
+              <label class="form__label">WhatsApp</label>
+              <input type="tel" name="amigo_whatsapp_1" class="form__input wpp-mask" placeholder="(11) 99999-9999">
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn btn--add-amigo" id="btn-add-amigo">+ Adicionar outro amigo</button>
+      </div>
+
+      <!-- BLOCO 5: Autorização -->
+      <div class="form__group form__group--auth">
+        <label class="toggle-check">
+          <input type="checkbox" id="autorizacao" name="autorizacao">
+          <span class="toggle-check__box"></span>
+          <span class="toggle-check__label">Autorizo receber comunicações sobre o Workshop de IA da Ranqia por e-mail e WhatsApp, incluindo confirmação de inscrição, informações de pagamento e avisos sobre o evento.</span>
+        </label>
+        <span class="error-msg" id="error-autorizacao"></span>
+      </div>
+
+      <button type="submit" class="btn btn--submit" id="btn-submit">Enviar inscrição</button>
+
+    </form>
+  </div>
+</section>
+
+<!-- ─── SEÇÃO 9: CONFIRMAÇÃO ───────────────────────────────────────────── -->
+<section class="section section--surface confirmacao" id="confirmacao" style="display:none">
+  <div class="container container--narrow confirmacao__inner">
+    <div class="confirmacao__check">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="24" cy="24" r="21" stroke="#1d1d1f" stroke-width="2"/>
+        <polyline points="14,25 21,32 34,18" stroke="#1d1d1f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h2 class="confirmacao__title">Inscrição recebida.</h2>
+    <p class="confirmacao__text">Em breve o time da Ranqia entrará em contato para confirmar sua vaga na turma de interesse.</p>
+    <p class="confirmacao__text">Você receberá as informações de pagamento e as opções disponíveis diretamente no seu WhatsApp e e-mail.</p>
+    <hr class="divider">
+    <p class="confirmacao__contato">(11) 94334-3231 · mateus@ranqia.com</p>
+    <p class="confirmacao__detail">comoinfluenciarrobos.com.br · ranqia.com</p>
   </div>
 </section>
 
@@ -192,8 +567,8 @@
 <footer class="footer">
   <div class="container">
     <div class="footer__top">
+      <span>Workshop em IA × Ranqia</span>
       <span>comoinfluenciarrobos.com.br</span>
-      <span>ranqia.com</span>
       <span>mateus@ranqia.com</span>
       <span>(11) 94334-3231</span>
     </div>
@@ -201,18 +576,14 @@
   </div>
 </footer>
 
-<script>
-(function () {
-  var observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.animate-in').forEach(function (el) { observer.observe(el); });
-})();
-</script>
+<!-- ─── WHATSAPP BUTTON ─────────────────────────────────────────────────── -->
+<a href="https://wa.me/5511943343231" class="wpp-fab" target="_blank" rel="noopener" aria-label="Falar com Mateus no WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M14 0C6.268 0 0 6.268 0 14c0 2.47.644 4.788 1.77 6.797L0 28l7.395-1.738A13.935 13.935 0 0 0 14 28c7.732 0 14-6.268 14-14S21.732 0 14 0zm0 25.6a11.54 11.54 0 0 1-5.887-1.607l-.422-.252-4.388 1.031 1.05-4.274-.276-.44A11.558 11.558 0 0 1 2.4 14C2.4 7.594 7.594 2.4 14 2.4S25.6 7.594 25.6 14 20.406 25.6 14 25.6zm6.34-8.67c-.348-.174-2.06-1.016-2.38-1.132-.319-.116-.551-.174-.784.174-.232.348-.9 1.132-1.104 1.365-.203.232-.406.261-.754.087-.348-.174-1.47-.542-2.8-1.727-1.034-.923-1.732-2.063-1.935-2.411-.203-.348-.022-.536.153-.709.157-.156.348-.406.522-.61.174-.203.232-.348.348-.58.116-.232.058-.435-.029-.61-.087-.174-.784-1.89-1.074-2.588-.283-.68-.57-.588-.784-.598l-.667-.012c-.232 0-.61.087-.928.435-.319.348-1.218 1.19-1.218 2.902s1.247 3.366 1.42 3.598c.174.232 2.453 3.746 5.943 5.252.831.358 1.479.572 1.985.732.833.265 1.592.228 2.191.138.668-.1 2.06-.842 2.35-1.655.29-.813.29-1.51.203-1.655-.086-.145-.319-.232-.667-.406z" fill="#fff"/>
+  </svg>
+  <span class="wpp-fab__tooltip">Falar com Mateus</span>
+</a>
+
+<script src="script.js"></script>
 </body>
 </html>
