@@ -1,0 +1,11 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/workshop", "destination": "/workshop/index.html" },
+    { "source": "/blog",     "destination": "/blog/index.html" },
+    { "source": "/blog/posts/o-que-e-geo",             "destination": "/blog/posts/o-que-e-geo.html" },
+    { "source": "/blog/posts/como-ias-escolhem-marcas","destination": "/blog/posts/como-ias-escolhem-marcas.html" },
+    { "source": "/blog/posts/geo-vs-seo",              "destination": "/blog/posts/geo-vs-seo.html" }
+  ]
+}
