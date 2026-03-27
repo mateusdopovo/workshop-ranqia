@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Os resultados de busca em agentes de IA são estocásticos? · comoinfluenciarrobos.com.br</title>
+  <meta name="description" content="Agentes como o ChatGPT não fazem busca como o Google. Eles modelam uma distribuição de probabilidade sobre respostas possíveis. Isso muda tudo para GEO.">
+  <meta property="og:title" content="Os resultados de busca em agentes de IA são estocásticos?">
+  <meta property="og:description" content="Agentes como o ChatGPT não fazem busca como o Google. Eles modelam uma distribuição de probabilidade sobre respostas possíveis. Isso muda tudo para GEO.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://comoinfluenciarrobos.com.br/blog/posts/resultados-ia-sao-estocasticos">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<!-- ─── HEADER ─────────────────────────────────────────────────────────── -->
+<header class="header">
+  <div class="container header__inner">
+    <a href="/" class="header__brand">
+      <span class="brand__name">comoinfluenciarrobos</span><span class="brand__tld">.com.br</span>
+    </a>
+    <nav class="header__nav">
+      <a href="/blog" class="header__nav-link header__nav-link--active">Blog</a>
+      <a href="/workshop" class="header__nav-link">Workshop</a>
+      <a href="https://wa.me/5511943343231" class="btn btn--header" target="_blank" rel="noopener">Falar com Mateus</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ─── POST HEADER ────────────────────────────────────────────────────── -->
+<section class="section section--surface">
+  <div class="container">
+    <div class="post-header animate-in">
+      <a href="../" class="post-back">← Voltar ao blog</a>
+      <p class="label" style="margin-top:24px">FUNDAMENTOS DE GEO · 5 min de leitura · Dez 2025</p>
+      <h1 class="post-title">Os resultados de busca em agentes de IA são estocásticos?</h1>
+      <p class="post-subtitle">Agentes como o ChatGPT não fazem busca como o Google. Eles modelam uma distribuição de probabilidade sobre respostas possíveis. Isso muda tudo para GEO.</p>
+      <p class="post-meta">Por Mateus Souza Borges · Ranqia</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── POST BODY ──────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="post-body animate-in">
+
+      <hr>
+
+      <h2>O erro comum: IA faz busca</h2>
+
+      <p>Agentes como o ChatGPT não fazem busca como o Google. Eles modelam uma distribuição de probabilidade sobre respostas possíveis. Ou seja: não existe "resultado correto único" — existe um espaço de respostas plausíveis, cada uma com probabilidade diferente. Isso muda tudo.</p>
+
+      <h2>Onde exatamente mora a estocasticidade</h2>
+
+      <h3>2.1 Geração token a token</h3>
+
+      <p>O modelo gera a resposta token a token. Mesmo com o mesmo prompt, várias sequências são válidas e a escolha pode variar por temperatura, top-k/top-p, ruído numérico e estado interno do sistema. É estocasticidade estrutural, não acidental.</p>
+
+      <h3>2.2 Ambiguidade semântica do prompt</h3>
+
+      <p>Perguntas como "Quais são os melhores influenciadores brasileiros?" não definem critério, período, plataforma ou métrica. O modelo precisa inferir a intenção — e isso é probabilístico. Cada execução pode "resolver" a ambiguidade de forma diferente.</p>
+
+      <h2>Recuperação ≠ Resposta</h2>
+
+      <h3>3.1 Busca (quando existe)</h3>
+
+      <p>Em pipelines modernos com RAG, browsing ou APIs, a query vetorial vai para um índice, o ranking é feito por similaridade e o resultado tende a ser determinístico. Se nada mudar: mesma query, mesmos documentos.</p>
+
+      <h3>3.2 Síntese — onde tudo muda</h3>
+
+      <p>Depois da busca, o LLM decide o que usar, o que ignorar, como resumir e em que ordem apresentar. Aqui volta a probabilidade pura. Dois runs podem citar fontes diferentes, trocar ordem, destacar nomes diferentes e mudar o framing — "top", "relevantes", "em crescimento".</p>
+
+      <h2>Por que isso não é aleatoriedade simples</h2>
+
+      <p>Importante: estocástico não é o mesmo que caótico. O modelo é altamente condicionado, regularizado, alinhado por RLHF e limitado por políticas. Então: 90% das respostas caem em um "núcleo semântico" e 10% variam. Isso se chama distribuição concentrada, não ruído.</p>
+
+      <h2>A diferença brutal para buscadores tradicionais</h2>
+
+      <p>Google e LLMs operam de formas fundamentalmente diferentes. Veja a comparação:</p>
+
+      <div class="post-table-wrapper">
+        <table class="post-table">
+          <thead>
+            <tr>
+              <th>Dimensão</th>
+              <th>Google</th>
+              <th>LLM</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Unidade básica</td>
+              <td>Página</td>
+              <td>Token</td>
+            </tr>
+            <tr>
+              <td>Ranking</td>
+              <td>Score fixo</td>
+              <td>Probabilidade contextual</td>
+            </tr>
+            <tr>
+              <td>Repetibilidade</td>
+              <td>Alta</td>
+              <td>Média</td>
+            </tr>
+            <tr>
+              <td>Resultado</td>
+              <td>Lista</td>
+              <td>Síntese</td>
+            </tr>
+            <tr>
+              <td>Controle do publisher</td>
+              <td>SEO</td>
+              <td>GEO</td>
+            </tr>
+            <tr>
+              <td>Estabilidade</td>
+              <td>Alta</td>
+              <td>Média / baixa</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>No Google você disputa posição. No ChatGPT você disputa probabilidade de ser mencionado.</p>
+
+      <h2>Implicações diretas para GEO</h2>
+
+      <h3>6.1 Não existe "posição 1"</h3>
+
+      <p>Você não "ranqueia em primeiro" em uma IA generativa. O que você faz é aumentar sua massa probabilística, aumentar a chance de ser lembrado e aumentar a recorrência semântica da sua marca ou conteúdo.</p>
+
+      <h3>6.2 O que realmente influencia aparecer</h3>
+
+      <p>LLMs tendem a citar entidades que aparecem repetidamente em múltiplas fontes, têm consistência semântica, são citadas com contexto claro ("ranking", "referência", "autoridade") e aparecem em listas, tabelas e comparações. A fórmula é: frequência + clareza + redundância de qualidade.</p>
+
+      <h3>6.3 Por que a resposta muda ao longo do tempo</h3>
+
+      <p>Mesmo sem atualização do modelo, o contexto global muda, os exemplos recentes mudam e a distribuição de probabilidade muda. GEO é dinâmico, não estático.</p>
+
+      <h2>Resumo</h2>
+
+      <blockquote class="post-highlight">
+        Agentes de IA não retornam resultados — eles amostram respostas de uma distribuição probabilística condicionada ao contexto. Isso é o coração da questão.
+      </blockquote>
+
+      <h2>Conclusão</h2>
+
+      <ul>
+        <li>— Sim, há estocasticidade</li>
+        <li>— Não é aleatoriedade simples</li>
+        <li>— Não é ranking clássico</li>
+        <li>— É probabilidade condicionada</li>
+        <li>— GEO ≠ SEO</li>
+        <li>— Repetição, estrutura e autoridade vencem</li>
+      </ul>
+
+      <hr style="margin-top:64px">
+
+      <!-- ─── AUTOR ──────────────────────────────────────────────────── -->
+      <div class="post-author">
+        <p class="post-author__name">Mateus Souza Borges</p>
+        <p class="post-author__bio">Cofundador da Ranqia · GEO specialist · Forbes 30 Under 30</p>
+        <p class="post-author__contact">ranqia.com · mateus@ranqia.com</p>
+      </div>
+
+      <!-- ─── CONTINUAR LENDO ────────────────────────────────────────── -->
+      <div class="post-more">
+        <p class="label">OUTROS ARTIGOS</p>
+        <ul class="post-more__list">
+          <li><a href="/blog/posts/o-que-e-geo" class="post-more__link">O que é GEO — Generative Engine Optimization →</a></li>
+          <li><a href="/blog/posts/como-ias-escolhem-marcas" class="post-more__link">Como as IAs escolhem marcas para recomendar →</a></li>
+          <li><a href="/blog/posts/geo-vs-seo" class="post-more__link">GEO vs SEO — semelhanças, diferenças e o que vem por aí →</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─────────────────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <span>comoinfluenciarrobos.com.br</span>
+      <span>ranqia.com</span>
+      <span>mateus@ranqia.com</span>
+      <span>(11) 94334-3231</span>
+    </div>
+    <p class="footer__bottom">Ranqia — tecnologia de GEO para marcas que querem existir na era das IAs generativas. Iniciativa de Mateus Souza Borges.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.animate-in').forEach(function (el) { observer.observe(el); });
+})();
+</script>
+</body>
+</html>
