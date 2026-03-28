@@ -285,6 +285,34 @@
     @media (max-width: 480px) {
       .metrics-grid { grid-template-columns: 1fr; }
     }
+
+    /* ── WPP FAB ── */
+    .wpp-fab {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #25D366;
+      color: #fff;
+      text-decoration: none;
+      font-family: -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 12px 20px;
+      border-radius: 980px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      transition: filter 0.2s, transform 0.2s;
+    }
+    .wpp-fab:hover { filter: brightness(1.08); transform: translateY(-2px); }
+    .wpp-fab__text {}
+    @media (max-width: 768px) {
+      .wpp-fab { width: 52px; height: 52px; padding: 0; justify-content: center; border-radius: 50%; }
+      .wpp-fab svg { width: 22px; height: 22px; }
+      .wpp-fab__text { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -365,6 +393,15 @@
     <p>comoinfluenciarrobos.com.br · ranqia.com</p>
   </div>
 </footer>
+
+<!-- ─── WHATSAPP FAB ───────────────────────────────────────────────────── -->
+<a href="https://wa.me/5511943343231?text=Oi%20Mateus%2C%20acabei%20de%20ver%20os%20resultados%20da%20pesquisa%20e%20quero%20dar%20um%20feedback!" class="wpp-fab" target="_blank" rel="noopener" aria-label="Falar com Mateus no WhatsApp">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.554 4.118 1.528 5.847L.057 23.882l6.197-1.448A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.808 9.808 0 01-5.002-1.368l-.358-.214-3.68.861.92-3.574-.233-.368A9.786 9.786 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/>
+  </svg>
+  <span class="wpp-fab__text">Fale com o Mateus</span>
+</a>
 
 <script>
 (function () {
