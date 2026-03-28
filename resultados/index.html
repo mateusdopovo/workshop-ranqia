@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resultados da Pesquisa · Workshop de IA + GEO</title>
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      overflow-x: hidden;
+      max-width: 100%;
+      font-family: -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: #fff;
+      color: #1d1d1f;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 52px;
+      background: #fff;
+      border-bottom: 1px solid #d2d2d7;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+    }
+    .header__inner {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header__brand {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #1d1d1f;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .header__brand span { color: #6e6e73; font-weight: 400; }
+    .live-badge {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.75rem;
+      color: #6e6e73;
+    }
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #34C759;
+      animation: pulse 2s infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(1.3); }
+    }
+
+    /* ── CONTAINER ── */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── MAIN ── */
+    .main { padding-top: 100px; padding-bottom: 80px; }
+
+    /* ── LABELS / TITLES ── */
+    .label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #6e6e73;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+    .page-sub {
+      color: #6e6e73;
+      font-size: 1rem;
+    }
+    .divider {
+      border: none;
+      border-top: 1px solid #d2d2d7;
+      margin: 32px 0;
+    }
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #6e6e73;
+      margin-bottom: 6px;
+    }
+    .section-sub {
+      color: #6e6e73;
+      font-size: 0.9rem;
+      margin-bottom: 28px;
+    }
+
+    /* ── ERROR BANNER ── */
+    #error-banner {
+      display: none;
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      border-radius: 8px;
+      padding: 12px 20px;
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+    }
+
+    /* ── METRICS GRID ── */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-bottom: 0;
+    }
+    .metric-card {
+      border-radius: 12px;
+      padding: 28px 20px;
+      text-align: center;
+    }
+    .metric-card--dark {
+      background: #1d1d1f;
+    }
+    .metric-card--light {
+      background: #f5f5f7;
+      border: 1px solid #d2d2d7;
+    }
+    .metric-num {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .metric-card--dark .metric-num  { color: #fff; }
+    .metric-card--light .metric-num { color: #1d1d1f; }
+    .metric-lbl {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .metric-card--dark .metric-lbl  { color: #6e6e73; }
+    .metric-card--light .metric-lbl { color: #6e6e73; }
+
+    /* ── CHARTS ── */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .chart-block {
+      background: #f5f5f7;
+      border: 1px solid #d2d2d7;
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .chart-title {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #1d1d1f;
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 5px;
+    }
+    .bar-label {
+      width: 18px;
+      text-align: right;
+      font-size: 0.72rem;
+      color: #6e6e73;
+      font-variant-numeric: tabular-nums;
+      flex-shrink: 0;
+    }
+    .bar-track {
+      flex: 1;
+      background: #e8e8ed;
+      border-radius: 3px;
+      height: 18px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      background: #d2d2d7;
+      border-radius: 3px;
+      width: 0%;
+    }
+    .bar-fill.bar-max { background: #1d1d1f; }
+    .bar-count {
+      width: 22px;
+      font-size: 0.72rem;
+      color: #6e6e73;
+      font-variant-numeric: tabular-nums;
+      flex-shrink: 0;
+    }
+
+    /* ── CLOUDS ── */
+    .clouds-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .cloud-col__label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .cloud-col__label--pos { color: #1d1d1f; }
+    .cloud-col__label--neg { color: #6e6e73; }
+    .cloud-wrap { line-height: 1.8; }
+    .cloud-tag {
+      display: inline-block;
+      padding: 5px 14px;
+      border: 1px solid #d2d2d7;
+      border-radius: 980px;
+      background: #f5f5f7;
+      color: #1d1d1f;
+      margin: 4px;
+      transition: font-size 0.3s ease, background 0.15s, color 0.15s;
+      cursor: default;
+    }
+    .cloud-tag:hover {
+      background: #1d1d1f;
+      color: #fff;
+      border-color: #1d1d1f;
+    }
+
+    /* ── SKELETON ── */
+    @keyframes shimmer {
+      0%   { background-position: -400px 0; }
+      100% { background-position:  400px 0; }
+    }
+    .skeleton {
+      background: linear-gradient(90deg, #f5f5f7 25%, #ebebeb 50%, #f5f5f7 75%);
+      background-size: 800px 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 8px;
+    }
+    .sk-metric  { height: 100px; border-radius: 12px; }
+    .sk-chart   { height: 220px; border-radius: 12px; }
+    .sk-cloud   { height: 160px; border-radius: 12px; }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: #1d1d1f;
+      padding: 32px 0;
+      text-align: center;
+    }
+    .footer p { font-size: 0.85rem; color: #6e6e73; margin-bottom: 6px; }
+    .footer p:last-child { margin-bottom: 0; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .container { padding: 0 20px; }
+      .header__inner { padding: 0 20px; }
+      .metrics-grid { grid-template-columns: 1fr 1fr; }
+      .charts-grid  { grid-template-columns: 1fr; }
+      .clouds-grid  { grid-template-columns: 1fr; }
+      .chart-block  { padding: 16px; }
+    }
+    @media (max-width: 480px) {
+      .metrics-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── HEADER ─────────────────────────────────────────────────────────── -->
+<header class="header">
+  <div class="header__inner">
+    <a href="/" class="header__brand">Workshop de IA + GEO <span>× Ranqia</span></a>
+    <div class="live-badge">
+      <span class="live-dot"></span>
+      Atualizando a cada 30s
+    </div>
+  </div>
+</header>
+
+<!-- ─── MAIN ────────────────────────────────────────────────────────────── -->
+<main class="main">
+  <div class="container">
+
+    <!-- Abertura -->
+    <p class="label">CHECKPOINT · RESULTADOS EM TEMPO REAL</p>
+    <h1>Pesquisa de Satisfação</h1>
+    <p class="page-sub">Workshop de IA + GEO · Ranqia</p>
+
+    <hr class="divider">
+
+    <!-- Error banner -->
+    <div id="error-banner">
+      Não foi possível carregar os dados. Tentando novamente em 30s.
+    </div>
+
+    <!-- ── SEÇÃO 1: MÉTRICAS ── -->
+    <div id="metrics-section">
+      <div class="metrics-grid" id="metrics-grid">
+        <!-- skeleton inicial -->
+        <div class="skeleton sk-metric"></div>
+        <div class="skeleton sk-metric"></div>
+        <div class="skeleton sk-metric"></div>
+        <div class="skeleton sk-metric"></div>
+        <div class="skeleton sk-metric"></div>
+      </div>
+    </div>
+
+    <hr class="divider" style="margin-top:48px">
+
+    <!-- ── SEÇÃO 2: GRÁFICOS ── -->
+    <p class="section-label">Distribuição das notas</p>
+    <p class="section-sub">Quantas pessoas deram cada nota (0 a 10)</p>
+
+    <div id="charts-section">
+      <div class="charts-grid">
+        <div class="skeleton sk-chart"></div>
+        <div class="skeleton sk-chart"></div>
+        <div class="skeleton sk-chart"></div>
+        <div class="skeleton sk-chart"></div>
+      </div>
+    </div>
+
+    <hr class="divider" style="margin-top:48px">
+
+    <!-- ── SEÇÃO 3: NUVENS ── -->
+    <p class="section-label">O que as pessoas estão achando</p>
+
+    <div id="clouds-section">
+      <div class="clouds-grid">
+        <div class="skeleton sk-cloud"></div>
+        <div class="skeleton sk-cloud"></div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- ─── FOOTER ─────────────────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <p id="last-update">Última atualização: --:--:--</p>
+    <p>comoinfluenciarrobos.com.br · ranqia.com</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbwvahGWXu1JVOLsGuT7q7WfcbdLHtSdaJ051Mpgxjglpbj_gT50AL7O8ks3XY5Iyrfr/exec';
+
+  var CHART_QUESTIONS = [
+    { id: 'chart-q1', title: 'De 0 a 10, o quanto você recomendaria este workshop?' },
+    { id: 'chart-q2', title: 'De 0 a 10, qualidade do conteúdo até agora?' },
+    { id: 'chart-q3', title: 'De 0 a 10, dinâmica e interação do workshop?' },
+    { id: 'chart-q4', title: 'De 0 a 10, aplicabilidade prática do conteúdo?' }
+  ];
+
+  // ── Fetch ──────────────────────────────────────────────────────────────
+  async function fetchData() {
+    try {
+      var res  = await fetch(ENDPOINT);
+      var data = await res.json();
+      renderDashboard(data);
+      hideError();
+    } catch (e) {
+      showError();
+    }
+  }
+
+  function showError() {
+    document.getElementById('error-banner').style.display = 'block';
+  }
+  function hideError() {
+    document.getElementById('error-banner').style.display = 'none';
+  }
+
+  // ── Render ─────────────────────────────────────────────────────────────
+  function renderDashboard(data) {
+    renderMetrics(data);
+    renderCharts(data);
+    renderClouds(data);
+    document.getElementById('last-update').textContent =
+      'Última atualização: ' + new Date().toLocaleTimeString('pt-BR');
+  }
+
+  // ── Metrics ────────────────────────────────────────────────────────────
+  function renderMetrics(data) {
+    var grid = document.getElementById('metrics-grid');
+    grid.innerHTML =
+      '<div class="metric-card metric-card--dark">' +
+        '<div class="metric-num" id="total-count">—</div>' +
+        '<div class="metric-lbl">Respostas</div>' +
+      '</div>' +
+      '<div class="metric-card metric-card--light">' +
+        '<div class="metric-num" id="media-q1">—</div>' +
+        '<div class="metric-lbl">Recomendaria</div>' +
+      '</div>' +
+      '<div class="metric-card metric-card--light">' +
+        '<div class="metric-num" id="media-q2">—</div>' +
+        '<div class="metric-lbl">Conteúdo</div>' +
+      '</div>' +
+      '<div class="metric-card metric-card--light">' +
+        '<div class="metric-num" id="media-q3">—</div>' +
+        '<div class="metric-lbl">Dinâmica</div>' +
+      '</div>' +
+      '<div class="metric-card metric-card--light">' +
+        '<div class="metric-num" id="media-q4">—</div>' +
+        '<div class="metric-lbl">Aplicabilidade</div>' +
+      '</div>';
+
+    animateCount('total-count', data.total, 0);
+    animateCount('media-q1', data.medias.q1, 1);
+    animateCount('media-q2', data.medias.q2, 1);
+    animateCount('media-q3', data.medias.q3, 1);
+    animateCount('media-q4', data.medias.q4, 1);
+  }
+
+  function animateCount(id, target, decimals) {
+    var el = document.getElementById(id);
+    if (!el || target === undefined || target === null) return;
+    var duration  = 600;
+    var startTime = null;
+    var numTarget = parseFloat(target) || 0;
+    function step(now) {
+      if (!startTime) startTime = now;
+      var elapsed  = now - startTime;
+      var progress = Math.min(elapsed / duration, 1);
+      var value    = numTarget * progress;
+      el.textContent = decimals > 0 ? value.toFixed(decimals) : Math.round(value);
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  // ── Charts ─────────────────────────────────────────────────────────────
+  function renderCharts(data) {
+    var section = document.getElementById('charts-section');
+    var grid    = document.createElement('div');
+    grid.className = 'charts-grid';
+
+    CHART_QUESTIONS.forEach(function (q, idx) {
+      var key  = 'q' + (idx + 1);
+      var dist = (data.distribuicoes && data.distribuicoes[key]) || {};
+
+      var block = document.createElement('div');
+      block.className = 'chart-block';
+
+      var titleEl = document.createElement('p');
+      titleEl.className = 'chart-title';
+      titleEl.textContent = q.title;
+      block.appendChild(titleEl);
+
+      var chartEl = document.createElement('div');
+      chartEl.id = q.id;
+      block.appendChild(chartEl);
+      grid.appendChild(block);
+    });
+
+    section.innerHTML = '';
+    section.appendChild(grid);
+
+    // Render bars after DOM is ready
+    CHART_QUESTIONS.forEach(function (q, idx) {
+      var key  = 'q' + (idx + 1);
+      var dist = (data.distribuicoes && data.distribuicoes[key]) || {};
+      renderChart(q.id, dist);
+    });
+  }
+
+  function renderChart(containerId, distribution) {
+    var container = document.getElementById(containerId);
+    if (!container) return;
+
+    var values = [];
+    for (var i = 0; i <= 10; i++) {
+      values.push(distribution[i] || distribution[String(i)] || 0);
+    }
+    var max = Math.max.apply(null, values.concat([1]));
+
+    container.innerHTML = '';
+    for (var i = 10; i >= 0; i--) {
+      var count = distribution[i] || distribution[String(i)] || 0;
+      var pct   = (count / max) * 100;
+
+      var row = document.createElement('div');
+      row.className = 'bar-row';
+
+      var lbl = document.createElement('span');
+      lbl.className   = 'bar-label';
+      lbl.textContent = i;
+
+      var track = document.createElement('div');
+      track.className = 'bar-track';
+
+      var fill = document.createElement('div');
+      fill.className = 'bar-fill' + (count === max && max > 0 ? ' bar-max' : '');
+      fill.style.width = '0%';
+      fill.dataset.width = (count > 0 ? Math.max(pct, 2) : 0) + '%';
+
+      track.appendChild(fill);
+
+      var cnt = document.createElement('span');
+      cnt.className   = 'bar-count';
+      cnt.textContent = count;
+
+      row.appendChild(lbl);
+      row.appendChild(track);
+      row.appendChild(cnt);
+      container.appendChild(row);
+    }
+
+    requestAnimationFrame(function () {
+      container.querySelectorAll('.bar-fill').forEach(function (bar) {
+        bar.style.transition = 'width 0.4s ease';
+        bar.style.width = bar.dataset.width;
+      });
+    });
+  }
+
+  // ── Clouds ─────────────────────────────────────────────────────────────
+  function renderClouds(data) {
+    var section = document.getElementById('clouds-section');
+    section.innerHTML =
+      '<div class="clouds-grid">' +
+        '<div>' +
+          '<p class="cloud-col__label cloud-col__label--pos">✓&nbsp; Estou gostando</p>' +
+          '<div class="cloud-wrap" id="cloud-gostando"></div>' +
+        '</div>' +
+        '<div>' +
+          '<p class="cloud-col__label cloud-col__label--neg">↑&nbsp; Pode melhorar</p>' +
+          '<div class="cloud-wrap" id="cloud-melhorar"></div>' +
+        '</div>' +
+      '</div>';
+
+    renderCloud('cloud-gostando', (data.tags && data.tags.gostando) || {});
+    renderCloud('cloud-melhorar', (data.tags && data.tags.melhorar) || {});
+  }
+
+  function renderCloud(containerId, tags) {
+    var container = document.getElementById(containerId);
+    if (!container) return;
+
+    var entries = Object.entries(tags)
+      .filter(function (e) { return e[1] > 0; })
+      .sort(function (a, b) { return b[1] - a[1]; });
+
+    if (entries.length === 0) {
+      container.innerHTML = '<span style="color:#6e6e73;font-size:0.9rem;">Nenhuma resposta ainda.</span>';
+      return;
+    }
+
+    var max = entries[0][1];
+    container.innerHTML = entries.map(function (entry) {
+      var tag   = entry[0];
+      var count = entry[1];
+      var ratio  = count / max;
+      var size   = (0.85 + ratio * 1.1).toFixed(2);
+      var weight = ratio > 0.6 ? 700 : ratio > 0.3 ? 500 : 400;
+      var votes  = count + ' voto' + (count > 1 ? 's' : '');
+      return '<span class="cloud-tag" style="font-size:' + size + 'rem;font-weight:' + weight + ';" title="' + votes + '">' + tag + '</span>';
+    }).join('');
+  }
+
+  // ── Init ───────────────────────────────────────────────────────────────
+  fetchData();
+  setInterval(fetchData, 30000);
+})();
+</script>
+</body>
+</html>

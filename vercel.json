@@ -8,6 +8,7 @@
     { "source": "/blog/posts/geo-vs-seo",                     "destination": "/blog/posts/geo-vs-seo.html" },
     { "source": "/blog/posts/resultados-ia-sao-estocasticos", "destination": "/blog/posts/resultados-ia-sao-estocasticos.html" },
     { "source": "/blog/posts/conteudo-bem-escrito-nao-aparece-na-ia", "destination": "/blog/posts/conteudo-bem-escrito-nao-aparece-na-ia.html" },
-    { "source": "/pesquisa", "destination": "/pesquisa/index.html" }
+    { "source": "/pesquisa",   "destination": "/pesquisa/index.html" },
+    { "source": "/resultados", "destination": "/resultados/index.html" }
   ]
 }
