@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Depoimentos · Workshop de IA + GEO</title>
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      overflow-x: hidden;
+      max-width: 100%;
+      font-family: -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: #f5f5f7;
+      color: #1d1d1f;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: #fff;
+      border-bottom: 1px solid #e0e0e5;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header__brand {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1d1d1f;
+      text-decoration: none;
+    }
+    .header__brand span { color: #6e6e73; font-weight: 400; }
+
+    /* ── LAYOUT ── */
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ── TITLE ── */
+    .page-title {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+    }
+    .page-subtitle {
+      font-size: 1rem;
+      color: #6e6e73;
+      margin-bottom: 40px;
+      line-height: 1.5;
+    }
+
+    /* ── FORM ── */
+    .form-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 48px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    .form-card h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+      color: #1d1d1f;
+    }
+
+    .field { margin-bottom: 20px; }
+    .field label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #1d1d1f;
+      margin-bottom: 6px;
+    }
+    .field input,
+    .field textarea {
+      width: 100%;
+      border: 1.5px solid #d2d2d7;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      color: #1d1d1f;
+      background: #fff;
+      transition: border-color 0.15s;
+      outline: none;
+      resize: vertical;
+    }
+    .field input:focus,
+    .field textarea:focus {
+      border-color: #0071e3;
+    }
+    .field input.has-error,
+    .field textarea.has-error {
+      border-color: #ff3b30;
+    }
+    .field textarea {
+      min-height: 120px;
+    }
+
+    .char-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 4px;
+    }
+    .char-count {
+      font-size: 0.78rem;
+      color: #aaa;
+    }
+    .char-count.warn { color: #ff9500; }
+    .char-count.over { color: #ff3b30; }
+
+    .field-error {
+      font-size: 0.8rem;
+      color: #ff3b30;
+      margin-top: 4px;
+      display: none;
+    }
+    .field-error.visible { display: block; }
+
+    .btn-publicar {
+      width: 100%;
+      padding: 14px;
+      background: #1d1d1f;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .btn-publicar:hover { background: #333; }
+    .btn-publicar:active { transform: scale(0.98); }
+    .btn-publicar:disabled { background: #c7c7cc; cursor: not-allowed; transform: none; }
+
+    .msg-sucesso {
+      display: none;
+      margin-top: 16px;
+      padding: 12px 16px;
+      background: #e8faf0;
+      border: 1px solid #34c759;
+      border-radius: 10px;
+      color: #1c8736;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-align: center;
+    }
+    .msg-sucesso.visible { display: block; }
+
+    /* ── DEPOIMENTOS LIST ── */
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: #1d1d1f;
+    }
+
+    .depoimentos-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* ── CARD ── */
+    .dep-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      display: flex;
+      gap: 16px;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .dep-avatar {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #1d1d1f;
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: uppercase;
+    }
+
+    .dep-body { flex: 1; min-width: 0; }
+    .dep-meta {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+    .dep-nome {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #1d1d1f;
+    }
+    .dep-data {
+      font-size: 0.8rem;
+      color: #aaa;
+    }
+    .dep-texto {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #3a3a3c;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    /* ── SKELETON ── */
+    .skeleton { animation: shimmer 1.4s infinite linear; }
+    @keyframes shimmer {
+      0%   { background-position: -600px 0; }
+      100% { background-position:  600px 0; }
+    }
+    .dep-card--skeleton .dep-avatar {
+      background: linear-gradient(90deg, #e5e5ea 25%, #f2f2f7 50%, #e5e5ea 75%);
+      background-size: 600px 100%;
+    }
+    .skel-line {
+      height: 13px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      background: linear-gradient(90deg, #e5e5ea 25%, #f2f2f7 50%, #e5e5ea 75%);
+      background-size: 600px 100%;
+    }
+    .skel-line--short { width: 40%; }
+    .skel-line--medium { width: 65%; }
+    .skel-line--long { width: 90%; }
+    .skel-line--full { width: 100%; }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      display: none;
+      text-align: center;
+      padding: 60px 24px;
+      color: #6e6e73;
+    }
+    .empty-state__icon { font-size: 2.5rem; margin-bottom: 12px; }
+    .empty-state__text { font-size: 0.95rem; line-height: 1.5; }
+    .empty-state.visible { display: block; }
+
+    /* ── ERROR BANNER ── */
+    .error-banner {
+      display: none;
+      padding: 12px 16px;
+      background: #fff2f2;
+      border: 1px solid #ff3b30;
+      border-radius: 10px;
+      color: #cc2200;
+      font-size: 0.85rem;
+      margin-bottom: 16px;
+    }
+    .error-banner.visible { display: block; }
+
+    /* ── WAP FAB ── */
+    .wpp-fab {
+      position: fixed;
+      bottom: 28px;
+      right: 24px;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #25D366;
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 12px 20px;
+      border-radius: 980px;
+      box-shadow: 0 4px 16px rgba(37,211,102,0.4);
+      transition: transform 0.15s, box-shadow 0.15s;
+      white-space: nowrap;
+    }
+    .wpp-fab:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37,211,102,0.5);
+    }
+    .wpp-fab svg { flex-shrink: 0; }
+    .wpp-fab__label {}
+
+    @media (max-width: 600px) {
+      .wpp-fab {
+        padding: 0;
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        justify-content: center;
+      }
+      .wpp-fab__label { display: none; }
+      .wpp-fab svg { width: 22px; height: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <a href="/" class="header__brand">Workshop em IA <span>× Ranqia</span></a>
+  </header>
+
+  <main class="page">
+    <h1 class="page-title">Depoimentos</h1>
+    <p class="page-subtitle">O que os participantes do workshop estão dizendo. Deixe o seu também.</p>
+
+    <!-- FORM -->
+    <div class="form-card">
+      <h2>Deixe seu depoimento</h2>
+      <form id="form-depoimento" novalidate>
+
+        <div class="field">
+          <label for="input-nome">Seu nome</label>
+          <input
+            type="text"
+            id="input-nome"
+            name="nome"
+            placeholder="Ex: Ana Lima"
+            maxlength="80"
+            autocomplete="name"
+          >
+          <div class="field-error" id="erro-nome">Por favor, informe seu nome.</div>
+        </div>
+
+        <div class="field">
+          <label for="input-depoimento">Seu depoimento</label>
+          <textarea
+            id="input-depoimento"
+            name="depoimento"
+            placeholder="Conte o que você aprendeu, o que mudou na sua forma de trabalhar, o que achou do workshop..."
+            maxlength="600"
+          ></textarea>
+          <div class="char-row">
+            <span class="char-count" id="char-count">0 / 600</span>
+          </div>
+          <div class="field-error" id="erro-depoimento">Por favor, escreva seu depoimento (mínimo 20 caracteres).</div>
+        </div>
+
+        <button type="submit" class="btn-publicar" id="btn-publicar">Publicar depoimento</button>
+        <div class="msg-sucesso" id="msg-sucesso">Depoimento publicado! Obrigado pelo feedback. 🙌</div>
+      </form>
+    </div>
+
+    <!-- LIST -->
+    <div class="section-title">O que os participantes dizem</div>
+    <div class="error-banner" id="error-banner">Não foi possível carregar os depoimentos. Tente recarregar a página.</div>
+    <div class="depoimentos-list" id="depoimentos-list">
+      <!-- skeletons -->
+      <div class="dep-card dep-card--skeleton">
+        <div class="dep-avatar skeleton"></div>
+        <div class="dep-body" style="flex:1">
+          <div class="skel-line skel-line--short skeleton" style="margin-bottom:10px"></div>
+          <div class="skel-line skel-line--long skeleton"></div>
+          <div class="skel-line skel-line--medium skeleton"></div>
+        </div>
+      </div>
+      <div class="dep-card dep-card--skeleton">
+        <div class="dep-avatar skeleton"></div>
+        <div class="dep-body" style="flex:1">
+          <div class="skel-line skel-line--short skeleton" style="margin-bottom:10px"></div>
+          <div class="skel-line skel-line--full skeleton"></div>
+          <div class="skel-line skel-line--long skeleton"></div>
+        </div>
+      </div>
+      <div class="dep-card dep-card--skeleton">
+        <div class="dep-avatar skeleton"></div>
+        <div class="dep-body" style="flex:1">
+          <div class="skel-line skel-line--short skeleton" style="margin-bottom:10px"></div>
+          <div class="skel-line skel-line--medium skeleton"></div>
+          <div class="skel-line skel-line--full skeleton"></div>
+        </div>
+      </div>
+    </div>
+    <div class="empty-state" id="empty-state">
+      <div class="empty-state__icon">💬</div>
+      <div class="empty-state__text">Nenhum depoimento ainda.<br>Seja o primeiro a deixar o seu!</div>
+    </div>
+  </main>
+
+  <!-- WhatsApp FAB -->
+  <a
+    class="wpp-fab"
+    href="https://wa.me/5511943343231?text=Oi%20Mateus%2C%20vim%20da%20p%C3%A1gina%20de%20depoimentos%20e%20quero%20falar%20sobre%20o%20workshop!"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Fale com o Mateus no WhatsApp"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+    <span class="wpp-fab__label">Fale com o Mateus</span>
+  </a>
+
+  <script>
+    const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwvahGWXu1JVOLsGuT7q7WfcbdLHtSdaJ051Mpgxjglpbj_gT50AL7O8ks3XY5Iyrfr/exec';
+
+    /* ── SANITIZE ── */
+    function sanitize(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    /* ── FORMAT DATE ── */
+    function formatDate(str) {
+      if (!str) return '';
+      try {
+        const d = new Date(str);
+        return d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
+      } catch(_) { return str; }
+    }
+
+    /* ── BUILD CARD ── */
+    function buildCard(dep) {
+      const nome = sanitize(dep.nome || 'Anônimo');
+      const texto = sanitize(dep.depoimento || '');
+      const data = formatDate(dep.data);
+      const initial = nome.trim().charAt(0).toUpperCase();
+
+      const card = document.createElement('div');
+      card.className = 'dep-card';
+      card.innerHTML = `
+        <div class="dep-avatar">${initial}</div>
+        <div class="dep-body">
+          <div class="dep-meta">
+            <span class="dep-nome">${nome}</span>
+            ${data ? `<span class="dep-data">${data}</span>` : ''}
+          </div>
+          <div class="dep-texto">${texto}</div>
+        </div>
+      `;
+      return card;
+    }
+
+    /* ── REMOVE SKELETONS ── */
+    function removeSkeletons() {
+      document.querySelectorAll('.dep-card--skeleton').forEach(el => el.remove());
+    }
+
+    /* ── LOAD DEPOIMENTOS ── */
+    async function loadDepoimentos() {
+      try {
+        const res = await fetch(ENDPOINT + '?action=depoimentos');
+        const data = await res.json();
+        removeSkeletons();
+
+        const list = document.getElementById('depoimentos-list');
+        const deps = (data.depoimentos || []).reverse(); // most recent first
+
+        if (deps.length === 0) {
+          document.getElementById('empty-state').classList.add('visible');
+          return;
+        }
+
+        deps.forEach(dep => {
+          list.appendChild(buildCard(dep));
+        });
+      } catch (err) {
+        removeSkeletons();
+        document.getElementById('error-banner').classList.add('visible');
+        document.getElementById('empty-state').classList.add('visible');
+      }
+    }
+
+    /* ── CHAR COUNTER ── */
+    const textarea = document.getElementById('input-depoimento');
+    const charCount = document.getElementById('char-count');
+    const MAX_CHARS = 600;
+
+    textarea.addEventListener('input', () => {
+      const len = textarea.value.length;
+      charCount.textContent = `${len} / ${MAX_CHARS}`;
+      charCount.className = 'char-count' + (len > MAX_CHARS * 0.9 ? (len >= MAX_CHARS ? ' over' : ' warn') : '');
+    });
+
+    /* ── FORM SUBMIT ── */
+    const form = document.getElementById('form-depoimento');
+    const btnPublicar = document.getElementById('btn-publicar');
+    const msgSucesso = document.getElementById('msg-sucesso');
+    const inputNome = document.getElementById('input-nome');
+    const erroNome = document.getElementById('erro-nome');
+    const erroDepoimento = document.getElementById('erro-depoimento');
+
+    function showError(input, errorEl) {
+      input.classList.add('has-error');
+      errorEl.classList.add('visible');
+    }
+    function clearError(input, errorEl) {
+      input.classList.remove('has-error');
+      errorEl.classList.remove('visible');
+    }
+
+    inputNome.addEventListener('input', () => clearError(inputNome, erroNome));
+    textarea.addEventListener('input', () => clearError(textarea, erroDepoimento));
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      let valid = true;
+
+      const nome = inputNome.value.trim();
+      const depoimento = textarea.value.trim();
+
+      clearError(inputNome, erroNome);
+      clearError(textarea, erroDepoimento);
+
+      if (!nome) { showError(inputNome, erroNome); valid = false; }
+      if (depoimento.length < 20) { showError(textarea, erroDepoimento); valid = false; }
+      if (!valid) return;
+
+      btnPublicar.disabled = true;
+      btnPublicar.textContent = 'Publicando...';
+
+      const payload = { action: 'depoimento', nome, depoimento };
+      const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 5000));
+      const request = fetch(ENDPOINT, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      try {
+        await Promise.race([request, timeout]);
+      } catch (_) {
+        // no-cors or timeout — assume success anyway
+      } finally {
+        // Instant DOM insertion at top of list
+        const list = document.getElementById('depoimentos-list');
+        const emptyState = document.getElementById('empty-state');
+        const newCard = buildCard({
+          nome,
+          depoimento,
+          data: new Date().toISOString()
+        });
+        list.insertBefore(newCard, list.firstChild);
+        emptyState.classList.remove('visible');
+
+        // Reset form
+        form.reset();
+        charCount.textContent = '0 / 600';
+        charCount.className = 'char-count';
+
+        // Show success message, hide after 3s
+        msgSucesso.classList.add('visible');
+        setTimeout(() => msgSucesso.classList.remove('visible'), 3000);
+
+        btnPublicar.disabled = false;
+        btnPublicar.textContent = 'Publicar depoimento';
+      }
+    });
+
+    /* ── INIT ── */
+    loadDepoimentos();
+  </script>
+</body>
+</html>
