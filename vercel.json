@@ -10,6 +10,7 @@
     { "source": "/blog/posts/conteudo-bem-escrito-nao-aparece-na-ia", "destination": "/blog/posts/conteudo-bem-escrito-nao-aparece-na-ia.html" },
     { "source": "/pesquisa",   "destination": "/pesquisa/index.html" },
     { "source": "/resultados",  "destination": "/resultados/index.html" },
-    { "source": "/depoimentos", "destination": "/depoimentos/index.html" }
+    { "source": "/depoimentos", "destination": "/depoimentos/index.html" },
+    { "source": "/glossario",   "destination": "/glossario/index.html" }
   ]
 }

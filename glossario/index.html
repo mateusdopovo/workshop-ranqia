@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glossário de Tecnologia · comoinfluenciarrobos.com.br</title>
+  <meta name="description" content="Glossário completo de tecnologia, IA e GEO — definições técnicas e explicações para leigos. Por Ranqia.">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      overflow-x: hidden; max-width: 100%;
+      font-family: -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: #fff; color: #1d1d1f;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* HEADER */
+    .header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 52px; background: #fff;
+      border-bottom: 1px solid #d2d2d7;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px;
+    }
+    .header__brand { font-size: 0.9rem; font-weight: 600; color: #1d1d1f; text-decoration: none; }
+    .header__brand span { color: #6e6e73; font-weight: 400; }
+    .header__nav { display: flex; align-items: center; gap: 24px; }
+    .header__nav a { font-size: 0.875rem; color: #6e6e73; text-decoration: none; }
+    .header__nav a:hover { color: #1d1d1f; }
+    .header__nav a.active { color: #1d1d1f; font-weight: 500; }
+
+    /* LAYOUT */
+    .page { max-width: 900px; margin: 0 auto; padding: 100px 24px 80px; }
+
+    /* OPENING */
+    .gloss-label {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #6e6e73; margin-bottom: 12px;
+    }
+    .gloss-h1 { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 12px; }
+    .gloss-sub { font-size: 1rem; color: #6e6e73; line-height: 1.6; margin-bottom: 24px; }
+    .gloss-legend {
+      display: flex; flex-wrap: wrap; gap: 24px;
+      font-size: 0.85rem; color: #6e6e73; margin-bottom: 0;
+    }
+    .sep { height: 1px; background: #e5e5ea; margin: 32px 0; }
+
+    /* SEARCH */
+    .search-wrap { position: relative; max-width: 560px; margin-bottom: 24px; }
+    .search-wrap svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #aaa; pointer-events: none; }
+    #busca-glossario {
+      width: 100%; height: 48px;
+      border: 1px solid #d2d2d7; border-radius: 8px;
+      padding: 0 16px 0 44px; font-size: 1rem;
+      font-family: inherit; color: #1d1d1f; background: #fff;
+      outline: none; transition: border-color 0.15s;
+    }
+    #busca-glossario:focus { border-color: #1d1d1f; }
+
+    /* FILTERS */
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 0; }
+    .filter-pill {
+      display: inline-block; padding: 6px 16px;
+      border-radius: 980px; border: 1px solid #d2d2d7;
+      font-size: 0.8rem; cursor: pointer;
+      background: #fff; color: #6e6e73;
+      transition: all 0.15s; user-select: none;
+    }
+    .filter-pill:hover { border-color: #1d1d1f; color: #1d1d1f; }
+    .filter-pill.active { background: #1d1d1f; color: #fff; border-color: #1d1d1f; }
+
+    /* NO RESULTS */
+    .no-results { display: none; padding: 32px 0; color: #6e6e73; font-size: 0.95rem; }
+    .no-results.visible { display: block; }
+
+    /* CATEGORY TITLE */
+    .cat-title {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: #6e6e73;
+      padding: 32px 0 12px;
+      border-top: 1px solid #d2d2d7;
+      margin-top: 8px;
+    }
+    .cat-title:first-child { border-top: none; padding-top: 8px; }
+
+    /* ACCORDION */
+    .term {
+      border-bottom: 1px solid #f0f0f0;
+      cursor: pointer;
+    }
+    .term[style*="display: none"] { border-bottom: none; }
+    .term__header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 0; gap: 12px;
+    }
+    .term__header:hover { background: #f9f9f9; margin: 0 -8px; padding: 20px 8px; border-radius: 8px; }
+    .term__left { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
+    .term__emoji { font-size: 1.1rem; flex-shrink: 0; }
+    .term__name { font-size: 1rem; font-weight: 600; color: #1d1d1f; }
+    .term__arrow {
+      font-size: 0.7rem; color: #aaa; flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+    .term.open .term__arrow { transform: rotate(180deg); }
+    .term__body {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.35s ease;
+      padding-left: 36px;
+    }
+    .term.open .term__body { max-height: 800px; }
+    .term__body-inner { padding-bottom: 24px; display: flex; flex-direction: column; gap: 14px; }
+
+    .dim-label {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; color: #6e6e73; margin-bottom: 4px;
+    }
+    .dim-text { font-size: 0.9rem; color: #1d1d1f; line-height: 1.7; }
+
+    @media (max-width: 600px) {
+      .gloss-h1 { font-size: 1.6rem; }
+      .header { padding: 0 16px; }
+      .header__brand { font-size: 0.8rem; }
+      .page { padding: 80px 16px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <a href="/" class="header__brand">Como fazer amigos e influenciar robôs <span></span></a>
+  <nav class="header__nav">
+    <a href="/blog">Blog</a>
+    <a href="/">Workshop</a>
+    <a href="/glossario" class="active">Glossário</a>
+  </nav>
+</header>
+
+<main class="page">
+  <div class="gloss-label">Glossário de Tecnologia</div>
+  <h1 class="gloss-h1">Explicações Técnicas &amp; Para Leigos</h1>
+  <p class="gloss-sub">Cada conceito em três dimensões: definição técnica, analogia para leigos e para que serve. 75 termos organizados por categoria.</p>
+  <div class="gloss-legend">
+    <span>🔬 Técnico</span>
+    <span>💡 Para leigos</span>
+    <span>🎯 Para que serve</span>
+  </div>
+  <div class="sep"></div>
+
+  <div class="search-wrap">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="search" id="busca-glossario" placeholder="Buscar termo... ex: GEO, Token, DNS" autocomplete="off">
+  </div>
+
+  <div class="filters" id="filters">
+    <span class="filter-pill active" data-cat="todos">Todos</span>
+    <span class="filter-pill" data-cat="ia-llms">🧠 IA &amp; LLMs</span>
+    <span class="filter-pill" data-cat="internet-web">🌐 Internet &amp; Web</span>
+    <span class="filter-pill" data-cat="frontend">🖥️ Frontend</span>
+    <span class="filter-pill" data-cat="backend">⚙️ Backend &amp; APIs</span>
+    <span class="filter-pill" data-cat="dados">🗄️ Banco de Dados</span>
+    <span class="filter-pill" data-cat="cloud-devops">☁️ Cloud &amp; DevOps</span>
+    <span class="filter-pill" data-cat="git">📦 Git</span>
+    <span class="filter-pill" data-cat="ferramentas">🛠️ Ferramentas</span>
+    <span class="filter-pill" data-cat="seo-geo">📈 SEO &amp; GEO</span>
+  </div>
+
+  <div class="sep"></div>
+  <div class="no-results" id="no-results">Nenhum termo encontrado.</div>
+
+  <div id="glossario">
+
+    <!-- IA & LLMs -->
+    <div class="cat-title" data-cat="ia-llms">🧠 IA, LLMs e Sistemas Agênticos</div>
+
+    <div class="term" data-categoria="ia-llms" data-texto="llm large language model modelo linguagem transformer token inteligência artificial ia generativa chatgpt claude gemini">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🤖</span><span class="term__name">LLM — Large Language Model</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Modelo de linguagem de grande escala treinado com bilhões de parâmetros em corpus massivos de texto, utilizando arquitetura Transformer com mecanismo de atenção para predição probabilística de tokens.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Um sistema de inteligência artificial que aprendeu a ler e escrever absorvendo bilhões de textos da internet. É como um leitor que consumiu toda a Wikipedia, todos os livros e boa parte da web — e agora consegue conversar sobre qualquer assunto.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Base de praticamente todos os sistemas de IA generativa modernos (ChatGPT, Claude, Gemini). Usado para gerar texto, responder perguntas, resumir documentos, escrever código e muito mais.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="ia-llms" data-texto="agente ia autonomo planejamento ferramentas ações loop percepção raciocínio">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🕵️</span><span class="term__name">Agente de IA</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Sistema autônomo baseado em LLM capaz de planejar, tomar decisões sequenciais e executar ações (chamadas de ferramentas, navegação web, manipulação de arquivos) para atingir um objetivo definido, com loop de percepção-raciocínio-ação.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Um assistente de IA que não apenas responde perguntas, mas também age — pesquisa na web, envia e-mails, preenche formulários e executa tarefas por você. É como ter um estagiário digital que trabalha autonomamente.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Automatizar fluxos de trabalho complexos, realizar pesquisas autônomas, operar sistemas de software sem supervisão constante humana.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="ia-llms" data-texto="mcp model context protocol anthropic ferramentas fontes dados integração plug-and-play">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🔌</span><span class="term__name">MCP — Model Context Protocol</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Protocolo aberto criado pela Anthropic que padroniza a comunicação entre LLMs e ferramentas/fontes de dados externas via interface cliente-servidor, permitindo integração plug-and-play de contexto e capacidades.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Um padrão universal que permite que IAs se conectem a ferramentas externas (como Google Drive, Slack, bancos de dados) da mesma forma que um carregador USB-C funciona com qualquer dispositivo.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Conectar modelos de IA a sistemas externos de forma padronizada — bancos de dados, APIs, arquivos — sem precisar criar integrações customizadas para cada ferramenta.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="ia-llms" data-texto="prompt instrução input texto ia requisição pedido sistema few-shot chain-of-thought">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">✍️</span><span class="term__name">Prompt</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Input textual (ou multimodal) fornecido a um LLM para orientar sua geração. Pode incluir instruções de sistema, contexto, exemplos few-shot, restrições de formato e a tarefa propriamente dita.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">O texto que você digita para pedir algo à IA. Como um pedido bem feito ao garçom: quanto mais claro e detalhado, melhor o resultado que você recebe.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Controlar o comportamento do modelo de IA. A qualidade do prompt determina diretamente a qualidade da resposta.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="ia-llms" data-texto="query fan out sub-queries paralelas rag busca semantica recall cobertura">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🔀</span><span class="term__name">Query Fan Out</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Técnica em que uma query original é decomposta em múltiplas sub-queries paralelas (via LLM ou regras) para ampliar cobertura semântica na recuperação de informação, especialmente em sistemas RAG.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Quando você faz uma pergunta e o sistema automaticamente gera várias versões dela para buscar mais informações — como se uma pergunta gerasse 5 buscas diferentes para cobrir todos os ângulos.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Melhorar recall em sistemas de busca e RAG, garantindo que informações relevantes não sejam perdidas por diferenças de vocabulário.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="ia-llms" data-texto="ai wrapper produto api gpt chatgpt camada ui startup mvp">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🎭</span><span class="term__name">AI Wrapper</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Aplicação construída sobre a API de um LLM base (como GPT ou Claude) adicionando uma camada de UI, lógica de negócio, prompts customizados e integrações, sem treinar o modelo proprietário.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Um produto que usa a IA de outra empresa por baixo dos panos, mas com interface própria e funcionalidades customizadas. Como um app de delivery que usa o mapa do Google, mas tem o próprio visual.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Criar produtos de IA rapidamente sem precisar treinar modelos — ideal para startups e MVPs.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="ia-llms" data-texto="geo generative engine optimization citações visibilidade autoridade ia chatgpt claude gemini perplexity">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🌐</span><span class="term__name">GEO — Generative Engine Optimization</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Conjunto de práticas para otimizar conteúdo digital a fim de maximizar citações, visibilidade e autoridade em respostas geradas por motores de IA (ChatGPT, Claude, Gemini, Perplexity), usando métricas como Visibility Score e Semantic Drift.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Se o SEO é aparecer no Google, o GEO é aparecer quando alguém pergunta algo a uma IA. É a nova fronteira de marketing digital — otimizar para que a IA mencione sua marca ou produto nas respostas.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Garantir que marcas, produtos e conteúdos sejam citados e recomendados por sistemas de IA generativa, criando nova fonte de tráfego e autoridade.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="ia-llms" data-texto="aeo answer engine optimization featured snippets voice search google ai overviews schema markup">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">💬</span><span class="term__name">AEO — Answer Engine Optimization</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Otimização de conteúdo para motores de resposta direta (featured snippets, People Also Ask, voice search, AI Overviews), focando em estrutura semântica, marcação de schema e resposta direta a intenções de query.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Fazer com que seu site seja a fonte da resposta rápida que aparece antes dos resultados normais do Google. Como se tornar o especialista que a IA cita quando alguém faz uma pergunta direta.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Capturar posição zero e featured snippets no Google, além de ser fonte preferencial para assistentes de voz como Alexa e Google Assistant.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="ia-llms" data-texto="claude code desenvolvimento autônomo código git commits engenharia software anthropic">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">💻</span><span class="term__name">Claude Code</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Ambiente de desenvolvimento autônomo da Anthropic baseado no modelo Claude, capaz de ler, escrever e executar código, navegar sistemas de arquivos, fazer commits em Git e executar tarefas de engenharia de software de forma agêntica.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Um programador de IA que não apenas escreve código, mas também o executa, corrige erros e entrega resultados prontos — como ter um desenvolvedor sênior disponível 24h.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Automatizar tarefas de desenvolvimento de software, realizar code review, criar e refatorar código, gerenciar repositórios e acelerar ciclos de desenvolvimento.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="ia-llms" data-texto="embeddings vetores semântica dimensões similaridade representação busca recomendação rag">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🧩</span><span class="term__name">Embeddings</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Representações vetoriais densas de alta dimensão (tipicamente 768 a 3072 dimensões) que codificam o significado semântico de textos, imagens ou outros dados em espaços geométricos onde proximidade reflete similaridade.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Uma forma de transformar palavras e textos em números de modo que coisas com significados parecidos ficam 'próximas' nesses números. É como criar um mapa onde 'cachorro' e 'gato' ficam perto um do outro por serem animais de estimação.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Base da busca semântica, sistemas de recomendação, RAG e qualquer aplicação que precise entender similaridade de significado entre conteúdos.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="ia-llms" data-texto="rag retrieval augmented generation busca vetorial documentos conhecimento atualizado alucinação">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🗃️</span><span class="term__name">RAG — Retrieval-Augmented Generation</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Arquitetura que combina recuperação de documentos relevantes (via busca vetorial ou BM25) com geração de texto por LLM, permitindo que o modelo acesse conhecimento atualizado e específico sem necessidade de re-treinamento.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Antes de responder, a IA primeiro pesquisa em uma base de dados específica (como os documentos da sua empresa) e usa essas informações para dar uma resposta precisa. Como dar ao assistente acesso à biblioteca antes de ele responder.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Criar chatbots corporativos que respondem com base em documentos internos, reduzir alucinações e manter conhecimento atualizado sem re-treinar o modelo.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="ia-llms" data-texto="prompt engineering chain-of-thought few-shot role-playing structured outputs técnica qualidade">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🎯</span><span class="term__name">Prompt Engineering</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Disciplina de elaboração sistemática de prompts para extrair outputs específicos de LLMs, utilizando técnicas como chain-of-thought, few-shot examples, role-playing, structured outputs e decomposição de tarefas.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">A arte de saber fazer as perguntas certas para a IA. Assim como um bom briefing melhora o trabalho de um funcionário, um bom prompt melhora drasticamente a resposta da IA.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Maximizar a qualidade, precisão e utilidade das respostas de modelos de IA sem necessidade de treinamento adicional.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="ia-llms" data-texto="hallucination alucinação informação incorreta fabricada inventada confiança erro llm">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🌀</span><span class="term__name">Hallucination (Alucinação)</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Fenômeno em LLMs onde o modelo gera informações factualmente incorretas, referências inexistentes ou dados fabricados com alta confiança, resultado de padrões estatísticos sem ancoragem factual.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Quando a IA 'inventa' informações com cara de verdade. Ela pode citar um artigo científico que nunca existiu ou dar um número errado com total convicção — como um funcionário que prefere inventar do que dizer que não sabe.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Entender esse risco é fundamental para usar IA com responsabilidade. Sempre valide informações críticas que vieram de LLMs.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="ia-llms" data-texto="token unidade processamento llm caractere cobrança api limite custo">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">📏</span><span class="term__name">Token</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Unidade básica de processamento em LLMs — fragmento de texto (aproximadamente 4 caracteres em inglês, 3 em português) resultante da tokenização. LLMs processam e geram texto token a token, e cobranças de API são baseadas em tokens.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">A 'moeda' das IAs. Cada palavra (ou parte dela) é um token. Quando você usa ChatGPT ou Claude, está 'gastando' tokens — por isso há limites e cobranças baseados nessa unidade.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Entender custos de API, limitações de contexto e como otimizar o uso de modelos de linguagem.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="ia-llms" data-texto="context window janela contexto memória tokens input output limite documento conversa">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">📦</span><span class="term__name">Context Window</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Quantidade máxima de tokens (input + output) que um LLM pode processar em uma única chamada. Determina o quanto de texto, histórico de conversa e documentos podem ser incluídos no prompt.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">A 'memória de trabalho' da IA — a quantidade de texto que ela consegue ler e lembrar em uma conversa. Modelos mais modernos têm janelas maiores, como passar de um Post-it para um caderno.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Define o tamanho dos documentos e conversas que podem ser processados. Modelos com maior context window podem analisar livros inteiros ou bases de código completas.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="ia-llms" data-texto="manus ai agente geral autonomo monica china pesquisa web arquivos tarefas complexas">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🤯</span><span class="term__name">Manus AI</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Agente de IA geral da empresa chinesa Monica, capaz de executar tarefas complexas e multistep de forma autônoma, incluindo pesquisa na web, manipulação de arquivos, execução de código e interação com sistemas externos.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Um agente de IA que funciona como um assistente pessoal completo — você dá uma tarefa complexa e ele pesquisa, processa, escreve e entrega o resultado sem precisar de ajuda a cada passo.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Automatizar fluxos de trabalho complexos que envolvem múltiplos sistemas e etapas, como pesquisa de mercado completa ou preparação de relatórios analíticos.</div></div>
+      </div></div>
+    </div>
+
+    <!-- INTERNET & WEB -->
+    <div class="cat-title" data-cat="internet-web">🌐 Internet &amp; Web Fundamentals</div>
+
+    <div class="term" data-categoria="internet-web" data-texto="dns domain name system resolução nomes ip hostname endereço registros a cname mx">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🗺️</span><span class="term__name">DNS — Domain Name System</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Sistema hierárquico de resolução de nomes que traduz hostnames legíveis (ex: google.com) em endereços IP usando registros A, CNAME, MX, TXT distribuídos em servidores autoritativos.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">A lista telefônica da internet. Quando você digita 'google.com', o DNS é responsável por descobrir o endereço IP real desse servidor, como consultar um catálogo para achar o número de um contato.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Permitir navegação por nomes fáceis de lembrar em vez de endereços numéricos, e configurar onde e-mails e outros serviços do seu domínio são redirecionados.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="internet-web" data-texto="domínio nome endereço internet tld sld registro icann ranqia .com .br .ai">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🌍</span><span class="term__name">Domínio</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Nome único registrado no sistema DNS que identifica um recurso na internet. Composto por TLD (.com, .ai, .br) e SLD (ranqia). Registrado por períodos anuais via registradores acreditados pela ICANN.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">O endereço da sua 'casa' na internet. Assim como uma empresa tem um endereço físico, ranqia.ai é o endereço digital. Você aluga esse nome por ano e ele te identifica na web.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Identificar sua presença online com um endereço memorável, criar credibilidade e definir onde seu e-mail e site estão localizados.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="internet-web" data-texto="hospedagem hosting servidor arquivos banco dados aplicação web infraestrutura">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🏠</span><span class="term__name">Hospedagem (Hosting)</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Serviço de infraestrutura que disponibiliza servidores físicos ou virtuais para armazenar arquivos, bancos de dados e executar aplicações web, tornando-os acessíveis via internet 24/7.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Se o domínio é o endereço, a hospedagem é o terreno onde sua casa foi construída. É o espaço físico (no servidor de outra empresa) onde os arquivos do seu site ficam guardados e acessíveis.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Publicar e manter um site, aplicação ou sistema acessível na internet sem precisar manter sua própria infraestrutura física.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="internet-web" data-texto="url uniform resource locator endereço protocolo path parâmetros query fragmento https">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🔗</span><span class="term__name">URL — Uniform Resource Locator</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Endereço completo de um recurso na web, composto por protocolo (https://), domínio, path, parâmetros de query e fragmento. Definido pelo RFC 3986.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">O endereço completo de qualquer coisa na internet — como o CEP detalhado de uma casa. É tudo aquilo que aparece na barra de endereço do seu navegador.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Identificar e acessar qualquer recurso específico na web, seja uma página, imagem, arquivo ou endpoint de API.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="internet-web" data-texto="url slug amigável lowercase hífens seo legível path post endereço">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🔤</span><span class="term__name">URL Slug</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Parte final legível da URL que identifica um recurso específico, formatada em lowercase com hífens separando palavras. Gerado removendo caracteres especiais, acentos e espaços.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">A parte 'amigável' no final da URL que descreve o conteúdo. Em vez de '/post?id=4521', fica '/o-que-e-inteligencia-artificial' — muito mais fácil de entender e lembrar.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Melhorar SEO, tornar URLs legíveis e memorizáveis, e transmitir o conteúdo da página para motores de busca e usuários.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="internet-web" data-texto="ip internet protocol endereço numerico ipv4 ipv6 dispositivo rede dhcp">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🔢</span><span class="term__name">IP — Internet Protocol Address</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Endereço numérico único que identifica dispositivos em redes IP. IPv4 usa 32 bits (ex: 192.168.1.1), IPv6 usa 128 bits. Pode ser estático ou dinâmico (atribuído pelo DHCP).</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">O 'CPF' de cada computador ou servidor na internet — um número único que identifica cada dispositivo. Quando você acessa um site, na verdade está acessando um IP; o DNS só traduz o nome para esse número.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Identificar e rotear comunicações entre dispositivos na rede. Cada servidor, computador e smartphone tem um endereço IP.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="internet-web" data-texto="https http seguro tls ssl criptografia cadeado certificado senha dados">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🔒</span><span class="term__name">HTTPS — HyperText Transfer Protocol Secure</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Versão segura do HTTP que utiliza TLS/SSL para criptografar a comunicação entre cliente e servidor, garantindo confidencialidade, integridade dos dados e autenticação via certificados digitais X.509.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">O cadeado verde na barra do navegador. Garante que a comunicação entre você e o site é criptografada — como conversar em um envelope lacrado em vez de num cartão postal que qualquer um pode ler.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Proteger dados transmitidos (senhas, cartões, informações pessoais), ganhar confiança dos usuários e ser melhor ranqueado pelo Google.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="internet-web" data-texto="ssl tls criptografia certificado handshake protocolo segurança tunnel">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🛡️</span><span class="term__name">SSL / TLS</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Protocolo criptográfico (atualmente TLS 1.3 como sucessor do SSL) que estabelece canal seguro via handshake com certificados X.509, acordando algoritmos de cifra simétrica para comunicação confidencial.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">O sistema de criptografia por trás do HTTPS. É o mecanismo que cria um 'túnel secreto' entre seu navegador e o servidor, tornando impossível para terceiros lerem seus dados.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Criptografar comunicações web, ser obrigatório para e-commerce e áreas de login, e melhorar o posicionamento nos mecanismos de busca.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="internet-web" data-texto="registro.br domínio brasileiro .com.br .org.br nic cgibr cartório">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🌐</span><span class="term__name">Registro.br</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Organização responsável pelas atividades de registro de domínios .br no Brasil, sob coordenação do NIC.br. Gerencia o ccTLD .com.br, .org.br, .net.br, entre outros.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">O 'cartório' dos domínios brasileiros. É onde você registra endereços que terminam em .com.br, .org.br etc. É a autoridade que garante que ninguém mais pode usar o mesmo nome que você registrou.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Registrar e gerenciar domínios brasileiros (.com.br, .net.br, .org.br), essencial para empresas que operam no Brasil.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="internet-web" data-texto="godaddy registrador domínios hospedagem ssl vps americano">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🏢</span><span class="term__name">GoDaddy</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Registrador de domínios e provedor de hospedagem web americano, um dos maiores do mundo. Oferece registro de domínios, hospedagem compartilhada, VPS, certificados SSL e construtores de sites.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Uma das maiores lojas de domínios e hospedagem do mundo — como um shopping center onde você pode comprar seu endereço digital e contratar o espaço para seu site.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Registrar domínios internacionais (.com, .ai, .io etc.) e contratar serviços de hospedagem, e-mail corporativo e certificados SSL.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="internet-web" data-texto="cache memória temporária armazenamento latência performance navegador ram">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">💾</span><span class="term__name">Cache</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Mecanismo de armazenamento temporário de dados computados ou requisitados previamente (HTML, imagens, respostas de API) em memória rápida para reduzir latência e carga em sistemas de origem.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Memória de atalho do seu dispositivo ou servidor. Quando você acessa um site pela segunda vez, ele carrega mais rápido porque o navegador guardou uma cópia local — como deixar os ingredientes mais usados sempre na bancada da cozinha.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Acelerar sites e aplicações, reduzir custos de infraestrutura e melhorar experiência do usuário com menor tempo de carregamento.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="internet-web" data-texto="cookies sessão autenticação rastreamento analytics anúncios navegador preferências">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🍪</span><span class="term__name">Cookies</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Pequenos arquivos de texto armazenados pelo navegador no dispositivo do usuário, enviados em cada requisição HTTP ao servidor. Usados para gestão de sessão, autenticação, preferências e rastreamento analítico.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Bilhetinhos que o site deixa no seu navegador para 'lembrar' de você. Por isso o site sabe que você está logado quando volta, lembra seu carrinho de compras ou mostra anúncios do produto que você pesquisou.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Manter sessões de login, personalizar experiências, rastrear comportamento para analytics e publicidade direcionada.</div></div>
+      </div></div>
+    </div>
+
+    <!-- FRONTEND -->
+    <div class="cat-title" data-cat="frontend">🖥️ Web / Frontend</div>
+
+    <div class="term" data-categoria="frontend" data-texto="html html5 marcação estrutura web semântico article section nav canvas áudio vídeo">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🏗️</span><span class="term__name">HTML / HTML5</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">HyperText Markup Language — linguagem de marcação padrão para estruturação de conteúdo web. HTML5 introduziu elementos semânticos (article, section, nav), APIs nativas (Canvas, WebStorage) e suporte nativo a áudio/vídeo.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">O 'esqueleto' de qualquer página web. HTML diz ao navegador o que existe na página — títulos, parágrafos, imagens, botões. É como a planta de uma casa: define a estrutura, não a decoração.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Criar a estrutura de qualquer página ou aplicação web. Todo site do mundo começa com HTML — é a fundação da web.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="frontend" data-texto="css cascading style sheets estilo layout flexbox grid animação responsivo media queries">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🎨</span><span class="term__name">CSS — Cascading Style Sheets</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Linguagem de estilo que controla apresentação visual de documentos HTML/XML via seletores, propriedades e valores. Suporta layouts (Flexbox, Grid), animações, media queries para responsividade e custom properties.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">A 'decoração' do site. Se HTML é o esqueleto, CSS é a roupa — define cores, fontes, espaçamentos, animações e como a página fica em diferentes tamanhos de tela.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Controlar a aparência visual de sites e aplicações, criar layouts responsivos e adicionar animações e interações visuais.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="frontend" data-texto="javascript js dom api fetch interatividade animação formulário node navegador">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">⚡</span><span class="term__name">JavaScript</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Linguagem de programação interpretada, dinâmica e de tipagem fraca, nativa dos navegadores. Permite manipulação do DOM, comunicação assíncrona (fetch/XHR), e hoje roda também no servidor via Node.js.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">A 'inteligência' do site — faz as coisas acontecerem quando você clica em botões, preenche formulários ou vê animações. Sem JavaScript, sites seriam páginas estáticas sem interatividade nenhuma.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Criar interatividade em sites, fazer requisições a APIs, validar formulários, construir aplicações completas no navegador e criar servidores via Node.js.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="frontend" data-texto="ide ambiente desenvolvimento vscode intellij pycharm editor código autocomplete debug">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">⚙️</span><span class="term__name">IDE — Ambiente de Desenvolvimento Integrado</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Software que combina editor de código com ferramentas de desenvolvimento: syntax highlighting, autocompletion (IntelliSense), debugger integrado, controle de versão e terminal. Exemplos: VSCode, IntelliJ, PyCharm.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">O programa que os programadores usam para escrever código — como um Word turbinado para código, com destaque colorido, correção de erros em tempo real e integração com todas as ferramentas necessárias.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Aumentar a produtividade de desenvolvimento, reduzir erros e centralizar todas as ferramentas necessárias em um único ambiente.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="frontend" data-texto="cursor vscode visual studio code editor ia copiloto extensão microsoft open-source">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🖥️</span><span class="term__name">Cursor / VSCode</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">VSCode é o editor de código open-source da Microsoft com ecossistema de 40.000+ extensões. Cursor é um fork do VSCode com IA integrada nativamente (completions, chat, edição agêntica) usando Claude e GPT-4.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">VSCode é o editor de código mais popular do mundo — gratuito e extensível. O Cursor é uma versão com IA integrada que escreve código junto com você enquanto você digita, como um copiloto inteligente.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Desenvolvimento de software com produtividade máxima. O Cursor especificamente acelera drasticamente a escrita de código com sugestões e geração de IA em tempo real.</div></div>
+      </div></div>
+    </div>
+
+    <!-- BACKEND -->
+    <div class="cat-title" data-cat="backend">⚙️ Backend, Linguagens &amp; APIs</div>
+
+    <div class="term" data-categoria="backend" data-texto="python linguagem programação machine learning ia data science automação scripting pandas numpy">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🐍</span><span class="term__name">Python</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Linguagem de programação interpretada, de alto nível e tipagem dinâmica. Sintaxe minimalista e legível, ecossistema rico (NumPy, Pandas, TensorFlow, FastAPI). Dominante em ciência de dados, ML/AI, automação e scripting.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Uma linguagem de programação famosa por ser fácil de aprender e muito poderosa. É a linguagem preferida de cientistas de dados e desenvolvedores de IA — como o inglês do mundo da programação: todo mundo entende e usa.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Desenvolver soluções de IA/ML, automatizar tarefas, analisar dados, criar scripts e construir aplicações back-end e APIs.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="backend" data-texto="php linguagem server-side wordpress laravel servidor html dinâmico banco dados">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🐘</span><span class="term__name">PHP</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Linguagem de scripting server-side interpretada, projetada para desenvolvimento web. Base do WordPress, Laravel e grande parte da web tradicional. Executa no servidor, gera HTML dinâmico e acessa bancos de dados.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Uma linguagem de programação que roda no servidor e gera páginas web dinamicamente. É o motor por trás do WordPress e de boa parte dos sites que existem.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Desenvolver sites e aplicações web dinâmicas, especialmente em WordPress, Drupal e sistemas de gerenciamento de conteúdo tradicionais.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="backend" data-texto="java linguagem orientada objetos jvm android enterprise robusta corporativa">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">☕</span><span class="term__name">Java</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Linguagem orientada a objetos compilada para bytecode executado na JVM (Java Virtual Machine), oferecendo portabilidade cross-platform. Base de sistemas enterprise, Android e grandes aplicações corporativas.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Uma linguagem de programação muito robusta e usada em sistemas grandes — bancos, governos, apps Android. É famosa pelo slogan 'write once, run anywhere' — você escreve o código uma vez e roda em qualquer computador.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Desenvolver aplicações corporativas de grande escala, sistemas Android, back-ends robustos e aplicações que precisam de alta confiabilidade.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="backend" data-texto="node nodejs javascript servidor v8 npm assíncrono api back-end runtime">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🟢</span><span class="term__name">Node.js</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Runtime de JavaScript no servidor baseado no motor V8 do Chrome, com modelo de I/O assíncrono e orientado a eventos. Permite usar JS tanto no front quanto no back-end. NPM é seu gerenciador de pacotes com mais de 2 milhões de módulos.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Permite usar JavaScript (a linguagem dos navegadores) também no servidor. É como se um ator que só trabalhava no teatro passasse a trabalhar também no cinema — mesma 'habilidade', ambientes diferentes.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Criar APIs, back-ends, ferramentas de linha de comando e aplicações em tempo real usando JavaScript no lado do servidor.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="backend" data-texto="webhook callback http post evento notificação automático integração stripe github">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🔄</span><span class="term__name">Webhook</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Mecanismo de callback HTTP onde um sistema notifica outro automaticamente quando um evento ocorre, enviando um POST request para uma URL pré-configurada — inverso do polling, onde o receptor não precisa consultar periodicamente.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Um 'aviso automático' entre sistemas. Em vez de ficar perguntando 'tem novidade?' a cada segundo, você configura o sistema para te avisar quando algo acontece — como receber uma notificação no celular em vez de ficar verificando o app.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Integrar sistemas em tempo real — notificar automaticamente seu sistema quando um pagamento é aprovado no Stripe ou quando alguém abre um PR no GitHub.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="backend" data-texto="json javascript object notation dados formato api configuração serialização">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">📋</span><span class="term__name">JSON — JavaScript Object Notation</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Formato leve de intercâmbio de dados baseado em subconjunto do JavaScript. Suporta strings, números, booleanos, null, arrays e objetos aninhados. Padrão universal de APIs REST, configurações e comunicação entre sistemas.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Uma forma padronizada de organizar informações para que diferentes sistemas consigam se entender. É como um formulário com campos bem definidos que qualquer programa consegue ler — a 'língua franca' das APIs modernas.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Troca de dados entre sistemas, configuração de aplicações, resposta de APIs, armazenamento de dados semi-estruturados.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="backend" data-texto="rest api restful http get post put delete stateless recursos url integração">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">📡</span><span class="term__name">REST API</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Estilo arquitetural para APIs web baseado em princípios REST: stateless, cliente-servidor, recursos identificados por URLs, operações via métodos HTTP (GET, POST, PUT, DELETE) e respostas em JSON/XML.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Uma forma padronizada de sistemas 'conversarem' entre si pela internet. Quando um app de delivery mostra o cardápio do restaurante, ele está usando uma API REST para buscar esses dados.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Criar interfaces de comunicação entre aplicações — mobile apps, front-ends e integrações entre sistemas usam APIs REST para trocar dados.</div></div>
+      </div></div>
+    </div>
+
+    <!-- DADOS -->
+    <div class="cat-title" data-cat="dados">🗄️ Banco de Dados &amp; Dados</div>
+
+    <div class="term" data-categoria="dados" data-texto="sql structured query language banco dados relacional select insert update delete postgresql mysql">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🔍</span><span class="term__name">SQL — Structured Query Language</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Linguagem declarativa padrão para consulta e manipulação de bancos de dados relacionais. Comandos DML (SELECT, INSERT, UPDATE, DELETE), DDL (CREATE, ALTER) e DCL (GRANT, REVOKE). Base de PostgreSQL, MySQL, SQLite.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">A linguagem para 'conversar' com bancos de dados. Com SQL você faz perguntas como 'me mostre todos os clientes que compraram mais de R$1000 em 2024' e o banco responde com os dados organizados.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Consultar, inserir, atualizar e deletar dados em bancos relacionais — habilidade essencial para qualquer pessoa que trabalha com dados.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="dados" data-texto="databricks apache spark delta lake mlflow dados machine learning nuvem colaboração notebooks">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">📊</span><span class="term__name">Databricks</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Plataforma de data + AI unificada construída sobre Apache Spark, oferecendo notebooks colaborativos, Delta Lake para armazenamento transacional, MLflow para MLOps e Unity Catalog para governança de dados.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Uma plataforma que junta ciência de dados, engenharia de dados e IA em um único lugar na nuvem. É como um laboratório científico digital onde times inteiros colaboram para analisar grandes volumes de dados.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Processar grandes volumes de dados, treinar modelos de ML, fazer análises complexas e construir pipelines de dados em escala empresarial.</div></div>
+      </div></div>
+    </div>
+
+    <!-- CLOUD & DEVOPS -->
+    <div class="cat-title" data-cat="cloud-devops">☁️ Cloud, DevOps &amp; Infraestrutura</div>
+
+    <div class="term" data-categoria="cloud-devops" data-texto="vercel deploy hosting frontend jamstack edge cdn next.js serverless preview">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🚀</span><span class="term__name">Vercel</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Plataforma de deploy e hosting especializada em front-end e Jamstack, com edge network global, preview deployments por branch, integração nativa com Git e suporte a Serverless/Edge Functions. Criadores do Next.js.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Um serviço que pega seu código e coloca no ar automaticamente, em segundos, em servidores espalhados pelo mundo. Cada vez que você salva código no GitHub, o site já atualiza sozinho.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Fazer deploy rápido de sites e aplicações front-end, com CDN global, previews automáticas por branch e integração simples com Git.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="cloud-devops" data-texto="netlify deploy hosting jamstack cdn serverless static sites hugo gatsby">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🌿</span><span class="term__name">Netlify</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Plataforma de deployment e hosting para aplicações Jamstack com CI/CD integrado, CDN global, Functions serverless, Identity management, Form handling e deploy previews automáticos por pull request.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Semelhante ao Vercel — um serviço que hospeda e publica sites automaticamente. É muito popular para sites estáticos e blogs criados com geradores de sites estáticos como Hugo ou Gatsby.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Hospedar e fazer deploy de sites estáticos e Jamstack com infraestrutura global, ideal para landing pages, blogs e documentações.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="cloud-devops" data-texto="docker containerização imagem container dependências ambiente isolado portável">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🐳</span><span class="term__name">Docker</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Plataforma de containerização que empacota aplicações e suas dependências em containers isolados usando namespaces e cgroups do Linux. Garante que o software funcione identicamente em qualquer ambiente via imagens imutáveis.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Um sistema que coloca seu programa dentro de uma 'caixinha' com tudo que ele precisa para funcionar. Assim funciona igual em qualquer computador, sem o famoso 'funciona na minha máquina'.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Garantir consistência entre ambientes de desenvolvimento, teste e produção, facilitar deploys e permitir escalabilidade de aplicações.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="cloud-devops" data-texto="container caixinha software portável isolado kubernetes navio padrão kubernetes pod">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">📦</span><span class="term__name">Container</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Unidade de software que empacota código e todas as dependências em um ambiente isolado e portável. Mais leve que VMs por compartilhar o kernel do sistema operacional host, gerenciado via Docker, Podman ou containerd.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Uma caixinha padronizada onde vive um programa com tudo que precisa. Assim como containers de navio têm tamanho padrão e podem ser empilhados em qualquer navio do mundo, containers de software funcionam em qualquer servidor.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Empacotar e distribuir aplicações de forma portável e consistente, base da infraestrutura moderna em nuvem.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="cloud-devops" data-texto="devops desenvolvimento operações cultura automação cicd pipeline entrega rápida">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🔧</span><span class="term__name">DevOps</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Cultura e conjunto de práticas que une desenvolvimento (Dev) e operações (Ops) para acelerar o ciclo de entrega de software através de automação, CI/CD, monitoramento contínuo e colaboração entre times.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Uma filosofia de trabalho onde quem cria o software e quem cuida dos servidores trabalham juntos e de forma automatizada. O objetivo é colocar novas funcionalidades no ar rapidamente e com segurança.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Acelerar o desenvolvimento e entrega de software, reduzir erros em produção e criar cultura de melhoria contínua em times de tecnologia.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="cloud-devops" data-texto="deploy publicação produção servidor lançamento estreia build artifacts">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🚢</span><span class="term__name">Deploy</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Processo de disponibilizar uma nova versão de software em ambiente de produção (ou staging), envolvendo build, testes automatizados, transferência de artefatos para servidores e inicialização do serviço.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">O momento em que um programa sai do computador do desenvolvedor e vai para o servidor — ficando disponível para usuários reais. É como 'estrear' uma peça de teatro: todo o trabalho de bastidor culmina nesse momento.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Disponibilizar novas funcionalidades e correções para usuários finais. Um bom processo de deploy é rápido, seguro e automatizado.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="cloud-devops" data-texto="pipeline cicd continuous integration delivery build test lint security automação esteira">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🌊</span><span class="term__name">Pipeline (CI/CD)</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Sequência automatizada de etapas (build → test → lint → security scan → deploy) acionada por eventos como push de código. CI valida código continuamente; CD automatiza a entrega.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Uma esteira automática de controle de qualidade para código. Cada vez que um programador envia código novo, o pipeline testa tudo automaticamente e, se aprovado, coloca no ar sem intervenção manual.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Automatizar o processo de teste e entrega de software, reduzindo erros humanos e acelerando o ciclo de desenvolvimento.</div></div>
+      </div></div>
+    </div>
+
+    <!-- GIT -->
+    <div class="cat-title" data-cat="git">📦 Git &amp; Versionamento</div>
+
+    <div class="term" data-categoria="git" data-texto="git controle versão commits branches merge histórico linus torvalds repositório">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🌿</span><span class="term__name">Git</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Sistema de controle de versão distribuído criado por Linus Torvalds. Registra snapshots (commits) do projeto, suporta branching/merging não-linear, e cada clone é um repositório completo com histórico total.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Um sistema de 'controle de histórico' para código. Como o Ctrl+Z do Word, mas muito mais poderoso — você pode voltar para qualquer versão do seu projeto em qualquer momento, e toda a equipe trabalha no mesmo código sem se atrapalhar.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Rastrear mudanças no código, colaborar em equipe, reverter bugs e manter histórico completo do desenvolvimento de software.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="git" data-texto="github repositório git hospedagem pull request issues actions copilot pages colaboração">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🐙</span><span class="term__name">GitHub</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Plataforma de hospedagem de repositórios Git com features de colaboração: Pull Requests, Issues, Actions (CI/CD), Projects, Copilot (IA), Pages (hosting) e marketplace de integrações.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">O 'Google Drive' para código — onde programadores guardam, compartilham e colaboram em projetos. É também uma rede social de desenvolvedores onde empresas mostram seus projetos open-source.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Hospedar código-fonte, colaborar em projetos, gerenciar issues e Pull Requests, automatizar deploys via GitHub Actions.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="git" data-texto="commit snapshot histórico hash sha mensagem mudança ponto salvamento">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">💾</span><span class="term__name">Commit</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Snapshot imutável do estado do repositório em um momento específico, identificado por hash SHA-1/SHA-256. Contém diff das mudanças, metadados (autor, timestamp) e referência ao commit pai.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Um 'ponto de salvamento' no histórico do código. Como salvar o jogo em um videogame — você cria um ponto de restauração com uma mensagem descrevendo o que mudou. Se algo der errado, pode voltar a qualquer save.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Registrar marcos no desenvolvimento, documentar mudanças com mensagens claras e permitir rastreabilidade e reversão de código.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="git" data-texto="pr pull request code review branch merge aprovação revisão feature">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🔀</span><span class="term__name">PR — Pull Request</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Mecanismo de code review que propõe mesclar uma branch de feature na branch principal. Permite discussão inline no código, aprovações, CI checks automáticos e histórico de decisões de desenvolvimento.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Um 'pedido formal de revisão' que um programador faz quando termina uma funcionalidade e quer integrá-la ao código principal. O time revisa, comenta e aprova antes de publicar.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Garantir qualidade de código através de revisão por pares, manter histórico de decisões técnicas e integrar mudanças de forma controlada.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="git" data-texto="repositório pasta projeto arquivos histórico commits branches local remoto github">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">📖</span><span class="term__name">Repositório</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Estrutura de armazenamento Git que contém todos os arquivos do projeto, histórico completo de commits, branches, tags e metadados. Pode ser local (na máquina) ou remoto (GitHub, GitLab, Bitbucket).</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">A 'pasta do projeto' no Git — mas muito mais do que uma pasta normal. Ela guarda não só os arquivos atuais, mas todo o histórico de mudanças de todos os programadores que já contribuíram.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Centralizar e versionar o código de um projeto, servindo como fonte de verdade única para toda a equipe de desenvolvimento.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="git" data-texto="user story usuário funcionalidade ágil scrum critérios aceitação como quero para">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">📋</span><span class="term__name">User Story</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Descrição de funcionalidade do ponto de vista do usuário final, seguindo o formato: 'Como [tipo de usuário], quero [ação] para [benefício]'. Unidade de trabalho ágil com critérios de aceitação mensuráveis.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Uma forma de descrever funcionalidades de software do ponto de vista de quem vai usar. Em vez de 'criar botão de login', você escreve 'Como cliente, quero fazer login com meu e-mail para acessar minhas compras'.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Definir requisitos de software centrados no usuário, facilitar estimativas e priorização em metodologias ágeis como Scrum.</div></div>
+      </div></div>
+    </div>
+
+    <!-- FERRAMENTAS -->
+    <div class="cat-title" data-cat="ferramentas">🛠️ Ferramentas &amp; Plataformas</div>
+
+    <div class="term" data-categoria="ferramentas" data-texto="terminal command line cli bash zsh powershell comandos shell scripts sistema operacional">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">💻</span><span class="term__name">Terminal / Command Line</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Interface de linha de comando (CLI) que aceita comandos textuais para interagir com o sistema operacional, executar scripts, gerenciar processos, arquivos e redes. No macOS/Linux: bash/zsh. No Windows: PowerShell/CMD.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">A tela preta onde programadores digitam comandos para controlar o computador. Em vez de clicar em ícones, você escreve instruções direto. É mais rápido e poderoso que a interface gráfica para muitas tarefas.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Executar comandos de sistema, rodar scripts, gerenciar servidores, instalar pacotes e automatizar tarefas repetitivas.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="ferramentas" data-texto="linux sistema operacional open source ubuntu debian servidor kernel linus torvalds">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🐧</span><span class="term__name">Linux</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Sistema operacional open-source baseado no kernel Linux. Dominante em servidores, nuvem, containers e dispositivos embarcados. Distribuições populares: Ubuntu, Debian, CentOS, Alpine.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Um sistema operacional gratuito e de código aberto. É o sistema preferido de servidores e desenvolvedores por ser estável, seguro e customizável — roda em praticamente todos os servidores da internet.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Hospedagem de servidores, desenvolvimento de software, container base para Docker, e sistema operacional preferido para infraestrutura de nuvem.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="ferramentas" data-texto="wordpress cms php mysql site blog plugins temas popular conteúdo gerenciamento">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">📝</span><span class="term__name">WordPress</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">CMS (Content Management System) open-source baseado em PHP e MySQL, responsável por cerca de 43% dos sites da web. Extensível via plugins (60.000+) e temas. Versão .com é SaaS; .org é self-hosted.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">A ferramenta mais popular do mundo para criar sites sem precisar saber programar. É como um construtor de casas já montado — você personaliza com 'plugins' e 'temas' sem tocar em código.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Criar e gerenciar sites, blogs e e-commerces sem necessidade de programação, com enorme ecossistema de plugins e temas disponíveis.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="ferramentas" data-texto="lovable no-code ia app react typescript prompt geração código democratiza desenvolvimento">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">💖</span><span class="term__name">Lovable</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Plataforma de desenvolvimento no-code/AI-powered que gera aplicações web completas a partir de prompts em linguagem natural, produzindo código React/TypeScript funcional e deployável diretamente.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Uma plataforma onde você descreve em português o app que quer criar e ela constrói automaticamente. 'Crie um app de lista de tarefas com login' — e o código aparece pronto. Democratiza o desenvolvimento de software.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Criar aplicações web funcionais sem saber programar, prototipagem rápida e desenvolvimento de MVPs com mínimo investimento técnico.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="ferramentas" data-texto="n8n automação workflow zapier open-source self-hosted integração apis visual blocos">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🔗</span><span class="term__name">N8N</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Plataforma open-source de automação e integração de workflows, similar ao Zapier mas self-hosted. Conecta 300+ serviços via nós visuais, suporta JavaScript customizado e pode executar agentes de IA.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Um sistema de automação visual onde você conecta diferentes aplicativos sem código. 'Quando receber um e-mail com PDF, extraia o texto e poste no Slack' — tudo configurado arrastando blocos visuais.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Automatizar fluxos de trabalho entre diferentes sistemas e APIs, criar pipelines de dados e integrar ferramentas sem precisar de código customizado.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="ferramentas" data-texto="wiki enciclopédia colaborativa documentação wikipedia conhecimento edição páginas">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">📚</span><span class="term__name">Wiki</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Sistema colaborativo de criação e edição de documentos web, onde múltiplos usuários podem criar, editar e organizar conteúdo via interface simplificada. O modelo foi popularizado pela Wikipedia.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Uma enciclopédia colaborativa — qualquer pessoa pode criar e editar páginas. A Wikipedia é o exemplo mais famoso. Empresas usam wikis internas como base de conhecimento coletiva.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Documentar conhecimento coletivo, criar bases de informação colaborativas e manter documentação viva que evolui com o time.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="ferramentas" data-texto="reddit fórum comunidade subreddit discussão técnica llm fonte treino autoridade">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🔴</span><span class="term__name">Reddit</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Plataforma de agregação de links e discussão organizada em comunidades temáticas (subreddits). Alta autoridade de domínio, frequentemente citado por LLMs como fonte de conhecimento prático e discussões técnicas.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Uma rede social organizada em fóruns temáticos — existe um 'subreddit' para praticamente qualquer assunto. É famoso por discussões técnicas profundas e como fonte de informação que a IA frequentemente cita.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Pesquisa de opinião, suporte técnico peer-to-peer, discussões especializadas e atualmente muito relevante por ser fonte de treino de LLMs.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="ferramentas" data-texto="google search console indexação seo crawl impressões cliques ctr posição core web vitals">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🔍</span><span class="term__name">Google Search Console</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Ferramenta gratuita do Google que fornece dados sobre indexação, performance de busca orgânica (impressões, cliques, CTR, posição média), Core Web Vitals, erros de crawl e sitemaps.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">O painel de controle gratuito do Google que mostra como seu site está se saindo nas buscas — quantas pessoas viram seu site, quantas clicaram e quais palavras-chave te encontraram.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Monitorar saúde de SEO, identificar páginas com problemas de indexação, descobrir oportunidades de palavras-chave e otimizar performance orgânica.</div></div>
+      </div></div>
+    </div>
+
+    <!-- SEO & GEO -->
+    <div class="cat-title" data-cat="seo-geo">📈 SEO, GEO &amp; Otimização</div>
+
+    <div class="term" data-categoria="seo-geo" data-texto="seo search engine optimization google orgânico keywords backlinks técnico on-page off-page serp">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">📈</span><span class="term__name">SEO — Search Engine Optimization</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Conjunto de técnicas para otimizar páginas web visando melhores posições orgânicas em SERPs — envolve SEO técnico (velocidade, indexação, schema), on-page (conteúdo, keywords) e off-page (backlinks, autoridade de domínio).</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">A arte de fazer seu site aparecer nas primeiras posições do Google quando alguém pesquisa algo. Como organizar sua loja para ser a mais visível na rua principal da cidade.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Atrair tráfego orgânico (gratuito) para sites e conteúdos através de motores de busca como Google, Bing e Yahoo.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="seo-geo" data-texto="sitemap xml urls metadados crawler indexação google frequência prioridade">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🗺️</span><span class="term__name">Sitemap (XML Sitemap)</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Arquivo XML que lista todas as URLs de um site com metadados (última modificação, frequência de atualização, prioridade), ajudando crawlers a descobrir e indexar páginas de forma eficiente.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Um mapa do seu site entregue ao Google — uma lista organizada de todas as páginas para que o robô de busca encontre tudo sem precisar 'caçar' pelo site. Como dar um guia turístico completo ao visitante.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Garantir que todas as páginas do site sejam indexadas pelo Google, especialmente páginas novas ou com poucos links internos apontando para elas.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="seo-geo" data-texto="backlink link externo autoridade domínio off-page seo referência outro site">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🔗</span><span class="term__name">Backlink</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Link de outro domínio apontando para o seu site. Fator de ranqueamento central do algoritmo PageRank do Google — links de sites com alta autoridade de domínio (DA) transferem mais 'link juice'.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Quando outro site menciona e linka o seu. É como uma recomendação pública — quanto mais sites relevantes te indicam, mais o Google confia em você e te coloca em posições mais altas.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Aumentar a autoridade do domínio e melhorar o posicionamento orgânico no Google. Backlinks de sites relevantes e confiáveis são um dos fatores de ranqueamento mais poderosos.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="seo-geo" data-texto="schema markup structured data rich snippets json-ld google microdata seo técnico">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🏷️</span><span class="term__name">Schema Markup</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Marcação de dados estruturados (JSON-LD, Microdata, RDFa) que descreve o conteúdo da página de forma semântica para motores de busca. Habilita Rich Snippets, FAQ Boxes, Product Cards e outros formatos visuais na SERP.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Etiquetas invisíveis no código do site que explicam ao Google exatamente o que cada parte significa — 'isso é o preço', 'isso é a avaliação', 'isso é o autor'. Fazem seu resultado ficar mais rico e detalhado na busca.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Ativar rich snippets nos resultados de busca (estrelas de avaliação, preços, FAQs), aumentar CTR e ser fonte preferencial para respostas de IA.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="seo-geo" data-texto="core web vitals lcp fid cls performance velocidade google experiência usuário métricas">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">⚡</span><span class="term__name">Core Web Vitals</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Conjunto de métricas de experiência do usuário definidas pelo Google: LCP (Largest Contentful Paint — velocidade de carregamento), FID/INP (interatividade) e CLS (Cumulative Layout Shift — estabilidade visual). Fatores de ranqueamento desde 2021.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">As três notas que o Google dá para a experiência do seu site: velocidade de carregamento, rapidez de resposta aos cliques e estabilidade visual (quando o conteúdo 'pula' enquanto carrega). Notas ruins penalizam o ranqueamento.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Medir e melhorar a experiência do usuário em sites, com impacto direto no ranqueamento do Google e nas taxas de conversão.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="seo-geo" data-texto="visibility score geo métrica citação ia visibilidade frequência menção marca">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">📊</span><span class="term__name">Visibility Score (GEO)</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Métrica de GEO que quantifica a frequência e proeminência com que uma marca, produto ou conteúdo é citado nas respostas de sistemas de IA generativa, calculada via sampling de queries relevantes.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">Uma nota que mede o quanto a IA fala sobre você. Assim como você monitora sua posição no Google para SEO, o Visibility Score monitora se e como a IA menciona sua marca quando alguém pergunta sobre seu setor.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Medir o sucesso de estratégias de GEO, comparar visibilidade com concorrentes em sistemas de IA e identificar oportunidades de otimização de conteúdo.</div></div>
+      </div></div>
+    </div>
+
+    <div class="term" data-categoria="seo-geo" data-texto="ctr click through rate taxa clique impressões cliques serp google ads email">
+      <div class="term__header"><div class="term__left"><span class="term__emoji">🖱️</span><span class="term__name">CTR — Click Through Rate</span></div><span class="term__arrow">▼</span></div>
+      <div class="term__body"><div class="term__body-inner">
+        <div><div class="dim-label">🔬 Técnico</div><div class="dim-text">Percentual de pessoas que clicam em um resultado/anúncio dividido pelo total de impressões. CTR = (Cliques / Impressões) × 100. Métrica central em SEO, SEM, e-mail marketing e publicidade digital.</div></div>
+        <div><div class="dim-label">💡 Para leigos</div><div class="dim-text">De cada 100 pessoas que viram seu resultado no Google, quantas clicaram? Se 5 clicaram, seu CTR é 5%. Um título e descrição mais atraentes aumentam o CTR mesmo sem subir de posição.</div></div>
+        <div><div class="dim-label">🎯 Para que serve</div><div class="dim-text">Medir a atratividade de resultados de busca, anúncios e e-mails. Um CTR alto indica que o conteúdo é relevante e persuasivo para o público.</div></div>
+      </div></div>
+    </div>
+
+  </div><!-- #glossario -->
+</main>
+
+<script>
+  // ── ACCORDION ──
+  document.querySelectorAll('.term').forEach(term => {
+    term.querySelector('.term__header').addEventListener('click', () => {
+      const isOpen = term.classList.contains('open');
+      // close all
+      document.querySelectorAll('.term.open').forEach(t => t.classList.remove('open'));
+      if (!isOpen) term.classList.add('open');
+    });
+  });
+
+  // ── NORMALIZE (remove accents, lowercase) ──
+  function normalize(str) {
+    return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+
+  // ── FILTER ──
+  let activeCat = 'todos';
+  let activeQuery = '';
+
+  function applyFilters() {
+    const terms = document.querySelectorAll('.term');
+    const catTitles = document.querySelectorAll('.cat-title');
+    let anyVisible = false;
+
+    // Show/hide category titles
+    catTitles.forEach(ct => {
+      const cat = ct.dataset.cat;
+      ct.style.display = (activeCat === 'todos' || activeCat === cat) ? '' : 'none';
+    });
+
+    terms.forEach(term => {
+      const cat = term.dataset.categoria;
+      const texto = normalize(term.dataset.texto + ' ' + term.querySelector('.term__name').textContent);
+      const catMatch = activeCat === 'todos' || activeCat === cat;
+      const queryMatch = !activeQuery || texto.includes(normalize(activeQuery));
+      const visible = catMatch && queryMatch;
+      term.style.display = visible ? '' : 'none';
+      if (visible) anyVisible = true;
+    });
+
+    document.getElementById('no-results').classList.toggle('visible', !anyVisible);
+  }
+
+  // Filter pills
+  document.getElementById('filters').addEventListener('click', e => {
+    const pill = e.target.closest('.filter-pill');
+    if (!pill) return;
+    document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+    activeCat = pill.dataset.cat;
+    applyFilters();
+  });
+
+  // Search input
+  document.getElementById('busca-glossario').addEventListener('input', e => {
+    activeQuery = e.target.value.trim();
+    applyFilters();
+  });
+</script>
+</body>
+</html>
