@@ -365,6 +365,7 @@ button, input, textarea, select { font-family: inherit; }
   padding: 0;
 }
 .turmas__group-label:first-child { margin-top: 0; }
+.turmas__aviso { font-size: 0.85rem; color: var(--muted); margin-bottom: 16px; margin-top: 12px; }
 
 /* Card de turma */
 .turma-card {
@@ -1071,12 +1072,13 @@ button, input, textarea, select { font-family: inherit; }
 /* ─────────────────────────────────────────────────────────────────────────
    WHATSAPP FAB
    ───────────────────────────────────────────────────────────────────────── */
-.wpp-fab                    { position: fixed; bottom: 24px; right: 24px; z-index: 9999; width: 56px; height: 56px; border-radius: 50%; background: #25D366; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,0.18); transition: filter 0.2s, box-shadow 0.2s; }
-.wpp-fab:hover              { filter: brightness(1.1); box-shadow: 0 6px 24px rgba(0,0,0,0.26); }
-.wpp-fab__tooltip           { position: absolute; right: 68px; background: #1d1d1f; color: #fff; font-size: 0.78rem; font-weight: 500; white-space: nowrap; padding: 6px 12px; border-radius: 6px; opacity: 0; pointer-events: none; transition: opacity 0.15s; }
-.wpp-fab:hover .wpp-fab__tooltip { opacity: 1; }
+.wpp-fab                    { position: fixed; bottom: 24px; right: 24px; z-index: 9999; display: inline-flex; align-items: center; gap: 8px; background: #25D366; color: #fff; border-radius: 980px; padding: 12px 20px; font-size: 0.875rem; font-weight: 500; box-shadow: 0 4px 16px rgba(0,0,0,0.15); transition: filter 0.2s, transform 0.2s, box-shadow 0.2s; white-space: nowrap; }
+.wpp-fab:hover              { filter: brightness(1.08); transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,0,0,0.22); }
+.wpp-fab__icon              { flex-shrink: 0; width: 16px; height: 16px; }
+.wpp-fab__text              { line-height: 1; }
 
 @media (max-width: 768px) {
-  .wpp-fab                  { width: 48px; height: 48px; bottom: 20px; right: 20px; }
-  .wpp-fab svg              { width: 24px; height: 24px; }
+  .wpp-fab                  { width: 52px; height: 52px; padding: 0; border-radius: 50%; justify-content: center; bottom: 20px; right: 20px; }
+  .wpp-fab__icon            { width: 22px; height: 22px; }
+  .wpp-fab__text            { display: none; }
 }

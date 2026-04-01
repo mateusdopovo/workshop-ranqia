@@ -38,28 +38,38 @@ document.querySelectorAll('input[name="whatsapp"], .wpp-mask').forEach(function 
   el.addEventListener('input', applyWppMask);
 });
 
-// ─── 3. Seleção de turma — sincronizada entre seção 5 e formulário ────
-var turmaInput = document.getElementById('turma-selecionada');
+// ─── 3. Seleção de turmas — múltipla seleção, sincronizada ───────────
+var turmasInput = document.getElementById('turmas-selecionadas');
 
-function selectTurma(value, turmaId) {
-  turmaInput.value = value;
+// Mapa de turmaId → value para manter estado
+var turmasSelecionadas = {};
 
-  // Atualiza .selected em TODOS os cards (ambas as seções)
-  document.querySelectorAll('.turma-card').forEach(function (card) {
-    if (card.dataset.turmaId === turmaId) {
-      card.classList.add('selected');
-    } else {
-      card.classList.remove('selected');
-    }
-  });
+function updateTurmasInput() {
+  turmasInput.value = Object.values(turmasSelecionadas).join(', ');
+}
 
+function toggleTurma(turmaId, value) {
+  if (turmasSelecionadas[turmaId]) {
+    // Já selecionado — remove
+    delete turmasSelecionadas[turmaId];
+    document.querySelectorAll('[data-turma-id="' + turmaId + '"]').forEach(function (c) {
+      c.classList.remove('selected');
+    });
+  } else {
+    // Não selecionado — adiciona
+    turmasSelecionadas[turmaId] = value;
+    document.querySelectorAll('[data-turma-id="' + turmaId + '"]').forEach(function (c) {
+      c.classList.add('selected');
+    });
+  }
+  updateTurmasInput();
   // Limpa erro de turma
   setFieldError('turma', '');
 }
 
 document.querySelectorAll('.turma-card').forEach(function (card) {
   card.addEventListener('click', function () {
-    selectTurma(card.dataset.value, card.dataset.turmaId);
+    toggleTurma(card.dataset.turmaId, card.dataset.value);
   });
 });
 
@@ -210,7 +220,7 @@ form.addEventListener('submit', async function (e) {
   var programacao  = getRadio('programacao');
   var conhece_geo  = getRadio('conhece_geo');
   var expectativas = getVal('expectativas');
-  var turma        = turmaInput.value.trim();
+  var turma        = turmasInput.value.trim();
   var autorizacao  = document.getElementById('autorizacao').checked;
   var wppDigits    = whatsapp.replace(/\D/g, '');
 
@@ -250,7 +260,7 @@ form.addEventListener('submit', async function (e) {
     markError('expectativas', 'Descreva suas expectativas (mínimo 20 caracteres).');
 
   if (!turma)
-    markError('turma', 'Selecione uma data para continuar.');
+    markError('turma', 'Selecione ao menos uma data de interesse.');
 
   if (!autorizacao)
     markError('autorizacao', 'É necessário autorizar as comunicações para prosseguir.');
