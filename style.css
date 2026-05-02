@@ -474,6 +474,7 @@ button, input, textarea, select { font-family: inherit; }
 .galeria__item:hover img { transform: scale(1.02); }
 .galeria__item--portrait  { height: 480px; }
 .galeria__item--landscape { height: 300px; }
+.galeria__item--landscape img { object-position: bottom; }
 .galeria__item:hover img { transform: scale(1.03); }
 
 .galeria__empresas {
