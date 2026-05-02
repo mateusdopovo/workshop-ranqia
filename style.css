@@ -842,6 +842,10 @@ button, input, textarea, select { font-family: inherit; }
 @media (max-width: 768px) {
   .container { padding: 0 20px; }
   .section   { padding: 64px 0; }
+
+  /* Header mobile */
+  .btn--header { display: none; }
+  .brand__name { font-size: 0.78rem; }
   .section--abertura { padding-top: 116px; }
 
   /* Galeria */
