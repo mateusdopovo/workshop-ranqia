@@ -202,6 +202,33 @@ button, input, textarea, select { font-family: inherit; }
   flex-wrap: wrap;
 }
 
+/* Datas no hero */
+.abertura__dates {
+  position: sticky;
+  top: 80px;
+}
+.abertura__dates > .label { margin-bottom: 16px; display: block; }
+.dates-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.date-tile {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.date-tile__day  { font-size: 0.88rem; font-weight: 600; color: var(--text); }
+.date-tile__time { font-size: 0.78rem; color: var(--muted); margin-top: 3px; }
+.dates-meta {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.dates-meta > p { font-size: 0.85rem; color: var(--muted); }
+
 /* Ficha do evento */
 .event-card {
   background: var(--surface);
@@ -377,7 +404,8 @@ button, input, textarea, select { font-family: inherit; }
   user-select: none;
   transition: border-color 0.15s, background 0.15s;
 }
-.turma-card:hover:not(.selected) { border-color: #000; }
+.turma-card:hover:not(.selected):not(.turma-card--display) { border-color: #000; }
+.turma-card--display { cursor: default; }
 .turma-card.selected {
   border: 2px solid #000;
   background: var(--surface);
