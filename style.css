@@ -466,11 +466,14 @@ button, input, textarea, select { font-family: inherit; }
 }
 .galeria__item img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
   display: block;
   transition: transform 0.4s ease;
 }
 .galeria__item:hover img { transform: scale(1.02); }
+.galeria__item--portrait  { height: 480px; }
+.galeria__item--landscape { height: 300px; }
 .galeria__item:hover img { transform: scale(1.03); }
 
 .galeria__empresas {
@@ -834,6 +837,8 @@ button, input, textarea, select { font-family: inherit; }
 
   /* Galeria */
   .galeria__grid { grid-template-columns: 1fr; }
+  .galeria__item--portrait  { height: 320px; }
+  .galeria__item--landscape { height: 220px; }
 
   /* Abertura */
   .abertura__grid    { grid-template-columns: 1fr; gap: 40px; }
