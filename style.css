@@ -904,8 +904,11 @@ button, input, textarea, select { font-family: inherit; }
 }
 .header__nav-link:hover  { color: var(--muted); }
 .header__nav-link.active { font-weight: 600; }
+.brand__logo { width: 28px; height: 28px; object-fit: contain; margin-right: 10px; filter: brightness(0); }
 .brand__name { font-weight: 600; font-size: 0.9rem; }
 .brand__tld  { color: var(--muted); font-weight: 400; font-size: 0.9rem; }
+.footer__logo-item { display: inline-flex; align-items: center; gap: 7px; }
+.footer__logo { width: 20px; height: 20px; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.6; }
 
 /* ─────────────────────────────────────────────────────────────────────────
    HOME — HERO
