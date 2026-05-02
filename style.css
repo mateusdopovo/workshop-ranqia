@@ -456,24 +456,21 @@ button, input, textarea, select { font-family: inherit; }
 .galeria__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 280px 380px;
   gap: 12px;
   margin-top: 40px;
 }
 .galeria__item {
-  overflow: hidden;
   border-radius: 12px;
   background: var(--surface);
+  overflow: hidden;
 }
 .galeria__item img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
+  height: auto;
   display: block;
   transition: transform 0.4s ease;
 }
-.galeria__item--landscape img { object-position: bottom; }
+.galeria__item:hover img { transform: scale(1.02); }
 .galeria__item:hover img { transform: scale(1.03); }
 
 .galeria__empresas {
@@ -816,8 +813,7 @@ button, input, textarea, select { font-family: inherit; }
   .section--abertura { padding-top: 116px; }
 
   /* Galeria */
-  .galeria__grid { grid-template-columns: 1fr; grid-template-rows: auto; }
-  .galeria__item { height: 240px; }
+  .galeria__grid { grid-template-columns: 1fr; }
 
   /* Abertura */
   .abertura__grid    { grid-template-columns: 1fr; gap: 40px; }
