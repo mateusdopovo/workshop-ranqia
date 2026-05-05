@@ -1,410 +1,956 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Workshop em Inteligência Artificial — Ranqia</title>
-  <meta name="description" content="Workshop prático de IA com Mateus Borges, cofundador da Ranqia. 3 horas, máximo 10 vagas, R$ 400. De fundamentos a Prompt Engineering, ferramentas de IA e GEO.">
-  <meta property="og:title" content="Workshop em Inteligência Artificial — Ranqia">
-  <meta property="og:description" content="Por que criei este workshop — e o que você vai levar dele. Uma experiência prática, personalizada e aplicável.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://comoinfluenciarrobos.com.br">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Workshop em IA — Como Influenciar Robôs · Ranqia</title>
+<meta name="description" content="Workshop intensivo de Inteligência Artificial com Mateus Borges, cofundador da Ranqia. 3 horas, máximo 10 participantes. De fundamentos a Generative Engine Optimization." />
+<meta property="og:title" content="Workshop em IA — Como Influenciar Robôs · Ranqia">
+<meta property="og:description" content="Workshop intensivo de IA com Mateus Borges. 3 horas, máximo 10 participantes. De fundamentos a GEO.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://comoinfluenciarrobos.com.br">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --ink:        #0A0A0B;
+    --ink-2:      #1C1C1E;
+    --graphite:   #3A3A3C;
+    --slate:      #6E6E73;
+    --silver:     #A1A1A6;
+    --mist:       #D2D2D7;
+    --paper:      #F5F5F7;
+    --snow:       #FAFAFA;
+    --white:      #FFFFFF;
+    --accent:     #0066FF;
+    --accent-soft:#E8F0FF;
+    --signal:     #00D26A;
+    --font-sans:  'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-serif: 'Instrument Serif', 'Times New Roman', serif;
+    --font-mono:  'Geist Mono', 'SF Mono', ui-monospace, monospace;
+    --shadow-card:  0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04);
+    --shadow-hover: 0 1px 2px rgba(0,0,0,0.06), 0 16px 40px rgba(0,0,0,0.08);
+    --shadow-deep:  0 24px 60px rgba(0,0,0,0.12);
+    --r-sm: 8px; --r-md: 14px; --r-lg: 20px; --r-xl: 28px; --r-2xl: 40px;
+    --container: 1200px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+  body {
+    font-family: var(--font-sans);
+    background: var(--white);
+    color: var(--ink);
+    font-size: 17px;
+    line-height: 1.5;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    overflow-x: hidden;
+  }
+  img, video { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+  ::selection { background: var(--ink); color: var(--white); }
+
+  .container { max-width: var(--container); margin: 0 auto; padding: 0 32px; }
+  @media (max-width: 720px) { .container { padding: 0 20px; } body { font-size: 16px; } }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--slate);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+  }
+  .eyebrow.subtle::before { background: var(--mist); box-shadow: none; }
+
+  .serif-accent { font-family: var(--font-serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+  .mono { font-family: var(--font-mono); }
+  .divider { height: 1px; background: var(--mist); border: none; }
+
+  /* NAV */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    background: rgba(255,255,255,0.72);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    transition: background 0.3s ease;
+  }
+  .nav-inner {
+    max-width: var(--container); margin: 0 auto; padding: 14px 32px;
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 500; font-size: 15px; letter-spacing: -0.015em; }
+  .nav-logo-mark {
+    width: 26px; height: 26px; border-radius: 7px;
+    background: var(--ink); color: var(--white);
+    display: grid; place-items: center;
+    font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+    position: relative;
+  }
+  .nav-logo-mark::after {
+    content: ""; position: absolute; inset: 3px; border-radius: 5px;
+    background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.15));
+    pointer-events: none;
+  }
+  .nav-links { display: flex; align-items: center; gap: 32px; font-size: 13.5px; color: var(--graphite); }
+  .nav-links a { transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta {
+    padding: 9px 18px; background: var(--ink); color: var(--white);
+    border-radius: 999px; font-size: 13.5px; font-weight: 500;
+    transition: transform 0.2s, background 0.2s;
+  }
+  .nav-cta:hover { background: var(--accent); transform: translateY(-1px); }
+  @media (max-width: 820px) { .nav-links { display: none; } .nav-inner { padding: 12px 20px; } }
+
+  /* HERO */
+  .hero { padding: 140px 0 80px; position: relative; overflow: hidden; }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(0,0,0,0.025) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0,0,0,0.025) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 30%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 30%, transparent 80%);
+    pointer-events: none;
+  }
+  .hero-inner { position: relative; }
+  .hero-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 56px; flex-wrap: wrap; gap: 16px; }
+  .hero-meta-pill {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 7px 14px 7px 10px;
+    background: var(--white); border: 1px solid var(--mist); border-radius: 999px;
+    font-size: 13px; color: var(--graphite); box-shadow: var(--shadow-card);
+  }
+  .live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--signal); position: relative; }
+  .live-dot::after {
+    content: ""; position: absolute; inset: -4px; border-radius: 50%;
+    border: 1.5px solid var(--signal); opacity: 0.4; animation: pulse 2s ease-out infinite;
+  }
+  @keyframes pulse { 0% { transform: scale(0.8); opacity: 0.6; } 100% { transform: scale(1.6); opacity: 0; } }
+  .hero-edition { font-family: var(--font-mono); font-size: 11px; color: var(--slate); letter-spacing: 0.1em; }
+
+  .hero-title {
+    font-size: clamp(44px, 8vw, 104px); font-weight: 500;
+    letter-spacing: -0.045em; line-height: 0.95;
+    margin-bottom: 40px; max-width: 1100px;
+  }
+  .hero-title .accent-italic { font-family: var(--font-serif); font-style: italic; font-weight: 400; letter-spacing: -0.02em; }
+  .hero-title .muted { color: var(--silver); }
+
+  .hero-bottom { display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; align-items: end; margin-top: 64px; }
+  @media (max-width: 820px) { .hero-bottom { grid-template-columns: 1fr; gap: 40px; } .hero { padding: 110px 0 56px; } }
+
+  .hero-lede { font-size: clamp(17px, 1.6vw, 21px); color: var(--graphite); line-height: 1.5; max-width: 540px; letter-spacing: -0.012em; }
+  .hero-lede strong { color: var(--ink); font-weight: 500; }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 24px; border-radius: 999px;
+    font-size: 15px; font-weight: 500; letter-spacing: -0.01em;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s;
+    white-space: nowrap;
+  }
+  .btn-primary { background: var(--ink); color: var(--white); box-shadow: var(--shadow-card); }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+  .btn-secondary { background: var(--white); color: var(--ink); border: 1px solid var(--mist); }
+  .btn-secondary:hover { border-color: var(--ink); transform: translateY(-2px); }
+  .btn-arrow { display: inline-block; transition: transform 0.2s; }
+  .btn:hover .btn-arrow { transform: translateX(3px); }
+
+  /* STATS */
+  .stats { padding: 24px 0 100px; }
+  .stats-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; background: var(--mist);
+    border: 1px solid var(--mist); border-radius: var(--r-xl);
+    overflow: hidden; box-shadow: var(--shadow-card);
+  }
+  .stat { background: var(--white); padding: 36px 32px; display: flex; flex-direction: column; gap: 6px; transition: background 0.3s; }
+  .stat:hover { background: var(--snow); }
+  .stat-label { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--slate); margin-bottom: 4px; }
+  .stat-value { font-size: 44px; font-weight: 500; letter-spacing: -0.03em; line-height: 1; color: var(--ink); }
+  .stat-value sup { font-size: 18px; font-weight: 400; color: var(--slate); letter-spacing: 0; margin-left: 2px; top: -1.2em; }
+  .stat-caption { font-size: 13px; color: var(--slate); margin-top: 8px; line-height: 1.4; }
+  @media (max-width: 820px) { .stats-grid { grid-template-columns: 1fr 1fr; } .stat { padding: 28px 22px; } .stat-value { font-size: 36px; } }
+  @media (max-width: 480px) { .stats-grid { grid-template-columns: 1fr; } }
+
+  /* SECTION HEADERS */
+  section { padding: 100px 0; }
+  @media (max-width: 720px) { section { padding: 72px 0; } }
+  .section-head { display: grid; grid-template-columns: 1fr 2fr; gap: 64px; margin-bottom: 64px; align-items: start; }
+  .section-head-meta { display: flex; flex-direction: column; gap: 16px; }
+  .section-num { font-family: var(--font-mono); font-size: 12px; color: var(--slate); letter-spacing: 0.12em; }
+  .section-title { font-size: clamp(36px, 5vw, 64px); font-weight: 500; letter-spacing: -0.035em; line-height: 1.0; color: var(--ink); }
+  .section-title .serif-accent { color: var(--graphite); }
+  .section-sub { font-size: 18px; color: var(--slate); margin-top: 20px; max-width: 540px; line-height: 1.5; }
+  @media (max-width: 820px) { .section-head { grid-template-columns: 1fr; gap: 24px; margin-bottom: 48px; } }
+
+  /* PROGRAMA */
+  .programa { background: var(--paper); border-top: 1px solid var(--mist); border-bottom: 1px solid var(--mist); }
+  .modules { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 820px) { .modules { grid-template-columns: 1fr; } }
+  .module {
+    background: var(--white); border-radius: var(--r-xl); padding: 40px;
+    box-shadow: var(--shadow-card); transition: transform 0.3s, box-shadow 0.3s;
+    position: relative; overflow: hidden; display: flex; flex-direction: column; min-height: 360px;
+  }
+  .module:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+  .module-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 28px; gap: 16px; }
+  .module-num { font-family: var(--font-mono); font-size: 11px; color: var(--slate); letter-spacing: 0.16em; }
+  .module-icon { width: 36px; height: 36px; border-radius: 10px; background: var(--ink); color: var(--white); display: grid; place-items: center; }
+  .module-icon svg { width: 18px; height: 18px; }
+  .module-title { font-size: 26px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 24px; color: var(--ink); }
+  .module-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
+  .module-list li { font-size: 14.5px; color: var(--graphite); padding-left: 20px; position: relative; line-height: 1.5; }
+  .module-list li::before { content: ""; position: absolute; left: 0; top: 9px; width: 8px; height: 1.5px; background: var(--silver); }
+
+  /* RANQIA BLOCK */
+  .ranqia-block {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    background: var(--ink); color: var(--white);
+    border-radius: var(--r-2xl); padding: 64px; position: relative; overflow: hidden;
+  }
+  .ranqia-block::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(circle at 80% 20%, rgba(0,102,255,0.18), transparent 50%),
+                radial-gradient(circle at 20% 90%, rgba(0,210,106,0.08), transparent 50%);
+    pointer-events: none;
+  }
+  .ranqia-block > * { position: relative; }
+  @media (max-width: 820px) { .ranqia-block { grid-template-columns: 1fr; padding: 40px 28px; gap: 40px; } }
+
+  .ranqia-text .eyebrow { color: rgba(255,255,255,0.6); }
+  .ranqia-text .eyebrow::before { background: var(--accent); box-shadow: 0 0 0 4px rgba(0,102,255,0.18); }
+  .ranqia-headline { font-size: clamp(32px, 4vw, 48px); font-weight: 500; letter-spacing: -0.03em; line-height: 1.05; margin: 16px 0 24px; }
+  .ranqia-text p { font-size: 16px; color: rgba(255,255,255,0.7); line-height: 1.55; max-width: 480px; }
+  .ranqia-tag {
+    display: inline-flex; align-items: center; gap: 8px; margin-top: 28px;
+    padding: 8px 14px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 999px; font-size: 13px; color: rgba(255,255,255,0.85);
+  }
+  .ranqia-tag-dash { text-decoration: line-through; color: rgba(255,255,255,0.4); margin-right: 4px; font-family: var(--font-mono); font-size: 12px; }
+
+  .report-mock {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--r-lg); padding: 24px; backdrop-filter: blur(10px);
+  }
+  .report-mock-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .report-mock-title { font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.6); letter-spacing: 0.12em; }
+  .report-mock-status { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 10.5px; color: var(--signal); letter-spacing: 0.1em; }
+  .report-mock-status::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--signal); }
+  .prompt-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; gap: 16px; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 13.5px; }
+  .prompt-row:last-child { border-bottom: none; }
+  .prompt-text { color: rgba(255,255,255,0.85); }
+  .prompt-rank { font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.5); flex-shrink: 0; }
+  .prompt-bar { width: 80px; height: 4px; background: rgba(255,255,255,0.08); border-radius: 999px; overflow: hidden; flex-shrink: 0; }
+  .prompt-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), #4DA3FF); border-radius: 999px; }
+
+  /* GALERIA */
+  .past-companies { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 40px; }
+  .past-companies span { padding: 6px 14px; background: var(--paper); border: 1px solid var(--mist); border-radius: 999px; font-size: 12.5px; color: var(--graphite); font-weight: 500; }
+
+  .gallery { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 280px 220px; gap: 12px; margin-top: 24px; }
+  .gallery-item { border-radius: var(--r-lg); overflow: hidden; background: var(--paper); position: relative; }
+  .gallery-item:nth-child(1) { grid-row: span 2; }
+  .gallery-item:nth-child(2) { grid-column: 2 / span 2; }
+  .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.2,0.8,0.2,1); }
+  .gallery-item:hover img { transform: scale(1.04); }
+  .gallery-item-label { position: absolute; bottom: 16px; left: 16px; font-family: var(--font-mono); font-size: 11px; color: var(--white); letter-spacing: 0.1em; background: rgba(0,0,0,0.5); padding: 6px 10px; border-radius: 6px; backdrop-filter: blur(8px); }
+  @media (max-width: 820px) {
+    .gallery { grid-template-columns: 1fr 1fr; grid-template-rows: 200px 200px 200px; }
+    .gallery-item:nth-child(1), .gallery-item:nth-child(2) { grid-column: span 2; grid-row: auto; }
+  }
+
+  /* PERKS */
+  .perks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 56px; }
+  .perk { padding: 28px; border: 1px solid var(--mist); border-radius: var(--r-lg); transition: border-color 0.2s, transform 0.2s; }
+  .perk:hover { border-color: var(--graphite); transform: translateY(-2px); }
+  .perk-num { font-family: var(--font-mono); font-size: 11px; color: var(--slate); letter-spacing: 0.16em; margin-bottom: 16px; }
+  .perk-title { font-size: 17px; font-weight: 500; letter-spacing: -0.015em; margin-bottom: 8px; }
+  .perk p { font-size: 14px; color: var(--slate); line-height: 1.5; }
+  @media (max-width: 720px) { .perks { grid-template-columns: 1fr; } }
+
+  /* INSTRUTOR */
+  .instructor { background: var(--paper); border-top: 1px solid var(--mist); border-bottom: 1px solid var(--mist); }
+  .instructor-grid { display: grid; grid-template-columns: 5fr 4fr; gap: 80px; align-items: start; }
+  @media (max-width: 820px) { .instructor-grid { grid-template-columns: 1fr; gap: 40px; } }
+  .instructor-card { background: var(--white); border-radius: var(--r-xl); padding: 40px; box-shadow: var(--shadow-card); }
+  .instructor-name { font-size: 36px; font-weight: 500; letter-spacing: -0.03em; line-height: 1; margin-bottom: 8px; }
+  .instructor-role { font-size: 15px; color: var(--slate); margin-bottom: 28px; }
+  .instructor-role a { color: var(--accent); border-bottom: 1px solid currentColor; }
+  .instructor-bio { font-size: 15.5px; color: var(--graphite); line-height: 1.6; margin-bottom: 24px; }
+
+  .credentials { list-style: none; display: flex; flex-direction: column; gap: 0; margin-top: 32px; border-top: 1px solid var(--mist); counter-reset: cred; }
+  .credentials li { padding: 14px 0; font-size: 14px; color: var(--graphite); border-bottom: 1px solid var(--mist); display: flex; align-items: center; gap: 12px; }
+  .credentials li::before { content: counter(cred, decimal-leading-zero); counter-increment: cred; font-family: var(--font-mono); font-size: 10.5px; color: var(--silver); letter-spacing: 0.1em; flex-shrink: 0; width: 28px; }
+
+  /* CURIOSIDADE */
+  .curiosity-wrap { max-width: 760px; margin: 0 auto; }
+  .curiosity-headline { font-family: var(--font-serif); font-style: italic; font-size: clamp(40px, 6vw, 76px); font-weight: 400; letter-spacing: -0.02em; line-height: 1.0; color: var(--ink); margin: 24px 0 56px; }
+  .curiosity-body p { font-size: 18px; line-height: 1.65; color: var(--graphite); margin-bottom: 24px; letter-spacing: -0.005em; }
+  .curiosity-body p:first-of-type::first-letter { font-family: var(--font-serif); font-size: 80px; font-weight: 400; float: left; line-height: 0.85; margin: 8px 12px 0 0; color: var(--ink); }
+  .curiosity-body em { font-family: var(--font-serif); font-style: italic; color: var(--ink); }
+
+  /* VIDEO */
+  .video-section { background: var(--paper); border-top: 1px solid var(--mist); border-bottom: 1px solid var(--mist); }
+  .video-frame { position: relative; aspect-ratio: 16/9; border-radius: var(--r-xl); overflow: hidden; background: var(--ink); box-shadow: var(--shadow-deep); margin-top: 24px; }
+  .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+  .video-chrome { position: absolute; top: 0; left: 0; right: 0; padding: 14px 18px; display: flex; align-items: center; gap: 10px; background: linear-gradient(to bottom, rgba(0,0,0,0.55), transparent); z-index: 2; pointer-events: none; }
+  .video-chrome-dots { display: flex; gap: 6px; }
+  .video-chrome-dots span { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.3); }
+  .video-chrome-label { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em; color: rgba(255,255,255,0.7); margin-left: auto; }
+
+  .invite-section { background: var(--ink); color: var(--white); }
+  .invite-section .section-title { color: var(--white); }
+  .invite-section .section-num, .invite-section .eyebrow { color: rgba(255,255,255,0.6); }
+  .invite-section .eyebrow::before { background: var(--accent); box-shadow: 0 0 0 4px rgba(0,102,255,0.2); }
+  .invite-section .section-sub { color: rgba(255,255,255,0.6); }
+  .invite-section .video-frame { box-shadow: 0 24px 60px rgba(0,0,0,0.4); }
+
+  /* FORM */
+  .form-section { background: var(--ink); color: var(--white); }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  @media (max-width: 820px) { .form-grid { grid-template-columns: 1fr; gap: 48px; } }
+  .form-section .section-num, .form-section .eyebrow { color: rgba(255,255,255,0.6); }
+  .form-section .eyebrow::before { background: var(--accent); box-shadow: 0 0 0 4px rgba(0,102,255,0.2); }
+  .form-section .section-title { color: var(--white); }
+  .form-section .section-sub { color: rgba(255,255,255,0.6); }
+
+  .form { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--r-xl); padding: 36px; }
+  .form-field { display: flex; flex-direction: column; margin-bottom: 20px; }
+  .form-field label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; color: rgba(255,255,255,0.5); text-transform: uppercase; margin-bottom: 8px; }
+  .form-field input { background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.2); padding: 12px 0; font: 400 16px var(--font-sans); color: var(--white); letter-spacing: -0.01em; outline: none; transition: border-color 0.2s; }
+  .form-field input:focus { border-bottom-color: var(--accent); }
+  .form-field input::placeholder { color: rgba(255,255,255,0.3); }
+  .form-field input.is-err { border-bottom-color: #ff4444; }
+  .form-err { font-size: 12px; color: #ff6b6b; margin-top: 6px; min-height: 16px; }
+  .form-check { display: flex; gap: 10px; align-items: flex-start; margin: 20px 0 28px; font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+  .form-check input { margin-top: 3px; accent-color: var(--accent); }
+  .form-check-err { font-size: 12px; color: #ff6b6b; margin-top: 4px; display: block; }
+  .form-submit { width: 100%; padding: 16px; background: var(--white); color: var(--ink); border-radius: 12px; font-weight: 500; font-size: 15px; transition: background 0.2s, transform 0.2s; }
+  .form-submit:hover { background: var(--accent); color: var(--white); transform: translateY(-2px); }
+  .form-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  .form-net-error { font-size: 13px; color: #ff6b6b; margin-bottom: 16px; display: none; }
+
+  /* FOOTER */
+  footer { padding: 64px 0 40px; background: var(--ink); color: rgba(255,255,255,0.6); }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  @media (max-width: 820px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; } }
+  .footer-brand-tag { font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.5); max-width: 360px; margin-top: 16px; }
+  .footer-col h4 { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 16px; font-weight: 500; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col a { font-size: 14px; color: rgba(255,255,255,0.7); transition: color 0.2s; }
+  .footer-col a:hover { color: var(--white); }
+  .footer-bottom { padding-top: 24px; display: flex; justify-content: space-between; font-size: 12px; color: rgba(255,255,255,0.4); flex-wrap: wrap; gap: 12px; }
+
+  /* FLOAT WPP */
+  .wpp-float { position: fixed; bottom: 24px; right: 24px; z-index: 50; background: var(--ink); color: var(--white); padding: 12px 18px 12px 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 500; box-shadow: var(--shadow-hover); transition: transform 0.2s, background 0.2s; }
+  .wpp-float:hover { background: var(--accent); transform: translateY(-2px); }
+  .wpp-float-icon { width: 22px; height: 22px; border-radius: 50%; background: var(--signal); display: grid; place-items: center; }
+  @media (max-width: 720px) { .wpp-float { bottom: 16px; right: 16px; padding: 10px 14px 10px 10px; font-size: 12px; } }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2,0.8,0.2,1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+</style>
 </head>
 <body>
 
-<!-- ─── HEADER ─────────────────────────────────────────────────────────── -->
-<header class="header">
-  <div class="container header__inner">
-    <a href="/" class="header__brand">
-      <span class="brand__name">Workshop em IA: como influenciar robôs</span>
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <span class="nav-logo-mark">R</span>
+      <span>Como Influenciar Robôs</span>
     </a>
-    <nav class="header__nav">
-      <a href="#inscricao" class="btn btn--header">Quero ser avisado</a>
-    </nav>
+    <div class="nav-links">
+      <a href="#programa">Programa</a>
+      <a href="#monitoramento">Monitoramento</a>
+      <a href="#instrutor">Instrutor</a>
+      <a href="#curiosidade">Curiosidade</a>
+    </div>
+    <a href="#inscricao" class="nav-cta">Quero ser avisado</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-grid"></div>
+  <div class="container hero-inner">
+    <div class="hero-meta reveal">
+      <div class="hero-meta-pill">
+        <span class="live-dot"></span>
+        <span>Próxima edição em formação · São Paulo</span>
+      </div>
+      <span class="hero-edition mono">EDIÇÃO 04 · 2025 / 2026</span>
+    </div>
+
+    <h1 class="hero-title reveal">
+      Como influenciar<br>
+      <span class="accent-italic">robôs</span> — e por que<br>
+      <span class="muted">você precisa aprender agora.</span>
+    </h1>
+
+    <div class="hero-bottom">
+      <p class="hero-lede reveal">
+        Um <strong>workshop intensivo de 3 horas</strong> sobre Inteligência Artificial,
+        para no máximo 10 pessoas. Não é um curso genérico — é o conteúdo
+        que eu uso todos os dias na <strong>Ranqia</strong>, organizado
+        para quem quer entender IA de verdade.
+      </p>
+      <div class="hero-actions reveal">
+        <a href="#inscricao" class="btn btn-primary">Quero ser avisado <span class="btn-arrow">→</span></a>
+        <a href="#programa" class="btn btn-secondary">Ver o programa</a>
+      </div>
+    </div>
   </div>
 </header>
 
-<!-- ─── SEÇÃO 1: ABERTURA ──────────────────────────────────────────────── -->
-<section class="section section--abertura">
+<!-- STATS -->
+<section class="stats" style="padding-top:0;">
   <div class="container">
-    <div class="abertura__grid">
-
-      <div class="abertura__text animate-in">
-        <p class="label">WORKSHOP</p>
-        <h1 class="abertura__title">Por que criei<br>este workshop —<br>e o que você<br>vai levar dele.</h1>
-        <hr class="divider">
-        <p class="abertura__body">Tenho recebido, com bastante frequência, pedidos de amigos interessados em mentoria em inteligência artificial. A rotina como empreendedor é intensa e o tempo é naturalmente escasso.</p>
-        <p class="abertura__body">Diante disso, pensei em um formato que conseguisse equilibrar profundidade, praticidade e acessibilidade — um workshop voltado para um grupo próximo, com introdução ao que estamos construindo na Ranqia.</p>
-        <p class="abertura__body">Não é um curso genérico. É o conteúdo que eu mesmo uso todos os dias, organizado para quem quer entender IA de verdade — não apenas usar o ChatGPT para tarefas simples.</p>
-        <div class="abertura__actions">
-          <a href="#inscricao" class="btn btn--primary">Quero ser avisado</a>
-          <a href="#programa" class="btn btn--outline">Ver o programa</a>
-        </div>
+    <div class="stats-grid reveal">
+      <div class="stat">
+        <span class="stat-label">Duração</span>
+        <span class="stat-value">3<sup>h</sup></span>
+        <span class="stat-caption">Workshop intensivo, do zero ao avançado</span>
       </div>
-
-      <div class="abertura__card animate-in">
-        <div class="event-card">
-          <div class="event-card__block">
-            <p class="label">FORMATO</p>
-            <p class="event-card__value">3 horas de workshop prático</p>
-          </div>
-          <div class="event-card__block">
-            <p class="label">VAGAS</p>
-            <p class="event-card__value">Máximo 10 participantes</p>
-            <p class="event-card__detail">Grupo reduzido por design</p>
-          </div>
-          <div class="event-card__block">
-            <p class="label">INVESTIMENTO</p>
-            <p class="event-card__value">R$ 400</p>
-            <p class="event-card__detail">~R$ 133 por hora · pagamento após confirmação da vaga</p>
-          </div>
-          <div class="event-card__block event-card__block--last">
-            <p class="label">LOCAL</p>
-            <p class="event-card__value">Escritório na Berrini</p>
-            <p class="event-card__detail">São Paulo · SP</p>
-          </div>
-        </div>
+      <div class="stat">
+        <span class="stat-label">Vagas</span>
+        <span class="stat-value">10</span>
+        <span class="stat-caption">Grupo reduzido por design — profundidade garantida</span>
       </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ─── SEÇÃO 2: MÉTRICAS ──────────────────────────────────────────────── -->
-<section class="section section--dark section--metricas">
-  <div class="container">
-    <div class="metricas__grid">
-      <div class="metrica animate-in">
-        <p class="metrica__num">3h</p>
-        <p class="label label--muted">DE DURAÇÃO</p>
-        <p class="metrica__desc">Workshop intensivo, do zero ao avançado</p>
+      <div class="stat">
+        <span class="stat-label">Investimento</span>
+        <span class="stat-value">R$400</span>
+        <span class="stat-caption">~R$ 133/h · benchmark: StartSe cobra até R$ 5.000</span>
       </div>
-      <div class="metrica animate-in">
-        <p class="metrica__num">10</p>
-        <p class="label label--muted">VAGAS MÁXIMAS</p>
-        <p class="metrica__desc">Grupo reduzido por design — profundidade garantida</p>
-      </div>
-      <div class="metrica animate-in">
-        <p class="metrica__num">R$400</p>
-        <p class="label label--muted">INVESTIMENTO TOTAL</p>
-        <p class="metrica__desc">~R$ 133 por hora · benchmark: StartSe cobra até R$ 5.000</p>
+      <div class="stat">
+        <span class="stat-label">Local</span>
+        <span class="stat-value" style="font-size:28px;">Berrini</span>
+        <span class="stat-caption">Escritório da Ranqia · São Paulo · SP</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── SEÇÃO 3: PROGRAMA ──────────────────────────────────────────────── -->
-<section class="section" id="programa">
+<!-- PROGRAMA -->
+<section class="programa" id="programa">
   <div class="container">
-    <p class="label animate-in">CONTEÚDO</p>
-    <h2 class="section__title animate-in">Programa do Workshop</h2>
-    <p class="section__subtitle animate-in">O workshop será altamente prático e aplicável.</p>
-    <hr class="divider animate-in">
-
-    <div class="modules__grid">
-      <div class="module animate-in">
-        <p class="module__num">01</p>
-        <h3 class="module__title">Fundamentos de Inteligência Artificial</h3>
-        <hr class="module__divider">
-        <ul class="module__list">
-          <li>— Como as inteligências artificiais funcionam</li>
-          <li>— Evolução das IAs: o essencial que você precisa saber</li>
-          <li>— Principais empresas do setor</li>
-          <li>— Impactos das IAs em diferentes mercados e carreiras</li>
-          <li>— Tendências futuras</li>
-        </ul>
+    <div class="section-head reveal">
+      <div class="section-head-meta">
+        <span class="eyebrow">Conteúdo</span>
+        <span class="section-num">— 4 módulos · 3 horas</span>
       </div>
-
-      <div class="module animate-in">
-        <p class="module__num">02</p>
-        <h3 class="module__title">Ferramentas e Aplicações</h3>
-        <hr class="module__divider">
-        <ul class="module__list">
-          <li>— Principais ferramentas disponíveis atualmente</li>
-          <li>— O que cada uma faz na prática</li>
-          <li>— Demonstrações ao vivo: Gemini, Claude, ChatGPT</li>
-          <li>— A revolução com o uso do Claude Code na prática</li>
-        </ul>
+      <div>
+        <h2 class="section-title">Programa do <span class="serif-accent">workshop</span></h2>
+        <p class="section-sub">Altamente prático e aplicável. Cada módulo combina teoria essencial, demonstrações ao vivo e exercícios para você sair operando.</p>
       </div>
+    </div>
 
-      <div class="module animate-in">
-        <p class="module__num">03</p>
-        <h3 class="module__title">Prompt Engineering</h3>
-        <hr class="module__divider">
-        <ul class="module__list">
-          <li>— Estruturação de prompts eficientes</li>
-          <li>— Técnicas para melhorar respostas</li>
-          <li>— Prompts em cadeia (chaining)</li>
-          <li>— Como evitar "lost in conversation" e perda de contexto</li>
-          <li>— Limitações atuais das IAs</li>
+    <div class="modules">
+      <article class="module reveal">
+        <div class="module-head">
+          <span class="module-num">MÓDULO 01</span>
+          <span class="module-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg>
+          </span>
+        </div>
+        <h3 class="module-title">Fundamentos de<br>Inteligência Artificial</h3>
+        <ul class="module-list">
+          <li>Como as inteligências artificiais funcionam</li>
+          <li>Evolução das IAs: o essencial que você precisa saber</li>
+          <li>Principais empresas do setor</li>
+          <li>Impactos em diferentes mercados e carreiras</li>
+          <li>Tendências futuras</li>
         </ul>
+      </article>
+
+      <article class="module reveal">
+        <div class="module-head">
+          <span class="module-num">MÓDULO 02</span>
+          <span class="module-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h18M3 12h18M3 17h12"/><circle cx="19" cy="17" r="2"/></svg>
+          </span>
+        </div>
+        <h3 class="module-title">Ferramentas e<br>Aplicações</h3>
+        <ul class="module-list">
+          <li>Principais ferramentas disponíveis atualmente</li>
+          <li>O que cada uma faz na prática</li>
+          <li>Demonstrações ao vivo: Gemini, Claude, ChatGPT</li>
+          <li>A revolução com o uso do Claude Code na prática</li>
+        </ul>
+      </article>
+
+      <article class="module reveal">
+        <div class="module-head">
+          <span class="module-num">MÓDULO 03</span>
+          <span class="module-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16v12H5l-1 4z"/><path d="M8 9h8M8 12h5"/></svg>
+          </span>
+        </div>
+        <h3 class="module-title">Prompt<br>Engineering</h3>
+        <ul class="module-list">
+          <li>Estruturação de prompts eficientes</li>
+          <li>Técnicas para melhorar respostas</li>
+          <li>Prompts em cadeia (chaining)</li>
+          <li>Como evitar "lost in conversation" e perda de contexto</li>
+          <li>Limitações atuais das IAs</li>
+        </ul>
+      </article>
+
+      <article class="module reveal">
+        <div class="module-head">
+          <span class="module-num">MÓDULO 04</span>
+          <span class="module-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 17l5-5 4 4 7-7"/><path d="M14 9h6v6"/></svg>
+          </span>
+        </div>
+        <h3 class="module-title">Generative Engine<br>Optimization (GEO)</h3>
+        <ul class="module-list">
+          <li>O que está por trás das respostas</li>
+          <li>O que é GEO: Generative Engine Optimization</li>
+          <li>Como interpretar e analisar relatórios de GEO</li>
+          <li>Introdução ao monitoramento de IA</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- MONITORAMENTO RANQIA -->
+<section id="monitoramento">
+  <div class="container">
+    <div class="ranqia-block reveal">
+      <div class="ranqia-text">
+        <span class="eyebrow">Diferencial exclusivo</span>
+        <h2 class="ranqia-headline">Monitoramento Ranqia <span class="serif-accent">incluso</span> no workshop.</h2>
+        <p>Acesso ao monitoramento de até <strong style="color:#fff;">10 prompts</strong> relacionados ao seu negócio — com diagnóstico e relatórios completos de como você (ou sua marca) aparece nas respostas das IAs generativas.</p>
+        <span class="ranqia-tag">
+          <span class="ranqia-tag-dash">R$ 1.000/mês</span>
+          Incluso na sua participação
+        </span>
       </div>
-
-      <div class="module animate-in">
-        <p class="module__num">04</p>
-        <h3 class="module__title">Generative Engine Optimization e Como as IAs Respondem</h3>
-        <hr class="module__divider">
-        <ul class="module__list">
-          <li>— O que está por trás das respostas</li>
-          <li>— O que é GEO: Generative Engine Optimization</li>
-          <li>— Como interpretar e analisar relatórios de GEO</li>
-          <li>— Introdução ao monitoramento de IA</li>
-        </ul>
+      <div class="report-mock">
+        <div class="report-mock-head">
+          <span class="report-mock-title">RANQIA · GEO REPORT</span>
+          <span class="report-mock-status">LIVE</span>
+        </div>
+        <div class="prompt-row">
+          <span class="prompt-text">"Quais são os melhores bancos?"</span>
+          <span class="prompt-bar"><span class="prompt-bar-fill" style="width:78%"></span></span>
+          <span class="prompt-rank">#3 / 12</span>
+        </div>
+        <div class="prompt-row">
+          <span class="prompt-text">"Melhores empresas do agro"</span>
+          <span class="prompt-bar"><span class="prompt-bar-fill" style="width:92%"></span></span>
+          <span class="prompt-rank">#1 / 8</span>
+        </div>
+        <div class="prompt-row">
+          <span class="prompt-text">"Melhores cartões de crédito"</span>
+          <span class="prompt-bar"><span class="prompt-bar-fill" style="width:54%"></span></span>
+          <span class="prompt-rank">#7 / 15</span>
+        </div>
+        <div class="prompt-row">
+          <span class="prompt-text">"Melhores produtos de investimento"</span>
+          <span class="prompt-bar"><span class="prompt-bar-fill" style="width:65%"></span></span>
+          <span class="prompt-rank">#5 / 11</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── SEÇÃO 4: DIFERENCIAL RANQIA ───────────────────────────────────── -->
-<section class="section section--surface">
+<!-- VIDEO 1 — DEMO RANQIA -->
+<section class="video-section">
   <div class="container">
-    <div class="diferencial__grid">
-
-      <div class="diferencial__text animate-in">
-        <p class="label">DIFERENCIAL EXCLUSIVO</p>
-        <h2 class="section__title">Monitoramento com Ranqia incluso</h2>
-        <p class="diferencial__body">Ao participar, você terá acesso ao monitoramento de até 10 prompts relacionados ao seu negócio ou área de interesse — com entrega de diagnóstico e relatórios completos.</p>
-        <p class="diferencial__body">Esse tipo de análise é o produto central que estamos construindo na Ranqia: tecnologia para monitorar e influenciar como marcas e conteúdos aparecem nas respostas de IAs generativas.</p>
-        <div class="diferencial__exemplos">
-          <p class="diferencial__exemplos-title">Exemplos de prompts:</p>
-          <ul class="diferencial__list">
-            <li>— "Quais são os melhores bancos?"</li>
-            <li>— "Quais são as melhores empresas do agro?"</li>
-            <li>— "Quais são os melhores cartões de crédito?"</li>
-            <li>— "Quais são os melhores produtos de investimento?"</li>
-          </ul>
-        </div>
+    <div class="section-head reveal">
+      <div class="section-head-meta">
+        <span class="eyebrow">Demonstração</span>
+        <span class="section-num">— Ranqia em ação</span>
       </div>
-
-      <div class="diferencial__card animate-in">
-        <div class="valor-card">
-          <p class="label label--muted">VALOR DE MERCADO</p>
-          <p class="valor-card__num">R$ 1.000</p>
-          <p class="valor-card__sub">/mês como produto avulso</p>
-          <hr class="valor-card__divider">
-          <p class="valor-card__incluso">Incluso no workshop</p>
-          <p class="valor-card__detail">Neste workshop, o relatório de monitoramento está incluído no pacote.</p>
-        </div>
+      <div>
+        <h2 class="section-title">Veja o monitoramento<br>de IA <span class="serif-accent">na prática</span>.</h2>
+        <p class="section-sub">Como funciona o produto que está incluso no workshop — e que normalmente custa R$ 1.000/mês como serviço avulso.</p>
       </div>
-
     </div>
-
-    <div class="video-wrapper animate-in" style="margin-top:48px">
-      <iframe
-        src="https://www.youtube.com/embed/I3IYnuIX73Q"
-        title="Ferramenta Ranqia — Monitoramento de IA"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen>
-      </iframe>
+    <div class="video-frame reveal">
+      <div class="video-chrome">
+        <div class="video-chrome-dots"><span></span><span></span><span></span></div>
+        <span class="video-chrome-label">RANQIA · DEMO</span>
+      </div>
+      <iframe src="https://www.youtube.com/embed/I3IYnuIX73Q" title="Demonstração Ranqia" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
     </div>
   </div>
 </section>
 
-<!-- ─── SEÇÃO: FOTOS DO WORKSHOP ───────────────────────────────────────── -->
-<section class="section section--galeria">
+<!-- EDIÇÕES ANTERIORES -->
+<section style="border-top:1px solid var(--mist);">
   <div class="container">
-    <p class="label animate-in">EDIÇÕES ANTERIORES</p>
-    <h2 class="section__title animate-in">Os primeiros workshops foram um sucesso</h2>
-    <p class="section__subtitle animate-in">Os feedbacks dos participantes foram muito positivos. Tivemos profissionais de empresas como Meta (Facebook), iFood, SkyOne, Bravium, Fundação Estudar, Consumidor Positivo e Grupo DPSP (Drogarias São Paulo), além de estudantes e profissionais liberais.</p>
-    <hr class="divider animate-in">
+    <div class="section-head reveal">
+      <div class="section-head-meta">
+        <span class="eyebrow subtle">Edições anteriores</span>
+        <span class="section-num">— 03 turmas realizadas</span>
+      </div>
+      <div>
+        <h2 class="section-title">Os primeiros workshops<br>foram um <span class="serif-accent">sucesso</span>.</h2>
+        <p class="section-sub">Profissionais de empresas como Meta, iFood, SkyOne, Bravium, Fundação Estudar, Consumidor Positivo e Grupo DPSP — além de estudantes e profissionais liberais.</p>
+        <div class="past-companies">
+          <span>Meta</span><span>iFood</span><span>SkyOne</span><span>Bravium</span>
+          <span>Fundação Estudar</span><span>Consumidor Positivo</span><span>Grupo DPSP</span>
+        </div>
+      </div>
+    </div>
 
-    <div class="galeria__grid animate-in">
-      <!-- Linha 1: duas fotos portrait (vertical) -->
-      <div class="galeria__item galeria__item--portrait">
+    <div class="gallery reveal">
+      <div class="gallery-item">
         <img src="fotos/workshop-3.jpg" alt="Workshop em IA — turma completa" loading="lazy">
+        <span class="gallery-item-label">TURMA 03</span>
       </div>
-      <div class="galeria__item galeria__item--portrait">
+      <div class="gallery-item">
         <img src="fotos/workshop-4.jpg" alt="Workshop em IA — atividade prática" loading="lazy">
+        <span class="gallery-item-label">PRÁTICA</span>
       </div>
-      <!-- Linha 2: duas fotos landscape (horizontal) -->
-      <div class="galeria__item galeria__item--landscape">
-        <img src="fotos/workshop-1.jpg" alt="Workshop em IA — participantes acompanhando apresentação" loading="lazy">
+      <div class="gallery-item">
+        <img src="fotos/workshop-1.jpg" alt="Workshop em IA — apresentação" loading="lazy">
       </div>
-      <div class="galeria__item galeria__item--landscape">
+      <div class="gallery-item">
         <img src="fotos/workshop-2.jpg" alt="Workshop em IA — dinâmica em grupo" loading="lazy">
       </div>
     </div>
-  </div>
-</section>
 
-<!-- ─── SEÇÃO 6: BENEFÍCIOS ────────────────────────────────────────────── -->
-<section class="section section--dark">
-  <div class="container">
-    <div class="beneficios__grid">
-      <div class="beneficio animate-in">
-        <p class="beneficio__num">01</p>
-        <h3 class="beneficio__title">Grupo de WhatsApp</h3>
-        <p class="beneficio__text">Todos os participantes entram em um grupo exclusivo para troca contínua e aprofundamento após o evento.</p>
+    <div class="perks">
+      <div class="perk reveal">
+        <span class="perk-num">01 · INCLUSO</span>
+        <h4 class="perk-title">Grupo de WhatsApp</h4>
+        <p>Todos os participantes entram em um grupo exclusivo para troca contínua e aprofundamento após o evento.</p>
       </div>
-      <div class="beneficio animate-in">
-        <p class="beneficio__num">02</p>
-        <h3 class="beneficio__title">Suporte pós-evento</h3>
-        <p class="beneficio__text">Espaço aberto para dúvidas, aprofundamento e discussão dos tópicos ao longo do tempo.</p>
+      <div class="perk reveal">
+        <span class="perk-num">02 · INCLUSO</span>
+        <h4 class="perk-title">Suporte pós-evento</h4>
+        <p>Espaço aberto para dúvidas, aprofundamento e discussão dos tópicos ao longo do tempo.</p>
       </div>
-      <div class="beneficio animate-in">
-        <p class="beneficio__num">03</p>
-        <h3 class="beneficio__title">Conteúdo sob medida</h3>
-        <p class="beneficio__text">Com no máximo 10 pessoas, o conteúdo se adapta ao nível e às necessidades reais do grupo.</p>
+      <div class="perk reveal">
+        <span class="perk-num">03 · INCLUSO</span>
+        <h4 class="perk-title">Conteúdo sob medida</h4>
+        <p>Com no máximo 10 pessoas, o conteúdo se adapta ao nível e às necessidades reais do grupo.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── SEÇÃO 7: SOBRE O INSTRUTOR ────────────────────────────────────── -->
-<section class="section">
+<!-- INSTRUTOR -->
+<section class="instructor" id="instrutor">
   <div class="container">
-    <div class="instrutor__grid">
-
-      <div class="instrutor__bio animate-in">
-        <p class="label">INSTRUTOR</p>
-        <h2 class="section__title">Mateus Souza Borges</h2>
-        <p class="instrutor__role">Cofundador da Ranqia</p>
-        <a href="https://www.linkedin.com/in/mateusborges/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;font-size:0.8rem;color:#6e6e73;text-decoration:none;border:1px solid #d2d2d7;border-radius:980px;padding:5px 14px;margin-top:10px;transition:border-color 0.15s,color 0.15s;" onmouseover="this.style.borderColor='#1d1d1f';this.style.color='#1d1d1f'" onmouseout="this.style.borderColor='#d2d2d7';this.style.color='#6e6e73'"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn</a>
-        <hr class="divider">
-        <p class="instrutor__body">Cofundei a Ranqia com foco em Generative Engine Optimization — a área que monitora e influencia como marcas e conteúdos aparecem nas respostas de IAs generativas. Antes disso, fui Diretor de IA e Engenharia de Dados na Bravium, onde liderei o desenvolvimento de produtos de IA e a implementação de agentes inteligentes para empresas como AB InBev, ADM e Bayer.</p>
-        <p class="instrutor__body">Fui também Diretor do marketplace na Orbia — joint venture entre Bayer, Bravium, Yara Fertilizantes e Itaú BBA — após a aquisição da ProdutorAgro, startup que cofundei.</p>
-        <p class="instrutor__contato">(11) 94334-3231 · mateus@ranqia.com · comoinfluenciarrobos.com.br</p>
+    <div class="section-head reveal">
+      <div class="section-head-meta">
+        <span class="eyebrow">Instrutor</span>
+        <span class="section-num">— Cofundador da Ranqia</span>
       </div>
+      <div>
+        <h2 class="section-title">Conduzido por quem<br><span class="serif-accent">vive</span> o problema.</h2>
+      </div>
+    </div>
 
-      <div class="instrutor__creds animate-in">
-        <ul class="creds__list">
-          <li class="creds__item">— Engenheiro Mecânico · UNICAMP</li>
-          <li class="creds__item">— Pesquisa em Machine Learning e sistemas estocásticos aplicados a drones</li>
-          <li class="creds__item">— Forbes 30 Under 30</li>
-          <li class="creds__item">— Líder Fundação Estudar · turma 2012</li>
-          <li class="creds__item">— International Loyalty Awards — 30 Under 40</li>
-          <li class="creds__item">— Egresso de destaque UNICAMP (top entre +5.000 formados)</li>
-          <li class="creds__item">— Cofundador da ProdutorAgro, adquirida e transformada na Orbia</li>
+    <div class="instructor-grid">
+      <div class="instructor-card reveal">
+        <h3 class="instructor-name">Mateus Souza Borges</h3>
+        <p class="instructor-role">Cofundador da Ranqia · <a href="https://www.linkedin.com/in/mateusborges/" target="_blank" rel="noopener">LinkedIn</a></p>
+        <p class="instructor-bio">Cofundei a Ranqia com foco em <strong>Generative Engine Optimization</strong> — a área que monitora e influencia como marcas e conteúdos aparecem nas respostas de IAs generativas.</p>
+        <p class="instructor-bio">Antes disso, fui Diretor de IA e Engenharia de Dados na Bravium, onde liderei o desenvolvimento de produtos de IA e a implementação de agentes inteligentes para empresas como AB InBev, ADM e Bayer. Também fui Diretor do marketplace na Orbia — joint venture entre Bayer, Bravium, Yara Fertilizantes e Itaú BBA — após a aquisição da ProdutorAgro.</p>
+        <ul class="credentials">
+          <li>Engenheiro Mecânico · UNICAMP</li>
+          <li>Pesquisa em Machine Learning e sistemas estocásticos aplicados a drones</li>
+          <li>Forbes 30 Under 30</li>
+          <li>Líder Fundação Estudar · turma 2012</li>
+          <li>International Loyalty Awards — 30 Under 40</li>
+          <li>Egresso de destaque UNICAMP (top entre +5.000 formados)</li>
+          <li>Cofundador da ProdutorAgro, adquirida e transformada na Orbia</li>
         </ul>
       </div>
 
+      <div class="reveal">
+        <span class="eyebrow subtle" style="margin-bottom:16px;display:inline-flex;">Contato direto</span>
+        <h3 style="font-size:32px;font-weight:500;letter-spacing:-0.025em;line-height:1.05;margin:12px 0 24px;">
+          (11) 94334-3231<br>
+          <span class="serif-accent" style="color:var(--slate);font-size:24px;">mateus@ranqia.com</span>
+        </h3>
+        <p style="font-size:15px;color:var(--graphite);line-height:1.6;max-width:380px;margin-bottom:32px;">
+          Tem dúvidas sobre o conteúdo, formato ou se faz sentido para o seu momento? Mande uma mensagem direto. Resposta pessoal, não atendimento.
+        </p>
+        <a href="https://wa.me/5511943343231?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20Workshop%20de%20IA%20e%20como%20influenciar%20rob%C3%B4s" class="btn btn-primary" target="_blank" rel="noopener">
+          Falar pelo WhatsApp <span class="btn-arrow">→</span>
+        </a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ─── SEÇÃO: POR QUE INFLUENCIAR ROBÔS? ─────────────────────────────── -->
-<hr style="border:none;border-top:1px solid #d2d2d7;margin:0">
-<section class="section">
-  <div class="container" style="max-width:720px">
-    <p class="label animate-in">CURIOSIDADE</p>
-    <h2 class="section__title animate-in">Por que "Como Influenciar Robôs"?</h2>
-    <hr class="divider animate-in">
-    <div class="animate-in" style="margin-top:32px">
-      <p style="font-size:1rem;line-height:1.85;color:#3a3a3a;margin-bottom:20px">O nome "Como Influenciar Robôs" não surgiu por acaso. Ele é uma referência direta ao clássico <em>Como Fazer Amigos e Influenciar Pessoas</em>, de Dale Carnegie. A provocação é simples: se aquele livro ensinou gerações a se comunicar melhor com pessoas, hoje vivemos um momento em que também precisamos aprender a nos comunicar com sistemas de inteligência artificial que mediam decisões, recomendações e acesso à informação.</p>
-      <p style="font-size:1rem;line-height:1.85;color:#3a3a3a;margin-bottom:20px">O ponto curioso é que essa conexão não é apenas conceitual. Muitos dos princípios apresentados por Carnegie aparecem, na prática, na forma como modelos como o ChatGPT foram treinados para interagir com usuários. Ao longo do seu treinamento, respostas mais úteis, educadas, empáticas e colaborativas tendem a ser preferidas por humanos. Com isso, o modelo aprende que a melhor forma de responder é justamente adotando comportamentos que reduzem atrito e aumentam a aceitação — algo que Carnegie já defendia décadas atrás.</p>
-      <p style="font-size:1rem;line-height:1.85;color:#3a3a3a;margin-bottom:20px">Quando Carnegie sugere evitar confrontos diretos, valorizar o interlocutor e apresentar ideias de forma construtiva, ele está, na prática, descrevendo padrões de comunicação que maximizam cooperação. O ChatGPT segue a mesma lógica. Em vez de contradizer de forma dura, ele tende a suavizar respostas, oferecer alternativas e reconhecer o ponto de vista do usuário. Isso não é coincidência, mas sim resultado de um processo de treinamento que recompensa interações percebidas como positivas.</p>
-      <p style="font-size:1rem;line-height:1.85;color:#3a3a3a;margin-bottom:20px">Outro paralelo importante está na empatia. Carnegie defendia a importância de enxergar o mundo pela perspectiva do outro. No contexto da inteligência artificial, isso se traduz na capacidade do modelo de adaptar linguagem, tom e profundidade da resposta conforme o contexto da pergunta. A sensação de que o sistema "entende" o usuário não vem de consciência, mas de um refinamento estatístico baseado em padrões humanos de comunicação eficaz.</p>
-      <p style="font-size:1rem;line-height:1.85;color:#3a3a3a;margin-bottom:0">No fim, o que o nome "Como Influenciar Robôs" sugere é uma inversão interessante. Para influenciar sistemas de IA, precisamos primeiro entender que eles foram treinados com base em comportamentos humanos bem-sucedidos. Em outras palavras, ao aprender como nos comunicar melhor com pessoas — como ensinou Carnegie — estamos também aprendendo, indiretamente, como nos comunicar melhor com as máquinas que passaram a intermediar o mundo.</p>
-    </div>
-  </div>
-</section>
-<hr style="border:none;border-top:1px solid #d2d2d7;margin:0">
-
-<!-- ─── SEÇÃO 8: FORMULÁRIO ────────────────────────────────────────────── -->
-<section class="section section--surface" id="inscricao">
-  <div class="container container--narrow">
-    <p class="label animate-in">AVISO DE TURMAS</p>
-    <h2 class="section__title animate-in">Quero ser avisado das próximas turmas</h2>
-    <p class="section__subtitle animate-in">Informe seus dados abaixo e entraremos em contato quando as inscrições para a próxima edição forem abertas.</p>
-    <hr class="divider animate-in">
-
-    <div id="form-network-error" class="form-network-error" hidden></div>
-
-    <form id="aviso-form" novalidate>
-
-      <div class="form__group">
-        <label for="nome" class="form__label">Nome completo</label>
-        <input type="text" id="nome" name="nome" class="form__input" placeholder="Nome completo" autocomplete="name">
-        <span class="error-msg" id="error-nome"></span>
-      </div>
-
-      <div class="form__group">
-        <label for="whatsapp" class="form__label">WhatsApp</label>
-        <input type="tel" id="whatsapp" name="whatsapp" class="form__input" placeholder="(11) 99999-9999" autocomplete="tel">
-        <span class="error-msg" id="error-whatsapp"></span>
-      </div>
-
-      <div class="form__group">
-        <label for="email" class="form__label">E-mail</label>
-        <input type="email" id="email" name="email" class="form__input" placeholder="seu@email.com" autocomplete="email">
-        <span class="error-msg" id="error-email"></span>
-      </div>
-
-      <div class="form__group form__group--auth">
-        <label class="toggle-check">
-          <input type="checkbox" id="autorizacao" name="autorizacao">
-          <span class="toggle-check__box"></span>
-          <span class="toggle-check__label">Autorizo receber comunicações sobre o Workshop de IA da Ranqia por e-mail e WhatsApp.</span>
-        </label>
-        <span class="error-msg" id="error-autorizacao"></span>
-      </div>
-
-      <button type="submit" class="btn btn--submit" id="btn-submit">Me avisem</button>
-
-    </form>
-  </div>
-</section>
-
-<!-- ─── SEÇÃO 9: CONFIRMAÇÃO ───────────────────────────────────────────── -->
-<section class="section section--surface confirmacao" id="confirmacao" style="display:none">
-  <div class="container container--narrow confirmacao__inner">
-    <div class="confirmacao__check">
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="24" cy="24" r="21" stroke="#1d1d1f" stroke-width="2"/>
-        <polyline points="14,25 21,32 34,18" stroke="#1d1d1f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-    <h2 class="confirmacao__title">Cadastro recebido.</h2>
-    <p class="confirmacao__text">Você será avisado assim que as inscrições para a próxima edição forem abertas.</p>
-    <p class="confirmacao__text">Acompanharemos por WhatsApp e e-mail com as datas disponíveis e informações de pagamento.</p>
-    <hr class="divider">
-    <p class="confirmacao__contato">(11) 94334-3231 · mateus@ranqia.com</p>
-    <p class="confirmacao__detail">comoinfluenciarrobos.com.br · ranqia.com</p>
-  </div>
-</section>
-
-<!-- ─── SEÇÃO: VÍDEO ───────────────────────────────────────────────────── -->
-<section class="section section--surface">
-  <div class="container container--narrow">
-    <p class="label animate-in">CONVITE</p>
-    <h2 class="section__title animate-in">Assista ao convite para o workshop</h2>
-    <hr class="divider animate-in">
-    <div class="video-wrapper animate-in">
-      <iframe
-        src="https://www.youtube.com/embed/3M6IrWxfVq0"
-        title="Convite para o Workshop em IA — Como Influenciar Robôs"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen>
-      </iframe>
-    </div>
-  </div>
-</section>
-
-<!-- ─── FOOTER ─────────────────────────────────────────────────────────── -->
-<footer class="footer">
+<!-- CURIOSIDADE -->
+<section id="curiosidade">
   <div class="container">
-    <div class="footer__top">
-      <span>Workshop em IA × Ranqia</span>
-      <span>comoinfluenciarrobos.com.br</span>
-      <span>mateus@ranqia.com</span>
-      <span>(11) 94334-3231</span>
+    <div class="curiosity-wrap">
+      <div style="text-align:center;" class="reveal">
+        <span class="eyebrow">Curiosidade</span>
+        <h2 class="curiosity-headline">Por que "Como Influenciar Robôs"?</h2>
+      </div>
+      <div class="curiosity-body reveal">
+        <p>O nome não surgiu por acaso. Ele é uma referência direta ao clássico <em>Como Fazer Amigos e Influenciar Pessoas</em>, de Dale Carnegie. A provocação é simples: se aquele livro ensinou gerações a se comunicar melhor com pessoas, hoje vivemos um momento em que também precisamos aprender a nos comunicar com sistemas de IA que mediam decisões, recomendações e acesso à informação.</p>
+        <p>O ponto curioso é que essa conexão não é apenas conceitual. Muitos dos princípios apresentados por Carnegie aparecem, na prática, na forma como modelos como o ChatGPT foram treinados para interagir com usuários. Respostas mais úteis, educadas, empáticas e colaborativas tendem a ser preferidas por humanos — e o modelo aprende que a melhor forma de responder é justamente adotando esses comportamentos.</p>
+        <p>Quando Carnegie sugere evitar confrontos, valorizar o interlocutor e apresentar ideias de forma construtiva, ele está descrevendo padrões de comunicação que maximizam cooperação. O ChatGPT segue a mesma lógica — não por consciência, mas por refinamento estatístico baseado em padrões humanos de comunicação eficaz.</p>
+        <p>No fim, o nome sugere uma inversão interessante: para influenciar sistemas de IA, precisamos primeiro entender que eles foram treinados com base em comportamentos humanos bem-sucedidos. Em outras palavras, ao aprender a nos comunicar melhor com pessoas, estamos também aprendendo, indiretamente, como nos comunicar com as máquinas que passaram a intermediar o mundo.</p>
+      </div>
     </div>
-    <p class="footer__bottom">Ranqia — tecnologia de GEO para marcas que querem existir na era das IAs generativas.</p>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="form-section" id="inscricao">
+  <div class="container">
+    <div class="form-grid">
+      <div class="reveal">
+        <span class="eyebrow">Aviso de turmas</span>
+        <h2 class="section-title" style="margin-top:16px;">
+          Quero ser avisado<br>das próximas <span class="serif-accent" style="color:rgba(255,255,255,0.6);">turmas</span>.
+        </h2>
+        <p class="section-sub" style="color:rgba(255,255,255,0.6);max-width:440px;">
+          Informe seus dados e entraremos em contato pessoalmente quando as inscrições para a próxima edição forem abertas. Sem newsletter, sem spam — apenas o aviso da turma.
+        </p>
+        <div style="margin-top:40px;display:flex;flex-direction:column;gap:14px;">
+          <div style="display:flex;gap:12px;align-items:center;font-size:14px;color:rgba(255,255,255,0.7);">
+            <span style="width:24px;height:24px;border-radius:6px;background:rgba(255,255,255,0.08);display:grid;place-items:center;font-family:var(--font-mono);font-size:11px;">→</span>
+            Resposta pessoal em até 24h
+          </div>
+          <div style="display:flex;gap:12px;align-items:center;font-size:14px;color:rgba(255,255,255,0.7);">
+            <span style="width:24px;height:24px;border-radius:6px;background:rgba(255,255,255,0.08);display:grid;place-items:center;font-family:var(--font-mono);font-size:11px;">→</span>
+            Pagamento somente após confirmação da vaga
+          </div>
+          <div style="display:flex;gap:12px;align-items:center;font-size:14px;color:rgba(255,255,255,0.7);">
+            <span style="width:24px;height:24px;border-radius:6px;background:rgba(255,255,255,0.08);display:grid;place-items:center;font-family:var(--font-mono);font-size:11px;">→</span>
+            Sem listas de e-mail, sem automação
+          </div>
+        </div>
+      </div>
+
+      <div class="form reveal">
+        <div id="form-fields">
+          <p class="form-net-error" id="form-net-error">Erro de conexão. Verifique sua internet e tente novamente.</p>
+
+          <div class="form-field">
+            <label for="nome">Nome completo</label>
+            <input id="nome" type="text" placeholder="Seu nome" autocomplete="name">
+            <span class="form-err" id="err-nome"></span>
+          </div>
+          <div class="form-field">
+            <label for="whatsapp">WhatsApp</label>
+            <input id="whatsapp" type="tel" placeholder="(11) 9 0000-0000" autocomplete="tel">
+            <span class="form-err" id="err-whatsapp"></span>
+          </div>
+          <div class="form-field">
+            <label for="email">E-mail</label>
+            <input id="email" type="email" placeholder="voce@empresa.com" autocomplete="email">
+            <span class="form-err" id="err-email"></span>
+          </div>
+
+          <label class="form-check">
+            <input type="checkbox" id="autorizacao">
+            <span>Autorizo receber comunicações sobre o Workshop de IA da Ranqia por e-mail e WhatsApp.</span>
+          </label>
+          <span class="form-check-err" id="err-autorizacao"></span>
+
+          <button type="button" class="form-submit" id="btn-submit">Me avisem →</button>
+        </div>
+
+        <div id="form-success" hidden>
+          <div style="width:48px;height:48px;border-radius:12px;background:var(--signal);color:var(--ink);display:grid;place-items:center;margin-bottom:24px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
+          </div>
+          <h3 style="font-size:24px;font-weight:500;letter-spacing:-0.02em;color:#fff;margin-bottom:12px;">Cadastro recebido.</h3>
+          <p style="font-size:15px;color:rgba(255,255,255,0.6);line-height:1.6;">
+            Você será avisado assim que as inscrições para a próxima edição forem abertas. Acompanharemos por WhatsApp e e-mail com as datas disponíveis e informações de pagamento.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO 2 — CONVITE -->
+<section class="invite-section">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-head-meta">
+        <span class="eyebrow">Convite</span>
+        <span class="section-num">— Pessoalmente, do Mateus</span>
+      </div>
+      <div>
+        <h2 class="section-title">Assista ao convite<br>para o <span class="serif-accent" style="color:rgba(255,255,255,0.6);">workshop</span>.</h2>
+        <p class="section-sub">Em poucos minutos, o que você vai levar das 3 horas — e por que o formato reduzido faz diferença.</p>
+      </div>
+    </div>
+    <div class="video-frame reveal">
+      <div class="video-chrome">
+        <div class="video-chrome-dots"><span></span><span></span><span></span></div>
+        <span class="video-chrome-label">CONVITE · MATEUS BORGES</span>
+      </div>
+      <iframe src="https://www.youtube.com/embed/3M6IrWxfVq0" title="Convite para o Workshop" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="#" class="nav-logo" style="color:#fff;">
+          <span class="nav-logo-mark" style="background:#fff;color:var(--ink);">R</span>
+          <span>Como Influenciar Robôs</span>
+        </a>
+        <p class="footer-brand-tag">Workshop em IA × Ranqia — tecnologia de Generative Engine Optimization para marcas que querem existir na era das IAs generativas.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Workshop</h4>
+        <ul>
+          <li><a href="#programa">Programa</a></li>
+          <li><a href="#monitoramento">Monitoramento</a></li>
+          <li><a href="#instrutor">Instrutor</a></li>
+          <li><a href="#inscricao">Inscrição</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Ranqia</h4>
+        <ul>
+          <li><a href="https://ranqia.com" target="_blank" rel="noopener">ranqia.com</a></li>
+          <li><a href="https://www.linkedin.com/in/mateusborges/" target="_blank" rel="noopener">LinkedIn</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="mailto:mateus@ranqia.com">mateus@ranqia.com</a></li>
+          <li><a href="tel:+5511943343231">(11) 94334-3231</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Ranqia · comoinfluenciarrobos.com.br</span>
+      <span class="mono">v4.0 · Edição 04</span>
+    </div>
   </div>
 </footer>
 
-<!-- ─── WHATSAPP BUTTON ─────────────────────────────────────────────────── -->
-<a href="https://wa.me/5511943343231?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20Workshop%20de%20IA%20e%20como%20influenciar%20rob%C3%B4s" class="wpp-fab" target="_blank" rel="noopener" aria-label="Falar com Mateus no WhatsApp">
-  <svg class="wpp-fab__icon" width="16" height="16" viewBox="0 0 24 24" fill="white" aria-hidden="true">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.554 4.118 1.528 5.847L.057 23.882l6.197-1.448A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.808 9.808 0 01-5.002-1.368l-.358-.214-3.68.861.92-3.574-.233-.368A9.786 9.786 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/>
-  </svg>
-  <span class="wpp-fab__text">Fale com o Mateus</span>
+<!-- FLOATING WPP -->
+<a href="https://wa.me/5511943343231?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20Workshop%20de%20IA%20e%20como%20influenciar%20rob%C3%B4s" class="wpp-float" target="_blank" rel="noopener">
+  <span class="wpp-float-icon">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--ink)"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/></svg>
+  </span>
+  Falar com Mateus
 </a>
 
-<script src="script.js"></script>
+<script>
+  const ENDPOINT = 'https://script.google.com/macros/s/AKfycbxiD1BMgyqlS5xg0DNJ_0ppd8a1cNsBfF2ctI-t0JpaTpPiReylZu4V1LL622EfA0sY/exec';
+
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Nav background on scroll
+  const nav = document.querySelector('.nav');
+  window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 8 ? 'rgba(255,255,255,0.92)' : 'rgba(255,255,255,0.72)';
+  });
+
+  // WhatsApp mask
+  const wppInput = document.getElementById('whatsapp');
+  wppInput.addEventListener('input', function() {
+    let v = this.value.replace(/\D/g, '').substring(0, 11);
+    if (v.length > 6) v = '(' + v.substring(0,2) + ') ' + v.substring(2,7) + '-' + v.substring(7);
+    else if (v.length > 2) v = '(' + v.substring(0,2) + ') ' + v.substring(2);
+    else if (v.length > 0) v = '(' + v;
+    this.value = v;
+  });
+
+  // Clear errors on input
+  ['nome','email'].forEach(id => {
+    document.getElementById(id).addEventListener('input', () => { setErr(id, ''); });
+  });
+  wppInput.addEventListener('input', () => setErr('whatsapp', ''));
+  document.getElementById('autorizacao').addEventListener('change', () => setErr('autorizacao', ''));
+
+  function setErr(field, msg) {
+    const el = document.getElementById('err-' + field);
+    const input = document.getElementById(field) || document.getElementById('autorizacao');
+    if (el) el.textContent = msg;
+    if (input && input.type !== 'checkbox') input.classList.toggle('is-err', !!msg);
+  }
+
+  function isValidEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+
+  document.getElementById('btn-submit').addEventListener('click', async function() {
+    const nome = document.getElementById('nome').value.trim();
+    const whatsapp = document.getElementById('whatsapp').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const autorizacao = document.getElementById('autorizacao').checked;
+    const wppDigits = whatsapp.replace(/\D/g, '');
+
+    ['nome','whatsapp','email','autorizacao'].forEach(f => setErr(f, ''));
+    document.getElementById('form-net-error').style.display = 'none';
+
+    let firstErr = null;
+    function markErr(f, msg) { setErr(f, msg); if (!firstErr) firstErr = f; }
+
+    if (nome.length < 3) markErr('nome', 'Informe seu nome completo.');
+    if (wppDigits.length < 10 || wppDigits.length > 11) markErr('whatsapp', 'Informe um WhatsApp válido com DDD.');
+    if (!isValidEmail(email)) markErr('email', 'Informe um e-mail válido.');
+    if (!autorizacao) markErr('autorizacao', 'É necessário autorizar as comunicações.');
+
+    if (firstErr) {
+      const el = document.getElementById('err-' + firstErr);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    this.disabled = true;
+    this.textContent = 'Enviando...';
+
+    try {
+      await Promise.race([
+        fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ nome, whatsapp, email, tipo: 'aviso-proximas-turmas', autorizacao: true }) }),
+        new Promise(r => setTimeout(() => r('timeout'), 5000))
+      ]);
+    } catch(err) {
+      document.getElementById('form-net-error').style.display = 'block';
+      this.disabled = false;
+      this.textContent = 'Me avisem →';
+      return;
+    }
+
+    document.getElementById('form-fields').hidden = true;
+    document.getElementById('form-success').hidden = false;
+  });
+</script>
+
 </body>
 </html>
